@@ -4,11 +4,19 @@ export default function Dashboard() {
     return (
         <div>
             <div className="container-fluid dash text-white" >
+
+                {/* NavBar */}
+
+                {/* Row1 */}
+
                 <div className="row dashinner1 text-center">
                     <div className="col-lg-12 bg-secondary">
                         <h1>Title/Tagline of ProRefer</h1>
                     </div>
                 </div>
+
+                {/* Row2 */}
+
                 <div className="row dashinner2 text-center">
                     <div className="col-lg-5 col-md-6 col-sm-12 bg-secondary" style={{ border: "2px solid black" }}>
                         <div>
