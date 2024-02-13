@@ -8,7 +8,7 @@ export default function Dashboard() {
 
                 {/* ----------------------------------------- */}
 
-                <div class="container px-4 text-center">
+                <div class="container-fluid px-4 text-center">
                     <div class="row gx-2">
                         <div class="col-12">
                             <div class="p-3 text-white">
@@ -27,33 +27,44 @@ export default function Dashboard() {
 
                         <div class="col-lg-4 col-md-5 col-sm-6">
                             <div class="p-3 bg-secondary dashinner2 text-white">
-                                <div>
-                                    <button type="button" class="btn btn-dark">Edit Profile</button>
-                                </div>
-                                <div>
-                                    <p>Name : Manav Jayesh Patel</p>
-                                </div>
-                                <div>
-                                    <p>Location : Vadodara,Gujarat</p>
-                                </div>
-                                <div>
-                                    <p>Total Referrals Requested : 100</p>
-                                </div>
-                                <div>
-                                    <p>Total Referrals Received : 50</p>
-                                </div>
-                                <div>
-                                    <p>Monthly Requests Received : 4</p>
-                                </div>
-                                <div>
-                                    <p>Monthly Requests Sent : 44</p>
-                                </div>
-                                <div>
-                                    <p>Last Referral Date : 3/10/2003</p>
-                                </div>
-                                <div>
-                                    <p>Warning : 3</p>
-                                </div>
+                                <table className='table1'>
+                                <tr colSpan={2}>
+                                    <td colSpan={2}><button type="button" class="btn btn-primary">Edit Profile</button></td>
+                                </tr>
+                                <tr><td><br/></td></tr>
+                                <tr>
+                                    <td><p>Name</p></td> 
+                                    <td><p>Manav Jayesh Patel</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Location</p></td> 
+                                    <td><p>Vadodara, Gujarat</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Total Referrals Requested</p></td> 
+                                    <td><p>100</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Total Referrals Received</p></td> 
+                                    <td><p>50</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Monthly Requests Received</p></td> 
+                                    <td><p>4</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Monthly Requests Sent</p></td> 
+                                    <td><p>4</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Last Referral Date</p></td> 
+                                    <td><p>03/01/2024</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Warning</p></td> 
+                                    <td><p>3</p></td>
+                                </tr>
+                                </table>
                             </div>
                         </div>
 
