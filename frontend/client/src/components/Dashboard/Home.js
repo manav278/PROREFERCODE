@@ -1,6 +1,7 @@
 import React from 'react'
-import '../App.css'
-export default function Dashboard() {
+import '../../App.css'
+import CustomNavbar from "./Navbar";
+export default function Home() {
     return (
         <div>
             {/* ----------------------------------------- */}
@@ -72,7 +73,7 @@ export default function Dashboard() {
 
                         <div class="col-lg-8 col-md-7 col-sm-6">
                             <div class="p-3 bg-secondary dashinner2">
-                                <h1>Dashboard Receive Sent Companies</h1>
+                                <CustomNavbar/>
                             </div>
                         </div>
 
