@@ -20,12 +20,12 @@ export default function Home() {
 
         {/* ----------------------------------------- */}
 
-        <div class="container-fluid px-4 text-center">
-          <div class="row gx-2 ">
+        <div class="container-fluid px-4 text-center" style={{height:'auto'}}>
+          <div class="row gx-2" >
             {/* *********************************** */}
-
-            <div class="col-lg-4 col-md-5 col-sm-6 ">
-              <div class="p-3 bg-secondary dashinner2 text-white">
+            {/* col-lg-4 col-md-5 col-sm-6 */}
+            <div class="col-md-4 col-sm-12">
+              <div class="p-3 bg-secondary dashinner2 text-white" style={{height:'96%'}}>
                 <button
                   style={{ width: "80%" }}
                   type="button"
@@ -33,6 +33,7 @@ export default function Home() {
                 >
                   Edit Profile
                 </button>
+                <div style={{display:"grid", placeItems:"center"}}>
                 <table className="table1">
                   <tr>
                     <td>
@@ -104,13 +105,14 @@ export default function Home() {
                     </td>
                   </tr>
                 </table>
+                </div>
               </div>
             </div>
 
             {/* *********************************** */}
-
-            <div class="col-lg-8 col-md-7 col-sm-6">
-              <div class="p-3 bg-secondary dashinner2">
+            {/* col-lg-8 col-md-7 col-sm-6 */}
+            <div class="col-md-8 col-sm-12">
+              <div class="p-3 bg-secondary dashinner2" style={{height:'96%'}}>
                 <CustomNavbar />
               </div>
             </div>

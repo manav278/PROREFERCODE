@@ -20,7 +20,7 @@ const CustomNavbar = () => {
   };
 
   return (
-    <div className="navbuttons">
+    <div className="navbuttons" style={{height:'80%'}}>
       <div className="navbut">
         {mode === "Dashboard" ? (
           <button
