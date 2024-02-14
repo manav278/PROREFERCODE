@@ -4,7 +4,8 @@ const Db = () => {
   return (
     <div
       class="container px-4 text-center"
-      style={{ backgroundColor: "black" }}
+      style={{ backgroundColor: "black", border:"5px solid black",borderRadius:"8px"}}
+
     >
       <div class="row gx-5 align-items-center">
         <div class="col">
@@ -25,7 +26,7 @@ const Db = () => {
         </div>
         <div class="col">
           <div class="p-3">
-            <p style={{ color: "white" }}>
+            <p style={{ color: "white"}}>
               Transform your resume here for a stellar impression when
               requesting a referral. Your resume is your professional
               story—update it with your latest achievements and experiences to
