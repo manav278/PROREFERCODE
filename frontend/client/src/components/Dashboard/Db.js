@@ -26,7 +26,13 @@ const Db = () => {
         <div class="col">
           <div class="p-3">
             <p style={{ color: "white" }}>
-            Transform your resume here for a stellar impression when requesting a referral. Your resume is your professional story—update it with your latest achievements and experiences to captivate potential employers. A well-crafted resume is your key to unlocking new career opportunities. Keep it current and compelling to highlight your unique skills and qualifications, setting you apart from the competition
+              Transform your resume here for a stellar impression when
+              requesting a referral. Your resume is your professional
+              story—update it with your latest achievements and experiences to
+              captivate potential employers. A well-crafted resume is your key
+              to unlocking new career opportunities. Keep it current and
+              compelling to highlight your unique skills and qualifications,
+              setting you apart from the competition
             </p>
 
             <button type="button" class="btn btn-primary border-light">
