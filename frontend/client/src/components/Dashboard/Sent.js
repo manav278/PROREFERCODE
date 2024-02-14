@@ -2,7 +2,9 @@ import React from 'react'
 
 const Sent = () => {
   return (
-    <div>Sent</div>
+    <div>
+      Sent
+    </div>
   )
 }
 
