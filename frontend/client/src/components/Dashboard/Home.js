@@ -21,7 +21,7 @@ export default function Home() {
         {/* ----------------------------------------- */}
 
         <div class="container-fluid px-4 text-center" style={{height:'auto'}}>
-          <div class="row gx-2" >
+          <div class="row gx-4" >
             {/* *********************************** */}
             {/* col-lg-4 col-md-5 col-sm-6 */}
             <div class="col-md-4 col-sm-12">
@@ -112,7 +112,7 @@ export default function Home() {
             {/* *********************************** */}
             {/* col-lg-8 col-md-7 col-sm-6 */}
             <div class="col-md-8 col-sm-12">
-              <div class="p-3 bg-secondary dashinner2" style={{height:'96%'}}>
+              <div class="p-3 bg-secondary dashinner2" style={{height:'100%'}}>
                 <CustomNavbar />
               </div>
             </div>
