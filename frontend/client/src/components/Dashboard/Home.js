@@ -12,7 +12,7 @@ export default function Home() {
           <div class="row gx-2">
             <div class="col-12">
               <div class="p-4 text-white">
-                <h1>Referral Revolution: Shaping Tomorrow's Workforce Today</h1>
+                <h2>Referral Revolution: Shaping Tomorrow's Workforce Today</h2>
               </div>
             </div>
           </div>
