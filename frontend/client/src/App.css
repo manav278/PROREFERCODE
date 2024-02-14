@@ -34,4 +34,18 @@ body{
   
 }
 
+.scrollable-list {
+  max-height: 280px;/* You can adjust the height as per your requirement */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+.bg-light-blue {
+  background-color: #172b3d;
+  color: #fff;
+}
+
+.bg-dark-blue {
+  background-color: #060606; 
+  color: #fff; 
+}
+
 

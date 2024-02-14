@@ -18,6 +18,41 @@ const CustomNavbar = () => {
   const handleCompanyClick = () => {
     setMode("Company");
   };
+  const names = ["Aagam", "Manav", "Samarth", "Deep", "Dhruv","Nisarg", "Alice", "Bob", "Emma", "David"];
+  const companies = ["Company A", "Company B", "Company C", "Company D", "Company E","Company F", "Company G", "Company H", "Company I", "Company J"];
+
+  const obj=[
+    {
+      name:"Manav",
+      company:"Amazon",
+      age:"12",
+      city:"baroda"
+    },
+    {
+      name:"Manav",
+      company:"Amazon",
+      age:"12",
+      city:"baroda"
+    },
+    {
+      name:"Manav",
+      company:"Amazon",
+      age:"12",
+      city:"baroda"
+    },
+    {
+      name:"Manav",
+      company:"Amazon"
+    },
+    {
+      name:"Manav",
+      company:"Amazon"
+    },
+    {
+      name:"Manav",
+      company:"Amazon"
+    }
+  ]
 
   return (
     <div className="navbuttons" style={{height:'80%'}}>
@@ -65,7 +100,7 @@ const CustomNavbar = () => {
       </div>
       <hr style={{ color: "white" }} />
       {mode === "Dashboard" && <Db />}
-      {mode === "Received" && <Received />}
+      {mode === "Received" && <Received obj={obj}/>}
       {mode === "Sent" && <Sent />}
       {mode === "Company" && <Company />}
     </div>
