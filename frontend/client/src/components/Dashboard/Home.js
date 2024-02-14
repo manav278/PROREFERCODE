@@ -18,12 +18,7 @@ export default function Home() {
           </div>
         </div>
 
-
         {/* ----------------------------------------- */}
-
-        <div class="container-fluid px-4 text-center" style={{height:'auto'}}>
-          <div class="row gx-4" >
-        {/* ----------------------------------------- */} 
         <div
           class="container-fluid px-4 text-center"
           style={{ height: "auto" }}
@@ -144,8 +139,6 @@ export default function Home() {
         {/* ----------------------------------------- */}
       </div>
       {/* ----------------------------------------- */}
-    </div>
-    </div>
     </div>
   );
 }
