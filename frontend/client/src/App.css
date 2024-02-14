@@ -40,15 +40,15 @@
 
 .dash {
   background-color: rgb(21, 23, 23);
-  height: 100vh;
+  height: auto;
 }
 
 .dashinner1 {
-  height: 20vh;
+  height: auto;
 }
 
 .dashinner2 {
-  height: 60vh;
+  height: auto;
   font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 2px;
 }
