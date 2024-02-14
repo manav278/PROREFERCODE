@@ -62,8 +62,8 @@
   padding-right: 25px;
 }
 
-.navbuttons button{
-    background-color: #6C757D; /*Green*/
+.navbut button{
+    background-color: #6C757D; 
     border: none;
     color: white;
     padding: 10px 20px;

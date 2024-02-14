@@ -10,15 +10,15 @@ const Db = () => {
         <div class="col">
           <div class="p-3">
             <p style={{ color: "white" }}>
-              "Seeking a referral for your dream position at your preferred
+              Seeking a referral for your dream position at your preferred
               company? You're in luck! Simply request it here. If you need more
               information, check out our FAQ section. We've got all the details
               you need to navigate the referral process smoothly. Don't miss out
               on this opportunity to boost your chances of landing your ideal
-              role. Take the first step towards your career goals today!"
+              role. Take the first step towards your career goals today!
             </p>
 
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary border-light">
               Request Referral
             </button>
           </div>
@@ -26,13 +26,10 @@ const Db = () => {
         <div class="col">
           <div class="p-3">
             <p style={{ color: "white" }}>
-              Ensure your resume is always current by updating it here. This
-              updated version will serve as the basis for any referral requests
-              you make. Keeping your resume up-to-date is crucial for seizing
-              new opportunities and showcasing your skills effectively
+            Transform your resume here for a stellar impression when requesting a referral. Your resume is your professional story—update it with your latest achievements and experiences to captivate potential employers. A well-crafted resume is your key to unlocking new career opportunities. Keep it current and compelling to highlight your unique skills and qualifications, setting you apart from the competition
             </p>
 
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary border-light">
               Resume
             </button>
           </div>
