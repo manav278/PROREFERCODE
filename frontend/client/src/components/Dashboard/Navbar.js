@@ -18,39 +18,105 @@ const CustomNavbar = () => {
   const handleCompanyClick = () => {
     setMode("Company");
   };
-  const names = ["Aagam", "Manav", "Samarth", "Deep", "Dhruv","Nisarg", "Alice", "Bob", "Emma", "David"];
-  const companies = ["Company A", "Company B", "Company C", "Company D", "Company E","Company F", "Company G", "Company H", "Company I", "Company J"];
 
-  const obj=[
+  const currentRequest=[
     {
       name:"Manav",
       company:"Amazon",
       age:"12",
-      city:"baroda"
-    },
-    {
-      name:"Manav",
-      company:"Amazon",
-      age:"12",
-      city:"baroda"
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
     },
     {
       name:"Manav",
       company:"Amazon",
       age:"12",
-      city:"baroda"
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
     },
     {
       name:"Manav",
-      company:"Amazon"
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
     },
     {
       name:"Manav",
-      company:"Amazon"
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
     },
     {
       name:"Manav",
-      company:"Amazon"
+      company:"Microsoft Corporation",
+      age:"12",
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
+    },
+    {
+      name:"Manav",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      date:"15/02/2024",
+      url:"www.google.com",
+      pos:"Full Stack Developer",
+    }
+  ]
+  const pastRequest=[
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"NotReplied"
+    },
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"NotReplied"
+    },
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"NotReplied"
+    },
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"NotReplied"
+    },
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"NotReferred"
+    },
+    {
+      name:"Aagam",
+      company:"Amazon",
+      age:"12",
+      city:"baroda",
+      result:"Referred"
     }
   ]
 
@@ -100,7 +166,7 @@ const CustomNavbar = () => {
       </div>
       <hr style={{ color: "white" }} />
       {mode === "Dashboard" && <Db />}
-      {mode === "Received" && <Received obj={obj}/>}
+      {mode === "Received" && <Received currentRequest={currentRequest} pastRequest={pastRequest}/>}
       {mode === "Sent" && <Sent />}
       {mode === "Company" && <Company />}
     </div>
