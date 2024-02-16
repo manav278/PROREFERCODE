@@ -81,44 +81,57 @@ const CustomNavbar = () => {
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"NotReplied"
+      result:"Not Replied",
+      pos:"Java Developer",
+      date:"15/02/2024",
     },
     {
       name:"Aagam",
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"NotReplied"
+      result:"Not Replied",
+      pos:"Java Developer",
+      date:"15/02/2024",
     },
     {
       name:"Aagam",
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"NotReplied"
+      result:"Not Replied",
+      pos:"Java Developer",
+      date:"15/02/2024",
     },
     {
       name:"Aagam",
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"NotReplied"
+      result:"Not Replied",
+      pos:"React Developer",
+      date:"15/02/2024",
     },
     {
       name:"Aagam",
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"NotReferred"
+      result:"Not Referred",
+      pos:"DataScientist",
+      date:"15/02/2024",
     },
     {
       name:"Aagam",
       company:"Amazon",
       age:"12",
       city:"baroda",
-      result:"Referred"
+      result:"Referred",
+      pos:"Machine Learning Engineer",
+      date:"15/04/2024",
     }
   ]
+  // const pastRequest=[]
 
   return (
     <div className="navbuttons" style={{height:'80%'}}>
@@ -167,7 +180,7 @@ const CustomNavbar = () => {
       <hr style={{ color: "white" }} />
       {mode === "Dashboard" && <Db />}
       {mode === "Received" && <Received currentRequest={currentRequest} pastRequest={pastRequest}/>}
-      {mode === "Sent" && <Sent />}
+      {mode === "Sent" && <Sent currentRequest={currentRequest} pastRequest={pastRequest}/>}
       {mode === "Company" && <Company />}
     </div>
   );
