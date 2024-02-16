@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
-
+import MainNav from "./MainNav";
 const ReferralForm = () => {
   const [theme, setTheme] = useState(null);
 
@@ -10,9 +10,13 @@ const ReferralForm = () => {
   };
   return (
     <div>
+      <MainNav />
+      <div style={{ textAlign: "center", color: "whitesmoke" }}>
+        <h3>Edit Profile</h3>
+      </div>
       <div className="container text-light">
         <div className="row">
-          <div className="col-5">
+          <div className="col-5 referral-form-left">
             <form>
               <div>
                 <label for="phone" class="form-label">
@@ -29,14 +33,15 @@ const ReferralForm = () => {
             </form>
           </div>
           <div className="col-2"></div>
-          <div className="col-5">
-            <div>
-              <label for="workEmail" class="form-label">
-                Work Email
-              </label>
-              <input type="email" class="form-control" id="workEmail" />
-            </div>
-
+          <div className="col-5 referral-form-right">
+            <div className="row">
+              <div className="col-6">
+                <label for="workEmail" class="form-label">
+                  Work Email
+                </label>
+                <input type="email" class="form-control" id="workEmail" />
+              </div>
+            <div className="col-6">
             <label for="company" class="form-label">
               Company
             </label>
@@ -79,35 +84,7 @@ const ReferralForm = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            {/* <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown button
-              </button>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </div> */}
-
+            </div>
             <label for="position" class="form-label">
               Position
             </label>
@@ -117,78 +94,10 @@ const ReferralForm = () => {
               Location
             </label>
             <input type="email" class="form-control" id="Location" />
-          </div>
-        </div>
-        {/* <form class="row g-3">
-          <div class="col-md-6">
-            <label for="inputEmail4" class="form-label">
-              Email
-            </label>
-            <input type="email" class="form-control" id="inputEmail4" />
-          </div>
-          <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">
-              Password
-            </label>
-            <input type="password" class="form-control" id="inputPassword4" />
-          </div>
-          <div class="col-12">
-            <label for="inputAddress" class="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputAddress"
-              placeholder="1234 Main St"
-            />
-          </div>
-          <div class="col-12">
-            <label for="inputAddress2" class="form-label">
-              Address 2
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputAddress2"
-              placeholder="Apartment, studio, or floor"
-            />
-          </div>
-          <div class="col-md-6">
-            <label for="inputCity" class="form-label">
-              City
-            </label>
-            <input type="text" class="form-control" id="inputCity" />
-          </div>
-          <div class="col-md-4">
-            <label for="inputState" class="form-label">
-              State
-            </label>
-            <select id="inputState" class="form-select">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <label for="inputZip" class="form-label">
-              Zip
-            </label>
-            <input type="text" class="form-control" id="inputZip" />
-          </div>
-          <div class="col-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck" />
-              <label class="form-check-label" for="gridCheck">
-                Check me out
-              </label>
+            {/* </div> */}
             </div>
           </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary">
-              Sign in
-            </button>
-          </div>
-        </form> */}
+        </div>
       </div>
     </div>
   );

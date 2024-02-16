@@ -19,7 +19,7 @@ const Received = ({ currentRequest, pastRequest }) => {
 
               {/* ---------------------------------------------- */}
 
-              {currentRequest.length == 0 ? (
+              {currentRequest.length === 0 ? (
                 <p className="text-light">No Current Requests Now</p>
               ) : (
                 currentRequest.map((ob, index) => (
@@ -114,7 +114,7 @@ const Received = ({ currentRequest, pastRequest }) => {
               >
                 Historical Requests
               </h3>
-              {pastRequest.length == 0 ? (
+              {pastRequest.length === 0 ? (
                 <p className="text-light">No Historical Requests Yet</p>
               ) : (
                 pastRequest.map((ob, index) => (

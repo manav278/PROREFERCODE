@@ -5,6 +5,7 @@ import logo from "./logo.png";
 import "./mainnav.css";
 function MainNav() {
   return (
+    <div>
     <Navbar expand="lg" data-bs-theme="dark" className="main-nav">
       <Container>
         <Navbar.Brand href="#home">
@@ -27,6 +28,8 @@ function MainNav() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <hr style={{color:"white"}}/>
+    </div>
   );
 }
 

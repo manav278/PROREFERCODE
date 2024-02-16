@@ -23,10 +23,6 @@ body {
   border-radius: 5px;
 }
 
-.table1 td {
-  /* padding-right: 25px; */
-}
-
 .navbut button {
   background-color: #6c757d;
   border: none;
@@ -50,4 +46,19 @@ body {
 .bg-dark-blue {
   background-color: #060606;
   color: #fff;
+}
+
+.referral-form-left{
+  background-color: #6c757d;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+}
+
+.referral-form-right{
+  background-color: #6c757d;
+  padding:5%;
+  /* display: grid;
+  place-items: center; */
+  border-radius: 10px;
 }
