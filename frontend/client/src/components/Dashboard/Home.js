@@ -1,9 +1,11 @@
 import React from "react";
 import "../../App.css";
 import CustomNavbar from "./Navbar";
+import MainNav from "../MainNav";
 export default function Home() {
   return (
     <div>
+    <MainNav/>
       {/* ----------------------------------------- */}
       <div className="container-fluid dash">
         {/* ----------------------------------------- */}
