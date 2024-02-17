@@ -67,3 +67,8 @@ body {
   display:grid;
   place-content: center;
 }
+
+.home-numbers{
+  display:grid;
+  place-content: center;
+}
