@@ -62,3 +62,8 @@ body {
   place-items: center; */
   border-radius: 10px;
 }
+
+.home-div{
+  display:grid;
+  place-content: center;
+}
