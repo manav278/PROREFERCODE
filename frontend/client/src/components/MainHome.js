@@ -9,8 +9,8 @@ const MainHome = () => {
   return (
     <div>
       <MainNav />
-      <div>
-        <h1 style={{ textAlign: "center" }} className="text-light">
+      <div style={{marginTop:'3%'}}>
+        <h1 style={{ textAlign: "center" }} className="text-primary">
           How does ProRefer work?
         </h1>
       </div>
@@ -80,18 +80,20 @@ const MainHome = () => {
         </div>
       </div>
       <div className="container">
-      <div className="row bg-primary" style={{height:'25vh', width:'100%'}}   >
-        <div className="col-4">
-
+        <div className="row" style={{ height: "25vh", width: "100%" }}>
+          <div className="col-4 home-numbers">
+            <h2 className="text-primary">10000+</h2>
+            <p className="text-light">Referrals Served</p>
+          </div>
+          <div className="col-4 home-numbers">
+            <h2 className="text-primary">500+</h2>
+            <p className="text-light">Companies</p>
+          </div>
+          <div className="col-4 home-numbers">
+            <h2 className="text-primary">5000+</h2>
+            <p className="text-light">Employees</p>
+          </div>
         </div>
-        <div className="col-4">
-
-        </div>
-        <div className="col-4">
-
-        </div>
-      </div>
-
       </div>
       <Footer></Footer>
     </div>
