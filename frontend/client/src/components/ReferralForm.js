@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import MainNav from "./MainNav";
 const ReferralForm = () => {
-  const [theme, setTheme] = useState(null);
+const [theme, setTheme] = useState(null);
 
   const resetTheme = () => {
     setTheme(null);
@@ -17,6 +17,7 @@ const ReferralForm = () => {
       <div className="container text-light">
         <div className="row">
           <div className="col-5 referral-form-left">
+          <h4 style={{marginBottom:"-10%"}}>Applicant Credentials</h4>
             <form>
               <div>
                 <label for="phone" class="form-label">
