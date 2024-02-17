@@ -1,6 +1,5 @@
 import React from "react";
 import MainNav from "./MainNav";
-import feedback from "./assets/feedback-form.png";
 import Footer from "./Footer";
 
 export default function Contact() {

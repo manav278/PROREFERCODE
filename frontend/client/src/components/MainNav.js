@@ -8,7 +8,7 @@ function MainNav() {
     <div>
     <Navbar expand="lg" data-bs-theme="dark" className="main-nav">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img                                             //aspect-ratio = 72:29.3
             src={logo}
             width="108vw"

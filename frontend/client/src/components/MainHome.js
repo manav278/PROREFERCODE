@@ -83,7 +83,7 @@ const MainHome = () => {
         <div className="row" style={{ height: "25vh", width: "100%" }}>
           <div className="col-4 home-numbers">
             <h2 className="text-primary">10000+</h2>
-            <p className="text-light">Referrals Served</p>
+            <p className="text-light">Referrals</p>
           </div>
           <div className="col-4 home-numbers">
             <h2 className="text-primary">500+</h2>
