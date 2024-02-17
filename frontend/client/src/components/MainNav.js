@@ -20,10 +20,10 @@ function MainNav() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="main-nav" href="#home">How it</Nav.Link>
-            <Nav.Link className="main-nav" href="#link">Testimonials</Nav.Link>
-            <Nav.Link className="main-nav" href="#link">About Us</Nav.Link>
-            <Nav.Link className="main-nav" href="#link">Contact Us</Nav.Link>
+            <Nav.Link className="main-nav" href="/">How it</Nav.Link>
+            <Nav.Link className="main-nav" href="/testimonials">Testimonials</Nav.Link>
+            <Nav.Link className="main-nav" href="/about">About Us</Nav.Link>
+            <Nav.Link className="main-nav" href="/contact">Contact Us</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
