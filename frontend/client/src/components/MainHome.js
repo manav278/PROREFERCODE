@@ -3,6 +3,7 @@ import MainNav from "./MainNav";
 import Hom1 from "./assets/Hom1.jpg";
 import Hom2 from "./assets/Hom2.jpg";
 import Hom3 from "./assets/Hom3.jpg";
+import Footer from "./Footer";
 import "../App.css";
 const MainHome = () => {
   return (
@@ -92,6 +93,7 @@ const MainHome = () => {
       </div>
 
       </div>
+      <Footer></Footer>
     </div>
   );
 };
