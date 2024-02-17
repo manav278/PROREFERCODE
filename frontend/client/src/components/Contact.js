@@ -6,17 +6,37 @@ import Footer from "./Footer";
 export default function Contact() {
   return (
     // style={{display:'grid', alignContent:'center', justifyContent:'center'}}
-    <div>
+    <>
       <MainNav></MainNav>
+
+      <div className="container text-center">
+        <div className="row text-light">
+          <div className="col-12">
+            <h4>
+              You can directly contact us at{" "}
+              <span className="text-primary">prorefer.team@gmail.com</span> or
+              in case of any feedbacks, fill the below form
+            </h4>
+          </div>
+        </div>
+      </div>
+      <u className="text-light">
+        <h2
+          className="text-light"
+          style={{ textAlign: "center", marginTop: "3%" }}
+        >
+          Feedback Form
+        </h2>
+      </u>
+
       <div className="container">
         <div className="row text-light">
           <div
             className="col-12"
             style={{
-              height: "60vh",
-              borderRadius: "20px",
-              paddingLeft: "15%",
-              paddingRight: "15%",
+              height: "75vh",
+              paddingLeft: "20%",
+              paddingRight: "20%",
               paddingTop: "5%",
             }}
           >
@@ -33,7 +53,7 @@ export default function Contact() {
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">
-                Enter Email
+                Email
               </label>
               <input
                 type="email"
@@ -66,6 +86,6 @@ export default function Contact() {
       </div>
 
       <Footer></Footer>
-    </div>
+    </>
   );
 }
