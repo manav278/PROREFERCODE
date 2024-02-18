@@ -74,7 +74,7 @@ export default function Contact() {
             </div>
             <div style={{ marginTop: "5%", marginBottom: "5%" }}>
               <button
-                className="btn-feedback-form"
+                className="btn-feedback-form bg-success"
                 style={{
                   borderRadius: "5px",
                   paddingLeft: "3%",
