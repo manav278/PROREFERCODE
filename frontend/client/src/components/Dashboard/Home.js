@@ -2,10 +2,11 @@ import React from "react";
 import "../../App.css";
 import CustomNavbar from "./Navbar";
 import MainNav from "../MainNav";
+import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div>
-    <MainNav/>
+      <MainNav />
       {/* ----------------------------------------- */}
       <div className="container-fluid dash">
         {/* ----------------------------------------- */}
@@ -37,13 +38,16 @@ export default function Home() {
                   borderRadius: "8px",
                 }}
               >
-                <button
-                  style={{ width: "80%" }}
-                  type="button"
-                  class="btn btn-primary border-light"
-                >
-                  Edit Profile
-                </button>
+                <Link to="/form">
+                  <button
+                    style={{ width: "80%" }}
+                    type="button"
+                    class="btn btn-primary border-light"
+                  >
+                    Edit Profile
+                  </button>
+                </Link>
+
                 <div style={{ display: "grid", placeItems: "center" }}>
                   <table className="table1">
                     <tr>

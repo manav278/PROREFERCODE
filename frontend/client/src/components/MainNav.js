@@ -32,6 +32,9 @@ function MainNav() {
               <Nav.Link className="main-nav mx-1 my-2" href="/contact">
                 Contact Us
               </Nav.Link>
+              <Nav.Link className="main-nav mx-1 my-2" href="/dashboard">
+                Dashboard
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

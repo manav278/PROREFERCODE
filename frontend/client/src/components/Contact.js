@@ -12,7 +12,7 @@ export default function Contact() {
       <div className="container text-center">
         <div className="row text-light">
           <div className="col-12">
-            <h4 style={{fontFamily:"cursive"}}>
+            <h4 className="merriweather-regular">
               You can directly contact us at{" "}
               <span className="text-primary">prorefer.team@gmail.com</span> or
               in case of any feedbacks, fill the below form

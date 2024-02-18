@@ -48,21 +48,6 @@ body {
   color: #fff;
 }
 
-.referral-form-left{
-  background-color: #6c757d;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-}
-
-.referral-form-right{
-  background-color: #6c757d;
-  padding:5%;
-  /* display: grid;
-  place-items: center; */
-  border-radius: 10px;
-}
-
 .home-div{
   display:grid;
   place-content: center;
@@ -79,12 +64,17 @@ body {
 }
 
 .feedback-placeholder::placeholder{
-  color:#fff;
+  color:#888;
+  font-weight: lighter;
 }
 
 .btn-feedback-form{
   border:none;
   color:white;
-  background: black;
+}
 
+.merriweather-regular {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
 }

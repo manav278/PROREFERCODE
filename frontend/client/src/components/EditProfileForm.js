@@ -1,111 +1,188 @@
 import React from "react";
 import { useState } from "react";
-import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import MainNav from "./MainNav";
+import Footer from "./Footer";
 const EditProfileForm = () => {
-  const [theme, setTheme] = useState(null);
+  const [showAlert, setShowAlert] = useState(true);
 
-  const resetTheme = () => {
-    setTheme(null);
+  const handleDismiss = () => {
+    setShowAlert(false);
+  };
+
+  const companyList = [
+    { company: "Amazon" },
+    { company: "Microsoft" },
+    { company: "Google" },
+    { company: "Netflix" },
+    { company: "Meta" },
+  ];
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
+  const handleSelect = (event) => {
+    setSelectedCompany(event.target.value);
   };
   return (
     <div>
       <MainNav />
-      <div style={{ textAlign: "center", color: "#0275d8", marginTop:'3%' }}>
+      {showAlert && (
+      <div class="alert alert-danger alert-dismissible fade show my-1" role="alert" style={{borderRadius:'0'}}>
+          <div>
+            <p style={{fontSize:'85%'}}>
+              Please provide your employee credentials only if you are currently
+              employed at a company. If you do provide them, you'll receive
+              referral requests tailored to your profile.
+            </p>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+              onClick={handleDismiss}
+            ></button>
+          </div>
+      </div>
+      )}
+      <div style={{ textAlign: "center", color: "#0275d8", marginTop: "3%", marginBottom:'3%'}}>
         <h3>Edit Profile</h3>
       </div>
-      <div className="container text-light px-4" style={{marginTop:'3%'}}>
-        <div className="row ">
-          <div className="col-6 referral-form-left">
-            <h4 style={{ marginBottom: "-10%" }}>Applicant Credentials</h4>
-            <form>
-              <div>
-                <label for="phone" class="form-label">
-                  Mobile Number
-                </label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter Mobile Number"/>
-              </div>
-              <div>
-                <label for="personalEmail" class="form-label">
-                  Personal Email
-                </label>
-                <input type="email" class="form-control" id="personalEmail" placeholder="Enter Personal Email"/>
-              </div>
-            </form>
+      <div className="container text-light px-4" style={{ marginTop: "3%", marginBottom:'3%'}}>
+        <div className="row gx-5s">
+          <div className="col-md-6 col-12 align-items-center">
+            <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
+              <h4 className="merriweather-regular">Applicant Credentials</h4>
+            </div>
+
+            {/* ----------------------------- */}
+            <div
+              className="col-10 bg-warning p-4 bg-color-feedbackform text-dark"
+              style={{ borderRadius: "8px" }}
+            >
+              <form>
+                <div className="my-2">
+                  <label for="phone" class="form-label">
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control text-light bg-dark feedback-placeholder"
+                    id="phone"
+                    placeholder="Enter Mobile Number"
+                  />
+                </div>
+                <div className="my-2">
+                  <label for="personalEmail" class="form-label">
+                    Personal Email
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control text-light bg-dark feedback-placeholder"
+                    id="personalEmail"
+                    placeholder="Enter Personal Email"
+                  />
+                </div>
+                <div className="my-2">
+                  <label for="location" class="form-label">
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control text-light bg-dark feedback-placeholder"
+                    id="location"
+                    placeholder="Enter Location"
+                  />
+                </div>
+                <div className="my-4">
+                  <button
+                    className="btn-feedback-form bg-success"
+                    style={{
+                      borderRadius: "5px",
+                      paddingLeft: "3%",
+                      paddingRight: "3%",
+                      paddingTop: "2%",
+                      paddingBottom: "2%",
+                    }}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
           {/* <div className="col-2"></div> */}
-          <div className="col-6 referral-form-right" style={{ height: "70vh" }}>
-            <div>
-              <h4>Employee Credentials</h4>
+          <div className="col-md-6 col-12">
+            <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
+              <h4 className="merriweather-regular">Employee Credentials</h4>
             </div>
-            <form style={{ marginTop: "5%" }}>
-              <div className="row ">
-                <div className="col-6">
+
+            {/* ----------------------------- */}
+
+            <div
+              className="col-10 bg-warning p-4 bg-color-feedbackform text-dark"
+              style={{ borderRadius: "8px" }}
+            >
+              <form>
+                <div className="my-2">
                   <label for="workEmail" class="form-label">
                     Work Email
                   </label>
-                  <input type="email" class="form-control" id="workEmail" placeholder="Enter Work Email"/>
+                  <input
+                    type="email"
+                    class="form-control text-light bg-dark feedback-placeholder"
+                    id="workEmail"
+                    placeholder="Enter Work Email"
+                  />
                 </div>
-                <div className="col-6">
-                  <label for="company" class="form-label">
-                    Company
+                <div className="my-2">
+                  <label for="workPosition" class="form-label">
+                    Work Position
                   </label>
-                  <div className="mb-2">
-                    <Dropdown as={ButtonGroup} size="lg">
-                      <Button
-                        className="text-capitalize"
-                        variant={theme ? theme : "secondary"}
-                      >
-                        {theme ? theme : "Default"}
-                      </Button>
-                      <Dropdown.Toggle
-                        split
-                        variant={theme ? theme : "secondary"}
-                        id="dropdown-split-basic"
-                      />
-                      <Dropdown.Menu>
-                        <Dropdown.Item
-                          eventKey="1"
-                          onClick={() => setTheme("primary")}
-                        >
-                          Primary
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          eventKey="2"
-                          onClick={() => setTheme("danger")}
-                        >
-                          Danger
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          eventKey="3"
-                          onClick={() => setTheme("success")}
-                        >
-                          Success
-                        </Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item eventKey="4" onClick={resetTheme}>
-                          Default Theme
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                  <input
+                    type="text"
+                    class="form-control text-light bg-dark feedback-placeholder"
+                    id="workPosition"
+                    placeholder="Enter Work Position"
+                  />
+                </div>
+                <div className="my-4">
+                  <div>
+                    <select
+                      value={selectedCompany}
+                      onChange={handleSelect}
+                      className="bg-dark"
+                      style={{
+                        color: "#888",
+                        fontWeight: "lighter",
+                        borderRadius: "5px",
+                        padding: "3px",
+                      }}
+                    >
+                      <option value="">Company</option>
+                      {companyList.map((value, ind) => (
+                        <option value={ind}>{value.company}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-                <label for="position" class="form-label">
-                  Position
-                </label>
-                <input type="text" class="form-control" id="position" placeholder="Enter Position"/>
-
-                <label for="Location" class="form-label">
-                  Location
-                </label>
-                <input type="email" class="form-control" id="Location" placeholder="Enter Location"/>
-                {/* </div> */}
-              </div>
-            </form>
+                <div className="my-4">
+                  <button
+                    className="btn-feedback-form bg-success"
+                    style={{
+                      borderRadius: "5px",
+                      paddingLeft: "3%",
+                      paddingRight: "3%",
+                      paddingTop: "2%",
+                      paddingBottom: "2%",
+                    }}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <p className="col-4 text-danger">Please provide your employee credentials only if you are currently employed at a company. If you do provide them, you'll receive referral requests tailored to your profile.</p>
+      <Footer></Footer>
     </div>
   );
 };
