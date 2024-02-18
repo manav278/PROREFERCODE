@@ -1,6 +1,8 @@
 import React from "react";
 import MainNav from "./MainNav";
-import dp1 from "./assets/Hom1.jpg";
+import img1 from "./assets/Testimonials-1.png";
+import img2 from "./assets/Testimonials-2.png";
+import img3 from "./assets/Testimonials-3.png";
 import Footer from "./Footer"
 export default function Testimonials() {
   return (
@@ -16,10 +18,10 @@ export default function Testimonials() {
               <div className="row">
                 <div className="col-12" style={{ marginBottom: "3%" }}>
                   <img
-                    src={dp1}
-                    alt="Dp"
-                    height="100%"
-                    width="20%"
+                    src={img1}
+                    alt="Meera Krishnan"
+                    height="90vh"
+                    width="80vw"
                     style={{ borderRadius: "50%" }}
                   ></img>
                 </div>
@@ -60,10 +62,10 @@ export default function Testimonials() {
               <div className="row">
                 <div className="col-12" style={{ marginBottom: "3%" }}>
                   <img
-                    src={dp1}
-                    alt="Dp"
-                    height="100%"
-                    width="20%"
+                    src={img2}
+                    alt="Juan Torres"
+                    height="90vh"
+                    width="80vw"
                     style={{ borderRadius: "50%" }}
                   ></img>
                 </div>
@@ -105,10 +107,10 @@ export default function Testimonials() {
               <div className="row">
                 <div className="col-12" style={{ marginBottom: "3%" }}>
                   <img
-                    src={dp1}
-                    alt="Dp"
-                    height="100%"
-                    width="20%"
+                    src={img3}
+                    alt="Sophie Boucher"
+                    height="90vh"
+                    width="80vw"
                     style={{ borderRadius: "50%" }}
                   ></img>
                 </div>

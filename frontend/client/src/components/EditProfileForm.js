@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import MainNav from "./MainNav";
-const ReferralForm = () => {
+const EditProfileForm = () => {
 const [theme, setTheme] = useState(null);
 
   const resetTheme = () => {
@@ -104,4 +104,4 @@ const [theme, setTheme] = useState(null);
   );
 };
 
-export default ReferralForm;
+export default EditProfileForm;

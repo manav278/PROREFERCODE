@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ReferralForm from "./components/ReferralForm";
+import EditProfileForm from "./components/EditProfileForm";
 import "./App.css";
 import Home from "./components/Dashboard/Home";
 import MainHome from "./components/MainHome";
@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<MainHome />} />
-        <Route path="/form" element={<ReferralForm />} />
+        <Route path="/form" element={<EditProfileForm />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/about" element={<About />} />
