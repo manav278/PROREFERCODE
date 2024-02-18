@@ -72,3 +72,19 @@ body {
   display:grid;
   place-content: center;
 }
+
+.bg-color-feedbackform{
+  /* background: linear-gradient(45deg,#94ea83,#6c58f1); */
+  background: linear-gradient(45deg,#a8c2ed,#d7f9f8)
+}
+
+.feedback-placeholder::placeholder{
+  color:#fff;
+}
+
+.btn-feedback-form{
+  border:none;
+  color:white;
+  background: black;
+
+}

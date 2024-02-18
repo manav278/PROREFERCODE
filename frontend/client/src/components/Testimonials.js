@@ -3,7 +3,7 @@ import MainNav from "./MainNav";
 import img1 from "./assets/Testimonials-1.png";
 import img2 from "./assets/Testimonials-2.png";
 import img3 from "./assets/Testimonials-3.png";
-import Footer from "./Footer"
+import Footer from "./Footer";
 export default function Testimonials() {
   return (
     <div>
