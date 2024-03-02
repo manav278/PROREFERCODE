@@ -7,13 +7,13 @@ export default function About() {
     <div>
       <MainNav></MainNav>
       <div class="container text-light">
-        <div class="row justify-content-around">
-          <div class="col-4 bg-danger">
-            <img src={Aboutus} alt="Aboutus" width="61.2%" height="91.8%"></img> 
+        <div class="row text-center">
+          <div class="col-md-6 col-12 order-md-first order-first">
+            <img src={Aboutus} alt="Aboutus" width="61.2%" height="91.8%"></img>
             {/* 408*612 */}
           </div>
           <div
-            className="col-4 text-dark"
+            className="col-md-6 col-12 text-dark order-md-last order-last"
             style={{
               padding: "2%",
               borderRadius: "10px",
@@ -21,10 +21,10 @@ export default function About() {
           >
             <div className="row">
               <div
-                className="col-12 bg-secondary text-light my-1 p-3"
+                className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h4 className="text-center">Mission</h4>
+                <h2 className="text-center">Mission</h2>
                 <p>
                   Our mission at ProRefer is to bridge the gap between job
                   seekers and potential employers by facilitating the referral
@@ -34,10 +34,10 @@ export default function About() {
                 </p>
               </div>
               <div
-                className="col-12 bg-secondary text-light my-1 p-3"
+                className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h4 className="text-center">Company Story</h4>
+                <h2 className="text-center">Company Story</h2>
                 <p>
                   ProRefer was founded in 2020 by a group of professionals who
                   saw a need for a platform that could connect job seekers with
@@ -46,11 +46,25 @@ export default function About() {
                   thousands of people find their dream jobs.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container text-light">
+        <div class="row text-center">
+          <div
+            className="col-md-6 col-12 text-dark order-md-first order-last"
+            style={{
+              padding: "2%",
+              borderRadius: "10px",
+            }}
+          >
+            <div className="row">
               <div
-                className="col-12 bg-secondary text-light my-1 p-3"
+                className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h4 className="text-center">Values</h4>
+                <h2 className="text-center">Values</h2>
                 <p>
                   At ProRefer, we are guided by a set of core values that shape
                   everything we do. These values include integrity,
@@ -60,10 +74,10 @@ export default function About() {
                 </p>
               </div>
               <div
-                className="col-12 bg-secondary text-light my-1 p-3"
+                className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h4 className="text-center">Benefits</h4>
+                <h2 className="text-center">Benefits</h2>
                 <p>
                   Joining ProRefer has many benefits. Job seekers can access
                   exclusive job listings and connect with potential employers,
@@ -73,6 +87,10 @@ export default function About() {
                 </p>
               </div>
             </div>
+          </div>
+          <div class="col-md-6 col-12 order-md-last order-first">
+            <img src={Aboutus} alt="Aboutus" width="61.2%" height="91.8%"></img>
+            {/* 408*612 */}
           </div>
         </div>
       </div>
