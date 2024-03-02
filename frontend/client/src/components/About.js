@@ -6,6 +6,7 @@ export default function About() {
   return (
     <div>
       <MainNav></MainNav>
+      <h1 className="text-center text-primary">About Us</h1>
       <div class="container text-light">
         <div class="row text-center">
           <div class="col-md-6 col-12 order-md-first order-first">
