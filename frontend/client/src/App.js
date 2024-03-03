@@ -7,6 +7,7 @@ import Testimonials from "./components/Testimonials";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Login from "./components/Login";
+import Signup from "./components/Signup"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,6 +3,7 @@ import "../../App.css";
 import CustomNavbar from "./Navbar";
 import MainNav from "../MainNav";
 import { Link } from "react-router-dom";
+import Footer from "../Footer";
 export default function Home() {
   return (
     <div>
@@ -26,7 +27,7 @@ export default function Home() {
           class="container-fluid px-4 text-center"
           style={{ height: "auto" }}
         >
-          <div class="row gx-4">
+          <div class="row gx-4"  style={{marginBottom:"4%"}}>
             {/* *********************************** */}
             {/* col-lg-4 col-md-5 col-sm-6 */}
             <div class="col-md-4 col-12">
@@ -144,6 +145,7 @@ export default function Home() {
         </div>
         {/* ----------------------------------------- */}
       </div>
+      <Footer></Footer>
       {/* ----------------------------------------- */}
     </div>
   );

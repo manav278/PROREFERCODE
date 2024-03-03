@@ -46,9 +46,9 @@ export default function Login() {
       <div className="container my-5">
         <div className="row">
           <div
-            className="col-md-6 bg-warning" style={{padding:"0%"}}
+            className="col-md-6" style={{padding:"0%"}}
           >
-            <img src={login} className="img-fluid"></img>
+            <img src={login} className="img-fluid" alt="Img"></img>
           </div>
           <div
             className="col-md-6 my-md-0 my-3 text-dark bg-login-container"
@@ -129,3 +129,4 @@ export default function Login() {
     </div>
   );
 }
+
