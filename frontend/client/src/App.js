@@ -6,6 +6,7 @@ import MainHome from "./components/MainHome";
 import Testimonials from "./components/Testimonials";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
