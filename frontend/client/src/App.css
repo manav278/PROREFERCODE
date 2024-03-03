@@ -78,3 +78,16 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.createcampaign-placeholder::placeholder {
+  color: #888;
+  font-weight: lighter;
+}
+.bg-login-container {
+  background: linear-gradient(45deg, #a8c2ed, #d7f9f8);
+}
+
+.btn-createcampaign-form {
+  border: none;
+  color: white;
+}
