@@ -1,17 +1,18 @@
 import React from "react";
 import MainNav from "./MainNav";
-import Aboutus from "./assets/Aboutus.jpg";
+import About1 from "./assets/About1.png";
+import About2 from "./assets/About2.png";
 import Footer from "./Footer";
 export default function About() {
   return (
     <div>
       <MainNav></MainNav>
-      <h1 className="text-center text-primary">About Us</h1>
+      <h1 className="text-center text-primary my-5">The ProRefer Story</h1>
       <div class="container text-light">
-        <div class="row text-center">
-          <div class="col-md-6 col-12 order-md-first order-first">
-            <img src={Aboutus} alt="Aboutus" width="61.2%" height="91.8%"></img>
-            {/* 408*612 */}
+        <div class="row text-center p-3 gx-5">
+          <div class="col-md-6 col-12 order-md-first order-first" style={{display:'grid', placeContent:'center'}}>
+            <img src={About1} alt="Aboutus" width="350vw" height="350vh"></img>
+            {/* 1024:1024 */}
           </div>
           <div
             className="col-md-6 col-12 text-dark order-md-last order-last"
@@ -40,7 +41,7 @@ export default function About() {
               >
                 <h2 className="text-center">Company Story</h2>
                 <p>
-                  ProRefer was founded in 2020 by a group of professionals who
+                  ProRefer was founded in 2024 by a group of professionals who
                   saw a need for a platform that could connect job seekers with
                   potential referrals. Since then, we have grown to become a
                   trusted resource for both job seekers and employers, helping
@@ -52,7 +53,7 @@ export default function About() {
         </div>
       </div>
       <div class="container text-light">
-        <div class="row text-center">
+        <div class="row text-center gx-5">
           <div
             className="col-md-6 col-12 text-dark order-md-first order-last"
             style={{
@@ -89,9 +90,9 @@ export default function About() {
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-12 order-md-last order-first">
-            <img src={Aboutus} alt="Aboutus" width="61.2%" height="91.8%"></img>
-            {/* 408*612 */}
+          <div class="col-md-6 col-12 order-md-last order-first" style={{display:'grid', placeContent:'center'}}>
+            <img src={About2} alt="Aboutus" width="350vw" height="350vh"></img>
+            {/* 1024*1024 */}
           </div>
         </div>
       </div>
