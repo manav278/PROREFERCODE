@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
+import Footer from "./Footer";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,14 +43,16 @@ export default function Login() {
   return (
     <div>
       <MainNav></MainNav>
-      <div className="container">
-        <div className="row p-4 bg-warning">
-          <div className="col-md-6 bg-danger">
-            <h1>Image</h1>
+      <div className="container my-5">
+        <div className="row">
+          <div
+            className="col-md-6 bg-warning" style={{padding:"0%"}}
+          >
+            <img src={login} className="img-fluid"></img>
           </div>
           <div
-            className="col-md-6 text-dark p-4 bg-login-container"
-            style={{ borderRadius: "2%" }}
+            className="col-md-6 my-md-0 my-3 text-dark bg-login-container"
+            style={{padding: "8%" }}
           >
             <div className="row">
               <div className="col-12">
@@ -97,7 +101,7 @@ export default function Login() {
                     <button
                       type="submit"
                       onClick={submit}
-                      className="btn-createcampaign-form bg-danger"
+                      className="btn-createcampaign-form bg-success"
                       style={{
                         borderRadius: "5px",
                         paddingLeft: "2%",
@@ -113,8 +117,7 @@ export default function Login() {
                   </div>
                 </form>
               </div>
-              <div className="col-12">
-                <p>OR</p>
+              <div className="col-12 my-2">
                 <span>Don't have an account? </span>
                 <Link to="/signup">Signup now</Link>
               </div>
@@ -122,6 +125,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }
