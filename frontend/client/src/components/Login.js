@@ -4,7 +4,7 @@ import axios from "axios";
 import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
-export default function Login() {
+export default function Login({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,24 +20,15 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await axios
-        .post("http://localhost:3003/", {
-          email,
-          password,
-        })
-        .then((res) => {
-          if (res.data === "exist") {
-            alert("Login successfully");
-          } else if (res.data === "notexist") {
-            alert("User have not sign up");
-          }
-        })
-        .catch((e) => {
-          alert("Wrong details");
-          console.log(e);
-        });
+      let response = await axios.post("http://localhost:3003/", {
+        email,
+        password,
+      });
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      setLoggedIn(true);
     } catch (e) {
-      console.log(e);
+      console.log("Login failed: ", e);
     }
   }
   return (
@@ -45,14 +36,12 @@ export default function Login() {
       <MainNav></MainNav>
       <div className="container my-5">
         <div className="row">
-          <div
-            className="col-md-6" style={{padding:"0%"}}
-          >
+          <div className="col-md-6" style={{ padding: "0%" }}>
             <img src={login} className="img-fluid" alt="Img"></img>
           </div>
           <div
             className="col-md-6 my-md-0 my-3 text-dark bg-login-container"
-            style={{padding: "8%" }}
+            style={{ padding: "8%" }}
           >
             <div className="row">
               <div className="col-12">
@@ -129,4 +118,3 @@ export default function Login() {
     </div>
   );
 }
-
