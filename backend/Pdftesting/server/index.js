@@ -12,7 +12,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Headers','Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale');
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, PUT, GET, DELETE");
-    next();
+  next();
 });
 
 

@@ -49,10 +49,11 @@ function App() {
           path="/login"
           element={loggedIn ? <Home /> : <Login setLoggedIn={setLoggedIn} />}
         />
-        <Route
+        {/* <Route
           path="/dashboard"
           element={loggedIn ? <Home /> : <Navigate to="/login" />}
-        />
+        /> */}
+        <Route path="/dashboard" element={<Home/>}/>
       </Routes>
     </BrowserRouter>
   );
