@@ -6,15 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import { Navigate } from "react-router-dom";
 export default function Home() {
-  // console.log();
-  // const navigate = useNavigate();
-  // const condition = props.loggedIn === false;
-  // useEffect(() => {
-  //   if (condition) {
-  //     // Navigate to another route
-  //     navigate("/login");
-  //   }
-  // }, [condition, navigate]);
 
   return (
     <div>

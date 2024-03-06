@@ -6,8 +6,10 @@ const secretKey = "PROREFER_SECRET_KEY";
 const expiresIn = 20;
 
 // Login routes
+let currentUserId;
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  currentUserId=await proreferuser.find({ Personal_Email: email});
   let user;
   try {
     user = await authdata.find({ Personal_Email: email, Password: password });
