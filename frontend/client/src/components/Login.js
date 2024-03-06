@@ -18,12 +18,23 @@ export default function Login({ setLoggedIn }) {
 
   async function submit(e) {
     e.preventDefault();
+    let response;
 
     try {
-      let response = await axios.post("http://localhost:3003/", {
-        email,
-        password,
-      });
+      response = await axios
+        .post("http://localhost:3003/api/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          if (res.data.message === "Invalid email or password") {
+            alert("Invalid Username or password.Try to Login Again.");
+          } else {
+            const { token } = res.data;
+            localStorage.setItem("token", token); // Store token in local storage
+            setLoggedIn(true);
+          }
+        });
       const { token } = response.data;
       localStorage.setItem("token", token);
       setLoggedIn(true);

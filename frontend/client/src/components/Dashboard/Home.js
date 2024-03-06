@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../App.css";
 import CustomNavbar from "./Navbar";
 import MainNav from "../MainNav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
+import { Navigate } from "react-router-dom";
 export default function Home() {
+  // console.log();
+  // const navigate = useNavigate();
+  // const condition = props.loggedIn === false;
+  // useEffect(() => {
+  //   if (condition) {
+  //     // Navigate to another route
+  //     navigate("/login");
+  //   }
+  // }, [condition, navigate]);
+
   return (
     <div>
       <MainNav />
@@ -27,7 +38,7 @@ export default function Home() {
           class="container-fluid px-4 text-center"
           style={{ height: "auto" }}
         >
-          <div class="row gx-4"  style={{marginBottom:"4%"}}>
+          <div class="row gx-4" style={{ marginBottom: "4%" }}>
             {/* *********************************** */}
             {/* col-lg-4 col-md-5 col-sm-6 */}
             <div class="col-md-4 col-12">

@@ -20,9 +20,12 @@ function App() {
       const token = localStorage.getItem("token");
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        const response = await axios.get("/api/verify");
+        const response = await axios.get("http://localhost:3003/api/verify");
+        console.log(response);
         if (response.status === 200) {
           setLoggedIn(true);
+        } else {
+          setLoggedIn(false);
         }
       }
     } catch (error) {
@@ -31,7 +34,6 @@ function App() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     checkLoginStatus();
   }, []);
@@ -45,15 +47,22 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/login"
-          element={loggedIn ? <Home /> : <Login setLoggedIn={setLoggedIn} />}
-        />
         {/* <Route
+          path="/login"
+          element={
+            loggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <Login setLoggedIn={setLoggedIn} />
+            )
+          }
+        /> */}
+        <Route path="/login" element={<Login setLoggedIn={setLoggedIn}/>}/>
+        <Route
           path="/dashboard"
           element={loggedIn ? <Home /> : <Navigate to="/login" />}
-        /> */}
-        <Route path="/dashboard" element={<Home/>}/>
+        />
+        {/* <Route path="/dashboard" element={<Home loggedIn={loggedIn} />} /> */}
       </Routes>
     </BrowserRouter>
   );
