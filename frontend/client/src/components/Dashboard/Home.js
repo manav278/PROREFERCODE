@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
+import axios from "axios";
 import "../../App.css";
 import CustomNavbar from "./Navbar";
 import MainNav from "../MainNav";
@@ -6,6 +7,21 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import { Navigate } from "react-router-dom";
 export default function Home() {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/dashboard");
+      console.log(response);
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <div>
@@ -63,7 +79,7 @@ export default function Home() {
                         <p>Name</p>
                       </td>
                       <td>
-                        <p>Manav Jayesh Patel</p>
+                        <p>{userData.First_Name}</p>
                       </td>
                     </tr>
                     <tr>
@@ -71,7 +87,7 @@ export default function Home() {
                         <p>Location</p>
                       </td>
                       <td>
-                        <p>Vadodara, Gujarat</p>
+                        <p>{userData.COMPANY_LOCATION}</p>
                       </td>
                     </tr>
                     <tr>
@@ -79,7 +95,7 @@ export default function Home() {
                         <p>Total Referrals Requested</p>
                       </td>
                       <td>
-                        <p>100</p>
+                        <p>{userData.Total_Referrals_Requested}</p>
                       </td>
                     </tr>
                     <tr>
@@ -87,7 +103,7 @@ export default function Home() {
                         <p>Total Referrals Received</p>
                       </td>
                       <td>
-                        <p>50</p>
+                        <p>{userData.Referrals_Reviewed_ThisMonth}</p>
                       </td>
                     </tr>
                     <tr>
@@ -95,7 +111,7 @@ export default function Home() {
                         <p>Monthly Requests Received</p>
                       </td>
                       <td>
-                        <p>4</p>
+                        <p>{userData.COMPANY_LOCATION}</p>
                       </td>
                     </tr>
                     <tr>
@@ -103,7 +119,7 @@ export default function Home() {
                         <p>Monthly Requests Sent</p>
                       </td>
                       <td>
-                        <p>4</p>
+                        <p>{userData.Referrals_Requested_ThisMonth}</p>
                       </td>
                     </tr>
                     <tr>
@@ -111,7 +127,7 @@ export default function Home() {
                         <p>Last Referral Date</p>
                       </td>
                       <td>
-                        <p>03/01/2024</p>
+                        <p>{userData.Last_Referral_Date}</p>
                       </td>
                     </tr>
                     <tr>
@@ -119,7 +135,7 @@ export default function Home() {
                         <p>Warning</p>
                       </td>
                       <td>
-                        <p>3</p>
+                        <p>{userData.Warning}</p>
                       </td>
                     </tr>
                   </table>
