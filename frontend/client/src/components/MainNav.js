@@ -35,10 +35,13 @@ function MainNav() {
               <Nav.Link className="main-nav mx-1 my-2" href="/dashboard">
                 Dashboard
               </Nav.Link>
-              <Nav.Link className="main-nav mx-1 my-2" href="/login">
-                Login
-              </Nav.Link>
-            </Nav>
+              </Nav>
+              <Nav pullRight>
+                <Nav.Link className="main-nav mx-1 my-2 text-danger" href="/login">
+                  Logout
+                </Nav.Link>
+              </Nav>
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
