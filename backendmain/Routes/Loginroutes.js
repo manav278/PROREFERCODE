@@ -3,13 +3,18 @@ import express from "express";
 const router = express.Router();
 import jwt from "jsonwebtoken";
 const secretKey = "PROREFER_SECRET_KEY";
+import proreferuser from "../Model/proreferuser.js";
 const expiresIn = 20;
+let currentUserId;
+
+function getUserId(id) {
+  return currentUserId;
+}
 
 // Login routes
-let currentUserId;
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  currentUserId=await proreferuser.find({ Personal_Email: email});
+
   let user;
   try {
     user = await authdata.find({ Personal_Email: email, Password: password });
@@ -17,6 +22,8 @@ router.post("/login", async (req, res) => {
     console.log(e);
   }
   if (user) {
+    let Id = await proreferuser.find({ Personal_Email: email });
+    currentUserId = Id[0].User_ID;
     const token = jwt.sign({ Personal_Email: user.Personal_Email }, secretKey);
     res.json({ token });
   } else {
@@ -41,3 +48,4 @@ router.get("/verify", (req, res) => {
 });
 
 export default router;
+export { getUserId };
