@@ -38,6 +38,11 @@ function App() {
     checkLoginStatus();
   }, []);
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+    localStorage.removeItem("token");
+  };
+
   return (
     <BrowserRouter>
       <Routes>
