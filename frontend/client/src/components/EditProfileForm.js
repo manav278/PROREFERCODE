@@ -1,21 +1,41 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
+import axios from "axios";
+
 const EditProfileForm = () => {
+  const [companyList, setCompanyList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [showAlert, setShowAlert] = useState(true);
 
   const handleDismiss = () => {
     setShowAlert(false);
   };
 
-  const companyList = [
-    { company: "Amazon" },
-    { company: "Microsoft" },
-    { company: "Google" },
-    { company: "Netflix" },
-    { company: "Meta" },
-  ];
+  const apiCall = async () => {
+    try {
+      await axios.get("http://localhost:3003/api/getCompany").then((res) => {
+        setCompanyList(res.data);
+        setLoading(false);
+        if (res.data.message === "Server Error") alert("Server Error");
+      });
+    } catch (e) {
+      console.log("Error occured: ", e);
+    }
+  };
+  useEffect(() => {
+    apiCall();
+  }, []);
+
+  // const companyList = [
+  //   { company: "Amazon" },
+  //   { company: "Microsoft" },
+  //   { company: "Google" },
+  //   { company: "Netflix" },
+  //   { company: "Meta" },
+  // ];
   const [selectedCompany, setSelectedCompany] = useState(null);
 
   const handleSelect = (event) => {
@@ -25,9 +45,13 @@ const EditProfileForm = () => {
     <div>
       <MainNav />
       {showAlert && (
-      <div class="alert alert-danger alert-dismissible fade show my-1" role="alert" style={{borderRadius:'0'}}>
+        <div
+          class="alert alert-danger alert-dismissible fade show my-1"
+          role="alert"
+          style={{ borderRadius: "0" }}
+        >
           <div>
-            <p style={{fontSize:'85%'}}>
+            <p style={{ fontSize: "85%" }}>
               Please provide your employee credentials only if you are currently
               employed at a company. If you do provide them, you'll receive
               referral requests tailored to your profile.
@@ -40,12 +64,22 @@ const EditProfileForm = () => {
               onClick={handleDismiss}
             ></button>
           </div>
-      </div>
+        </div>
       )}
-      <div style={{ textAlign: "center", color: "#0275d8", marginTop: "3%", marginBottom:'3%'}}>
+      <div
+        style={{
+          textAlign: "center",
+          color: "#0275d8",
+          marginTop: "3%",
+          marginBottom: "3%",
+        }}
+      >
         <h3>Edit Profile</h3>
       </div>
-      <div className="container text-light px-4" style={{ marginTop: "3%", marginBottom:'3%'}}>
+      <div
+        className="container text-light px-4"
+        style={{ marginTop: "3%", marginBottom: "3%" }}
+      >
         <div className="row gx-5s">
           <div className="col-md-6 col-12 align-items-center">
             <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
@@ -143,26 +177,30 @@ const EditProfileForm = () => {
                     placeholder="Enter Work Position"
                   />
                 </div>
-                <div className="my-4">
-                  <div>
-                    <select
-                      value={selectedCompany}
-                      onChange={handleSelect}
-                      className="bg-dark"
-                      style={{
-                        color: "#888",
-                        fontWeight: "lighter",
-                        borderRadius: "5px",
-                        padding: "3px",
-                      }}
-                    >
-                      <option value="">Company</option>
-                      {companyList.map((value, ind) => (
-                        <option value={ind}>{value.company}</option>
-                      ))}
-                    </select>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <div className="my-4">
+                    <div>
+                      <select
+                        value={selectedCompany}
+                        onChange={handleSelect}
+                        className="bg-dark"
+                        style={{
+                          color: "#888",
+                          fontWeight: "lighter",
+                          borderRadius: "5px",
+                          padding: "3px",
+                        }}
+                      >
+                        <option value="">Company</option>
+                        {companyList ? companyList.map((value, ind) => (
+                          <option value={ind}>{value.company}</option>
+                        )):"None"}
+                      </select>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="my-4">
                   <button
                     className="btn-feedback-form bg-success"
