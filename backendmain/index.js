@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Loginroutes from "./Routes/Loginroutes.js";
 import Pdfroutes from "./Routes/Pdfroutes.js";
 import Dashboardroutes from "./Routes/Dashboardroutes.js";
+import Companyroutes from "./Routes/Companyroutes.js";
 import * as env from "dotenv";
 env.config();
 const app = express();
@@ -34,6 +35,7 @@ try {
 app.use("/api", Loginroutes);
 app.use("/api", Pdfroutes);
 app.use("/api", Dashboardroutes);
+app.use("/api", Companyroutes);
 const port = process.env.PORT || 3003;
 app.listen(port, () => {
   console.log("started " + port);
