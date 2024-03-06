@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-// import { BrowserRouter ,Route, Redirect, Switch } from 'react-router-dom';
+import MyContext from './MyContext';
 import EditProfileForm from "./components/EditProfileForm";
 import "./App.css";
 import React, { useState, useEffect } from "react";
@@ -43,8 +43,13 @@ function App() {
     localStorage.removeItem("token");
   };
 
+  const passingObj = {
+    loggedIn, handleLogout,
+  };
+
   return (
     <BrowserRouter>
+    <MyContext.Provider value={passingObj}>
       <Routes>
         <Route exact path="/" element={<MainHome />} />
         <Route path="/form" element={<EditProfileForm />} />
@@ -67,6 +72,7 @@ function App() {
           element={loggedIn ? <Home /> : <Navigate to="/login" />}
         />
       </Routes>
+      </MyContext.Provider>
     </BrowserRouter>
   );
 }

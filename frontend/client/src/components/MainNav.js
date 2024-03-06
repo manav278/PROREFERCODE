@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "./assets/logo.png";
+import MyContext from '../MyContext';
 import "./mainnav.css";
 function MainNav() {
+
+  const {loggedIn, handleLogout} = useContext(MyContext);
+
   return (
     <div>
       <Navbar expand="lg" data-bs-theme="dark" className="main-nav">
@@ -36,12 +41,13 @@ function MainNav() {
                 Dashboard
               </Nav.Link>
               </Nav>
+              { loggedIn &&
               <Nav pullRight>
-                <Nav.Link className="main-nav mx-1 my-2 text-danger" href="/login">
+                <Nav.Link className="main-nav mx-1 my-2 text-danger" onClick={handleLogout} href="/login">
                   Logout
                 </Nav.Link>
               </Nav>
-            
+              }
           </Navbar.Collapse>
         </Container>
       </Navbar>
