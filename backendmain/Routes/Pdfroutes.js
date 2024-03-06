@@ -11,7 +11,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const { originalname, buffer } = req.file;
     let userID = getUserId();
-    console.log(userID);
+    // console.log(userID);
     const filter = { User_ID: userID };
 
     // Update specificField if document exists, or create a new document with specificField if it doesn't exist
@@ -31,8 +31,9 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 router.get("/getPdf", async (req, res) => {
-  //   const a = req.params.x;
+  
   try {
+    let userID = getUserId();
     const file = await File.findOne({ User_ID: userID });
 
     if (file) {
