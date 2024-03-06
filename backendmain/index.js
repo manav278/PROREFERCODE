@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import Loginroutes from "./Routes/Loginroutes.js";
+import Pdfroutes from "./Routes/Pdfroutes.js";
 import * as env from "dotenv";
 env.config();
 const app = express();
@@ -30,7 +31,7 @@ try {
   console.log(e);
 }
 app.use("/api", Loginroutes);
-app.use("/api", Loginroutes);
+app.use("/api", Pdfroutes);
 const port = process.env.PORT || 3003;
 app.listen(port, () => {
   console.log("started " + port);
