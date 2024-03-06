@@ -47,7 +47,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route
+        <Route
           path="/login"
           element={
             loggedIn ? (
@@ -56,13 +56,11 @@ function App() {
               <Login setLoggedIn={setLoggedIn} />
             )
           }
-        /> */}
-        <Route path="/login" element={<Login setLoggedIn={setLoggedIn}/>}/>
+        />
         <Route
           path="/dashboard"
           element={loggedIn ? <Home /> : <Navigate to="/login" />}
         />
-        {/* <Route path="/dashboard" element={<Home loggedIn={loggedIn} />} /> */}
       </Routes>
     </BrowserRouter>
   );

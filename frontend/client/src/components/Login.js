@@ -18,7 +18,7 @@ export default function Login({ setLoggedIn }) {
 
   async function submit(e) {
     e.preventDefault();
-    let response;
+    let response=null;
 
     try {
       response = await axios
@@ -27,6 +27,7 @@ export default function Login({ setLoggedIn }) {
           password,
         })
         .then((res) => {
+          console.log(res);
           if (res.data.message === "Invalid email or password") {
             alert("Invalid Username or password.Try to Login Again.");
           } else {
@@ -35,9 +36,6 @@ export default function Login({ setLoggedIn }) {
             setLoggedIn(true);
           }
         });
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-      setLoggedIn(true);
     } catch (e) {
       console.log("Login failed: ", e);
     }

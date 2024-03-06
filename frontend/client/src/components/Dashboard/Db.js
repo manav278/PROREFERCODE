@@ -10,7 +10,7 @@ const Db = () => {
   };
   const viewResume = async() => {
     try {
-      const response = await axios.get('http://localhost:3001/api/getPdf/', {
+      const response = await axios.get('http://localhost:3003/api/getPdf', {
         responseType: 'blob', // Use blob responseType to handle binary data
       });
 
@@ -40,7 +40,7 @@ const Db = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:3001/upload",
+          "http://localhost:3003/api/upload",
           formData,
           {
             headers: {

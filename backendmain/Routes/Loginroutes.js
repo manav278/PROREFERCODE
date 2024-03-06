@@ -26,6 +26,7 @@ router.post("/login", async (req, res) => {
 router.get("/verify", (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
+  console.log(token);
   if (token == null) {
     return res.status(401).json({ message: "Token is Null." });
   }

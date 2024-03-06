@@ -1,45 +1,13 @@
-const express = require('express');
-const multer = require('multer');
-const mongoose = require('mongoose');
-const fs = require('fs');
-require('dotenv').config();
-
-const userID = 1;
-
-const app = express();
-
-app.use((req, res, next) => {
-  // Set CORS headers to allow cross-origin requests (required to communicate with flutter thorugh localhosting)
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Headers','Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale');
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, PUT, GET, DELETE");
-  next();
-});
-
-
-
-
-// Connect to MongoDB Atlas
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB Atlas');
-});
-
-// Set up multer for handling file uploads
+import express from 'express';
+import multer from 'multer';
+import File from "../Model/File.js";
+const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
-// Define a MongoDB model for storing files
-const File = mongoose.model('Resume', {
-  User_ID: Number,
-  data: Buffer,
-});
+let userID = 1;
 
 // Handle file uploads
-app.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const { originalname, buffer } = req.file;
 
@@ -61,7 +29,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-app.get('/api/getPdf/', async (req, res) => {
+router.get('/getPdf', async (req, res) => {
 //   const a = req.params.x;
   try {
     const file = await File.findOne({ User_ID: userID });
@@ -85,9 +53,4 @@ app.get('/api/getPdf/', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-const port = 3001;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default router;
