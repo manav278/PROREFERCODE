@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useRef } from "react";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import "../App.css";
 import feedback from "./assets/Feedback-1.png";
+import emailjs from "@emailjs/browser";
 export default function Contact() {
+  // service_id=service_owt5xga
+  // template_id=template_utm62cj;
+  // publicKey=k_w4S-5BYB0KmuOvO
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_owt5xga", "template_utm62cj", form.current, {
+        publicKey: "k_w4S-5BYB0KmuOvO",
+      })
+      .then(
+        () => {
+          alert(
+            "Successfully Feedbackmail sended to prorefer.team@gmail.com!!!"
+          );
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          alert("Please try again later.");
+        }
+      );
+  };
+
   return (
     // style={{display:'grid', alignContent:'center', justifyContent:'center'}}
     <>
@@ -35,41 +60,46 @@ export default function Contact() {
             ></img>
             {/* 910:643 */}
           </div>
-          <div
-            className="col-lg-6 col-12 bg-color-feedbackform"
-            style={{ borderRadius: "8px" ,height:"30%"}}
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            style={{ borderRadius: "8px" }}
+            className="col-lg-6 col-12 px-3 py-3 bg-color-feedbackform"
           >
-            <div class="mb-3" style={{ marginTop: "2%" }}>
-              <label for="fullname" class="form-label">
+            <div className="mb-3" style={{ marginTop: "2%" }}>
+              <label for="user_name" className="form-label">
                 Full Name
               </label>
               <input
                 type="text"
-                class="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light bg-dark feedback-placeholder"
                 id="fullname"
                 placeholder="Enter your name"
+                name="user_name"
               />
             </div>
-            <div class="mb-3" style={{ marginTop: "2%" }}>
-              <label for="email" class="form-label">
+            <div className="mb-3" style={{ marginTop: "2%" }}>
+              <label for="user_email" class="form-label">
                 Email
               </label>
               <input
                 type="email"
-                class="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light bg-dark feedback-placeholder"
                 id="email"
                 placeholder="name@example.com"
+                name="user_email"
               />
             </div>
-            <div class="mb-3" style={{ marginTop: "2%" }}>
-              <label for="feedback" class="form-label">
+            <div className="mb-3" style={{ marginTop: "2%" }}>
+              <label for="message" className="form-label">
                 Feedback
               </label>
               <textarea
-                class="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light bg-dark feedback-placeholder"
                 id="feedback"
                 rows="3"
                 placeholder="Enter your feedback"
+                name="message"
               ></textarea>
             </div>
             <div style={{ marginTop: "5%", marginBottom: "5%" }}>
@@ -86,7 +116,7 @@ export default function Contact() {
                 Submit
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
