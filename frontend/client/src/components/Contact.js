@@ -63,8 +63,8 @@ export default function Contact() {
           <form
             ref={form}
             onSubmit={sendEmail}
-            style={{ backgroundColor: "red", width: "50%" }}
-            className="col-lg-6 col-12 bg-color-feedbackform"
+            style={{ borderRadius: "8px" }}
+            className="col-lg-6 col-12 px-3 py-3 bg-color-feedbackform"
           >
             <div className="mb-3" style={{ marginTop: "2%" }}>
               <label for="user_name" className="form-label">
