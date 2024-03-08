@@ -1,4 +1,5 @@
 import authdata from "../Model/authdata.js";
+import bcrypt from "bcrypt";
 import express from "express";
 const router = express.Router();
 import jwt from "jsonwebtoken";
@@ -14,20 +15,25 @@ function getUserId(id) {
 // Login routes
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
-  let user;
+  // console.log(email, ' ', password);
+  let user, match;
   try {
-    user = await authdata.find({ Personal_Email: email, Password: password });
+    user = await authdata.findOne({ Personal_Email: email});
+    // console.log(user);
+    const hashedPassword = user.Password;
+    match = await bcrypt.compare(password, hashedPassword);
+    // console.log(match);
+    if (match) {
+      let Id = await proreferuser.find({ Personal_Email: email });
+      currentUserId = Id[0].User_ID;
+      const token = jwt.sign({ Personal_Email: user.Personal_Email }, secretKey);
+      res.json({ token });
+    } else {
+      res.json({ message: "Invalid email or password" });
+    }
+
   } catch (e) {
     console.log(e);
-  }
-  if (user) {
-    let Id = await proreferuser.find({ Personal_Email: email });
-    currentUserId = Id[0].User_ID;
-    const token = jwt.sign({ Personal_Email: user.Personal_Email }, secretKey);
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: "Invalid email or password" });
   }
 });
 

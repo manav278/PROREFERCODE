@@ -16,7 +16,7 @@ export default function Home() {
   const fetchUserData = async () => {
     try {
       const response = await axios.get("http://localhost:3003/api/dashboard");
-      console.log(response);
+      // console.log(response);
       setUserData(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);

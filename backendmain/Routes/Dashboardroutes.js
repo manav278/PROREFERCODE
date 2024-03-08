@@ -6,7 +6,7 @@ import proreferuser from "../Model/proreferuser.js";
 router.get("/dashboard", async (req, res) => {
   try {
     let ID = getUserId();
-    console.log(ID);
+    // console.log(ID);
     let userProfile = await proreferuser.find({ User_ID: ID });
     // console.log(userProfile[0]);
     res.status(200).json(userProfile[0]);
