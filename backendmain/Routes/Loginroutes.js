@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign({ Personal_Email: user.Personal_Email }, secretKey);
       res.json({ token });
     } else {
-      res.status(200).json({ message: "Invalid email or password" });
+      res.json({ message: "Invalid email or password" });
     }
 
   } catch (e) {
