@@ -27,9 +27,9 @@ export default function Login({ setLoggedIn }) {
           password,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.message === "Invalid email or password") {
-            alert("Invalid Username or password.Try to Login Again.");
+            alert("Invalid Username or password");
           } else {
             const { token } = res.data;
             localStorage.setItem("token", token); // Store token in local storage
