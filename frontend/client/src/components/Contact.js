@@ -61,6 +61,8 @@ export default function Contact() {
             {/* 910:643 */}
           </div>
           <form
+            ref={form}
+            onSubmit={sendEmail}
             style={{ backgroundColor: "red", width: "50%" }}
             className="col-lg-6 col-12 bg-color-feedbackform"
           >
