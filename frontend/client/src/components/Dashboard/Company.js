@@ -43,7 +43,7 @@ const Company = () => {
         >
           <ul className="list-group">
             {companyList
-              ? companyList.map((value, ind) => (
+              ? companyList.map((value) => (
                   <li
                     className="list-group-item text-light my-1"
                     style={{ backgroundColor: "#172b3d" }}

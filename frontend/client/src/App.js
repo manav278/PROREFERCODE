@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import MyContext from './MyContext';
+import MyContext from "./MyContext";
 import EditProfileForm from "./components/EditProfileForm";
 import "./App.css";
 import React, { useState, useEffect } from "react";
@@ -21,7 +21,7 @@ function App() {
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         const response = await axios.get("http://localhost:3003/api/verify");
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           setLoggedIn(true);
         } else {
@@ -44,34 +44,35 @@ function App() {
   };
 
   const passingObj = {
-    loggedIn, handleLogout,
+    loggedIn,
+    handleLogout,
   };
 
   return (
     <BrowserRouter>
-    <MyContext.Provider value={passingObj}>
-      <Routes>
-        <Route exact path="/" element={<MainHome />} />
-        <Route path="/form" element={<EditProfileForm />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/login"
-          element={
-            loggedIn ? (
-              <Navigate to="/dashboard" />
-            ) : (
-              <Login setLoggedIn={setLoggedIn} />
-            )
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={loggedIn ? <Home /> : <Navigate to="/login" />}
-        />
-      </Routes>
+      <MyContext.Provider value={passingObj}>
+        <Routes>
+          <Route exact path="/" element={<MainHome />} />
+          <Route path="/form" element={<EditProfileForm />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/login"
+            element={
+              loggedIn ? (
+                <Navigate to="/dashboard" />
+              ) : (
+                <Login setLoggedIn={setLoggedIn} />
+              )
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={loggedIn ? <Home /> : <Navigate to="/login" />}
+          />
+        </Routes>
       </MyContext.Provider>
     </BrowserRouter>
   );

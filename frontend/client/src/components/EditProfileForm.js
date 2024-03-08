@@ -9,14 +9,43 @@ const EditProfileForm = () => {
   const [loading, setLoading] = useState(true);
 
   const [showAlert, setShowAlert] = useState(true);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [personalEmail, setPersonalEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [workEmail, setWorkEmail] = useState("");
+  const [position, setPosition] = useState("");
 
   const handleDismiss = () => {
     setShowAlert(false);
   };
 
+  const getDetails = async () => {
+    try {
+      await axios
+        .post("http://localhost:3003/api/getEditProfileDetails")
+        .then((res) => {
+          // console.log(res.data);
+          res.data.Mobile_Number && setMobileNumber(res.data.Mobile_Number);
+          res.data.Personal_Email && setPersonalEmail(res.data.Personal_Email);
+          res.data.COMPANY_LOCATION && setLocation(res.data.COMPANY_LOCATION);
+          res.data.Work_Email && setWorkEmail(res.data.Work_Email);
+          res.data.Position && setPosition(res.data.Position);
+          res.data.Company_ID && setSelectedCompany(res.data.Company_ID);
+        });
+    } catch (e) {
+      console.log("Error occured: ", e);
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+
   const apiCall = async () => {
     try {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
+        // console.log(res.data);
         setCompanyList(res.data);
         setLoading(false);
         if (res.data.message === "Server Error") alert("Server Error");
@@ -29,18 +58,81 @@ const EditProfileForm = () => {
     apiCall();
   }, []);
 
-  // const companyList = [
-  //   { company: "Amazon" },
-  //   { company: "Microsoft" },
-  //   { company: "Google" },
-  //   { company: "Netflix" },
-  //   { company: "Meta" },
-  // ];
-  const [selectedCompany, setSelectedCompany] = useState(null);
-
   const handleSelect = (event) => {
+    // console.log(event.target.value);
     setSelectedCompany(event.target.value);
   };
+
+  const handleMobileChange = (event) => {
+    setMobileNumber(event.target.value);
+  };
+  const handlePersonalEmailChange = (event) => {
+    setPersonalEmail(event.target.value);
+  };
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
+  const handleWorkEmailChange = (event) => {
+    setWorkEmail(event.target.value);
+  };
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
+
+  const handleApplicantSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if ((mobileNumber && personalEmail && location)) {
+        await axios
+          .post("http://localhost:3003/api/updateApplicant", {
+            mobileNumber,
+            personalEmail,
+            location,
+          })
+          .then((res) => {
+            if (res.data.message === "Update successful")
+              alert("Applicant details successfully updated");
+            else if (res.data.message === "Internal server error from backend")
+              alert("Error updating details");
+          });
+      }else{
+        alert('Fields cannot be empty');
+      }
+    } catch (error) {
+      alert("Error updating details");
+      console.log(error);
+    }
+  };
+
+  const handleEmployeeSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (
+        (selectedCompany && position && workEmail) ||
+        (!selectedCompany && !position && !workEmail)
+      ) {
+        await axios
+          .post("http://localhost:3003/api/updateEmployee", {
+            workEmail,
+            position,
+            selectedCompany,
+          })
+          .then((res) => {
+            if (res.data.message === "Update successful")
+              alert("Employee details successfully updated");
+            else if (res.data.message === "Internal server error from backend")
+              alert("Error updating details");
+          });
+      } else {
+        alert("Correct format : (I) Either all field empty or filled ");
+      }
+    } catch (error) {
+      alert("Error updating details");
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <MainNav />
@@ -100,6 +192,8 @@ const EditProfileForm = () => {
                     type="tel"
                     class="form-control text-light bg-dark feedback-placeholder"
                     id="phone"
+                    value={mobileNumber}
+                    onChange={handleMobileChange}
                     placeholder="Enter Mobile Number"
                   />
                 </div>
@@ -111,6 +205,8 @@ const EditProfileForm = () => {
                     type="email"
                     class="form-control text-light bg-dark feedback-placeholder"
                     id="personalEmail"
+                    value={personalEmail}
+                    onChange={handlePersonalEmailChange}
                     placeholder="Enter Personal Email"
                   />
                 </div>
@@ -122,6 +218,8 @@ const EditProfileForm = () => {
                     type="text"
                     class="form-control text-light bg-dark feedback-placeholder"
                     id="location"
+                    value={location}
+                    onChange={handleLocationChange}
                     placeholder="Enter Location"
                   />
                 </div>
@@ -135,6 +233,7 @@ const EditProfileForm = () => {
                       paddingTop: "2%",
                       paddingBottom: "2%",
                     }}
+                    onClick={handleApplicantSubmit}
                   >
                     Submit
                   </button>
@@ -163,6 +262,8 @@ const EditProfileForm = () => {
                     type="email"
                     class="form-control text-light bg-dark feedback-placeholder"
                     id="workEmail"
+                    value={workEmail}
+                    onChange={handleWorkEmailChange}
                     placeholder="Enter Work Email"
                   />
                 </div>
@@ -174,6 +275,8 @@ const EditProfileForm = () => {
                     type="text"
                     class="form-control text-light bg-dark feedback-placeholder"
                     id="workPosition"
+                    value={position}
+                    onChange={handlePositionChange}
                     placeholder="Enter Work Position"
                   />
                 </div>
@@ -194,9 +297,13 @@ const EditProfileForm = () => {
                         }}
                       >
                         <option value="">Company</option>
-                        {companyList ? companyList.map((value, ind) => (
-                          <option value={ind}>{value.company}</option>
-                        )):"None"}
+                        {companyList
+                          ? companyList.map((value) => (
+                              <option key={value.id} value={value.id}>
+                                {value.company}
+                              </option>
+                            ))
+                          : "None"}
                       </select>
                     </div>
                   </div>
@@ -211,6 +318,7 @@ const EditProfileForm = () => {
                       paddingTop: "2%",
                       paddingBottom: "2%",
                     }}
+                    onClick={handleEmployeeSubmit}
                   >
                     Submit
                   </button>

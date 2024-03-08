@@ -4,6 +4,7 @@ import Loginroutes from "./Routes/Loginroutes.js";
 import Pdfroutes from "./Routes/Pdfroutes.js";
 import Dashboardroutes from "./Routes/Dashboardroutes.js";
 import Companyroutes from "./Routes/Companyroutes.js";
+import EditProfileRoutes from "./Routes/Editprofileroutes.js";
 import * as env from "dotenv";
 env.config();
 const app = express();
@@ -33,6 +34,7 @@ try {
   console.log(e);
 }
 app.use("/api", Loginroutes);
+app.use("/api", EditProfileRoutes);
 app.use("/api", Pdfroutes);
 app.use("/api", Dashboardroutes);
 app.use("/api", Companyroutes);
