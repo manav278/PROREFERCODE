@@ -8,6 +8,26 @@ export default function Contact() {
   // service_id=service_owt5xga
   // template_id=template_utm62cj;
   // publicKey=k_w4S-5BYB0KmuOvO
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_owt5xga", "template_utm62cj", form.current, {
+        publicKey: "k_w4S-5BYB0KmuOvO",
+      })
+      .then(
+        () => {
+          alert(
+            "Successfully Feedbackmail sended to prorefer.team@gmail.com!!!"
+          );
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          alert("Please try again later.");
+        }
+      );
+  };
 
   return (
     // style={{display:'grid', alignContent:'center', justifyContent:'center'}}
