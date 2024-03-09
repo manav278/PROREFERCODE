@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Db = () => {
   const [showUpload, setShowUpload] = useState(false);
@@ -8,29 +9,29 @@ const Db = () => {
   const handleShow = () => {
     setShowUpload(!showUpload);
   };
-  const viewResume = async() => {
+  const viewResume = async () => {
     try {
-      const response = await axios.get('http://localhost:3003/api/getPdf', {
-        responseType: 'blob', // Use blob responseType to handle binary data
+      const response = await axios.get("http://localhost:3003/api/getPdf", {
+        responseType: "blob", // Use blob responseType to handle binary data
       });
 
       // Create a Blob object from the binary data
-      const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+      const pdfBlob = new Blob([response.data], { type: "application/pdf" });
 
       // Create a URL for the Blob object
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
       // Use the download attribute to trigger a download of the PDF file
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = pdfUrl;
-      link.setAttribute('download', 'file.pdf'); // Specify the file name here
+      link.setAttribute("download", "file.pdf"); // Specify the file name here
       document.body.appendChild(link);
       link.click();
 
       // Clean up by revoking the URL object
       URL.revokeObjectURL(pdfUrl);
     } catch (error) {
-      console.error('Error fetching PDF:', error);
+      console.error("Error fetching PDF:", error);
     }
   };
   const handleUpload = async () => {
@@ -85,7 +86,12 @@ const Db = () => {
             </p>
 
             <button type="button" class="btn btn-primary border-light">
-              Request Referral
+              <Link
+                to="/requestreferral"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Request Referral
+              </Link>
             </button>
           </div>
         </div>

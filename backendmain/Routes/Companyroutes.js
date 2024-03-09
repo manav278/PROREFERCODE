@@ -1,5 +1,6 @@
 import express from "express";
 import Company from "../Model/companydata.js";
+import { error } from "console";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get("/getCompany", async (req, res) => {
     res.json(transformedData);
   } catch (error) {
     console.error("Error fetching items:", error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(200).json({ message: "Server Error" });
   }
 });
 

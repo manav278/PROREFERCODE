@@ -11,6 +11,7 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import axios from "axios";
+import Requestreferral from "./components/Requestreferral";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -71,6 +72,10 @@ function App() {
           <Route
             path="/dashboard"
             element={loggedIn ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/requestreferral"
+            element={<Requestreferral></Requestreferral>}
           />
         </Routes>
       </MyContext.Provider>
