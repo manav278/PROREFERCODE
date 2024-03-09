@@ -71,12 +71,10 @@ router.post("/updateApplicant", async (req, res) => {
     const { mobileNumber, personalEmail, location, isPersonalEmailChanged } =
       req.body;
     let ID = getUserId();
-    console.log(isPersonalEmailChanged);
     let oldEmail;
     if (isPersonalEmailChanged) {
       let oldUser = await proreferuser.findOne({ User_ID: ID });
       oldEmail = oldUser.Personal_Email;
-      console.log('oldEmail: ', oldEmail);
     }
     await proreferuser.findOneAndUpdate(
       { User_ID: ID },
@@ -101,7 +99,6 @@ router.post("/updateApplicant", async (req, res) => {
 router.post("/updateEmployee", async (req, res) => {
   try {
     const { workEmail, position, selectedCompany } = req.body;
-    // console.log(workEmail, position, selectedCompany);
     let ID = getUserId();
     await proreferuser.findOneAndUpdate(
       { User_ID: ID },
@@ -120,7 +117,6 @@ router.post("/requestOtp", async (req, res) => {
     let { encryptedOTP, salt } = await sendOTPByEmail(personalEmail);
     globalEncryptedOTP = encryptedOTP;
     globalSalt = salt;
-    console.log(encryptedOTP);
     res.json({ message: "Otp sent" });
   } catch (error) {
     console.log("Error: ", error);
