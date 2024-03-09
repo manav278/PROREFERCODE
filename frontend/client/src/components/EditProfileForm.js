@@ -1,11 +1,20 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import axios from "axios";
+import MyContext from '../MyContext';
 
 const EditProfileForm = () => {
+  const {handleLogout} = useContext(MyContext);
+  const navigate = useNavigate();
+  const [globalPersonalEmail, setGlobalPersonalEmail] = useState("");
+  const [isPersonalEmailChanged, setIsPersonalEmailChanged] = useState(false);
+  const [getotpButtonClicked, setGetOtpButtonClicked] = useState(false);
   const [companyList, setCompanyList] = useState([]);
+  const [otp, setOtp] = useState("");
+  const [otpVerified, setOtpVerified] = useState(true);
   const [loading, setLoading] = useState(true);
 
   const [showAlert, setShowAlert] = useState(true);
@@ -29,6 +38,8 @@ const EditProfileForm = () => {
           // console.log(res.data);
           res.data.Mobile_Number && setMobileNumber(res.data.Mobile_Number);
           res.data.Personal_Email && setPersonalEmail(res.data.Personal_Email);
+          res.data.Personal_Email &&
+            setGlobalPersonalEmail(res.data.Personal_Email);
           res.data.COMPANY_LOCATION && setLocation(res.data.COMPANY_LOCATION);
           res.data.Work_Email && setWorkEmail(res.data.Work_Email);
           res.data.Position && setPosition(res.data.Position);
@@ -66,7 +77,15 @@ const EditProfileForm = () => {
   const handleMobileChange = (event) => {
     setMobileNumber(event.target.value);
   };
-  const handlePersonalEmailChange = (event) => {
+
+  useEffect(() => {
+    if (globalPersonalEmail !== personalEmail) {
+      setIsPersonalEmailChanged(true);
+      setOtpVerified(false);
+    } else setIsPersonalEmailChanged(false);
+  }, [personalEmail, globalPersonalEmail]);
+
+  const handlePersonalEmailChange = async (event) => {
     setPersonalEmail(event.target.value);
   };
   const handleLocationChange = (event) => {
@@ -80,24 +99,82 @@ const EditProfileForm = () => {
     setPosition(event.target.value);
   };
 
+  const handleGetOTP = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:3003/api/requestOtp", { personalEmail })
+        .then((res) => {
+          if (res.data.message === "Otp sent") {
+            setGetOtpButtonClicked(true);
+            alert("OTP sent successfully to your changed Email address");
+          }
+        });
+    } catch (error) {
+      console.log("Error requesting OTP: ", error);
+    }
+  };
+
+  const handleSubmitOtp = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:3003/api/verifyOtp", { otp })
+        .then((res) => {
+          if (res.data.message === "Otp verified") {
+            alert("OTP verified successfully");
+            setGetOtpButtonClicked(false);
+            // setIsPersonalEmailChanged(false);
+            setOtpVerified(true);
+          } else {
+            alert("OTP incorrect! Try again");
+          }
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
+
   const handleApplicantSubmit = async (e) => {
     try {
       e.preventDefault();
-      if ((mobileNumber && personalEmail && location)) {
+      if (otpVerified === false) {
+        alert("Verify OTP first, as your email is changed");
+        return;
+      }
+      if (mobileNumber && personalEmail && location) {
         await axios
           .post("http://localhost:3003/api/updateApplicant", {
             mobileNumber,
             personalEmail,
             location,
+            isPersonalEmailChanged
           })
           .then((res) => {
             if (res.data.message === "Update successful")
+            {
+              if(isPersonalEmailChanged)
+              {
+                alert("Applicant details successfully updated, please login again");
+                setIsPersonalEmailChanged(false);
+                setOtpVerified(true);
+                handleLogout();
+                navigate('/login');
+                // <Navigate to="/login" />
+              }
+              else{
               alert("Applicant details successfully updated");
+              }
+            }
             else if (res.data.message === "Internal server error from backend")
               alert("Error updating details");
           });
-      }else{
-        alert('Fields cannot be empty');
+      } else {
+        alert("Fields cannot be empty");
       }
     } catch (error) {
       alert("Error updating details");
@@ -223,6 +300,53 @@ const EditProfileForm = () => {
                     placeholder="Enter Location"
                   />
                 </div>
+                {isPersonalEmailChanged && !getotpButtonClicked && (
+                  <div className="my-4">
+                    <button
+                      className="btn-primary text-light bg-success"
+                      style={{
+                        borderRadius: "5px",
+                        paddingLeft: "3%",
+                        paddingRight: "3%",
+                        paddingTop: "2%",
+                        paddingBottom: "2%",
+                      }}
+                      onClick={handleGetOTP}
+                    >
+                      Get OTP
+                    </button>
+                  </div>
+                )}
+                {/* --------------------------------------------------------------------- */}
+                {isPersonalEmailChanged && getotpButtonClicked && (
+                  <div className="my-4">
+                    <div className="row">
+                      <input
+                        className="col-5"
+                        type="text"
+                        class="form-control text-light bg-dark feedback-placeholder mx-3"
+                        id="otp"
+                        value={otp}
+                        onChange={handleOtpChange}
+                        placeholder="Enter OTP"
+                        style={{ width: "50%" }}
+                      />
+                      <button
+                        className="col-5 btn-primary text-light bg-success"
+                        style={{
+                          borderRadius: "5px",
+                          paddingLeft: "3%",
+                          paddingRight: "3%",
+                          paddingTop: "2%",
+                          paddingBottom: "2%",
+                        }}
+                        onClick={handleSubmitOtp}
+                      >
+                        Verify OTP
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <div className="my-4">
                   <button
                     className="btn-feedback-form bg-success"
