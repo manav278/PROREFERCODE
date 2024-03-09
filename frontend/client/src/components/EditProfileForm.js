@@ -5,6 +5,9 @@ import Footer from "./Footer";
 import axios from "axios";
 
 const EditProfileForm = () => {
+  const [globalPersonalEmail, setGlobalPersonalEmail]=useState("");
+  const [isPersonalEmailChanged, setIsPersonalEmailChanged] = useState(false);
+
   const [companyList, setCompanyList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +32,7 @@ const EditProfileForm = () => {
           // console.log(res.data);
           res.data.Mobile_Number && setMobileNumber(res.data.Mobile_Number);
           res.data.Personal_Email && setPersonalEmail(res.data.Personal_Email);
+          res.data.Personal_Email && (setGlobalPersonalEmail(res.data.Personal_Email));
           res.data.COMPANY_LOCATION && setLocation(res.data.COMPANY_LOCATION);
           res.data.Work_Email && setWorkEmail(res.data.Work_Email);
           res.data.Position && setPosition(res.data.Position);
@@ -66,7 +70,15 @@ const EditProfileForm = () => {
   const handleMobileChange = (event) => {
     setMobileNumber(event.target.value);
   };
-  const handlePersonalEmailChange = (event) => {
+
+  useEffect(()=>{
+    if(globalPersonalEmail!==personalEmail)
+      setIsPersonalEmailChanged(true);
+    else
+      setIsPersonalEmailChanged(false);
+  },[personalEmail, globalPersonalEmail])
+
+  const handlePersonalEmailChange = async(event) => {
     setPersonalEmail(event.target.value);
   };
   const handleLocationChange = (event) => {
@@ -78,6 +90,10 @@ const EditProfileForm = () => {
   };
   const handlePositionChange = (event) => {
     setPosition(event.target.value);
+  };
+
+  const handleGetOTP = async() => {
+    alert("HandleOTP called");
   };
 
   const handleApplicantSubmit = async (e) => {
@@ -223,6 +239,23 @@ const EditProfileForm = () => {
                     placeholder="Enter Location"
                   />
                 </div>
+                { isPersonalEmailChanged &&
+                <div className="my-4">
+                  <button
+                    className="btn-primary text-light bg-success"
+                    style={{
+                      borderRadius: "5px",
+                      paddingLeft: "3%",
+                      paddingRight: "3%",
+                      paddingTop: "2%",
+                      paddingBottom: "2%",
+                    }}
+                    onClick={handleGetOTP}
+                  >
+                    Get OTP
+                  </button>
+                </div>
+                }
                 <div className="my-4">
                   <button
                     className="btn-feedback-form bg-success"
