@@ -20,7 +20,7 @@ router.post("/login", async (req, res) => {
   let user, match;
   try {
     user = await authdata.findOne({ Personal_Email: email });
-    console.log(user);
+    // console.log(user);
     const hashedPassword = user.Password;
     match = await bcrypt.compare(password, hashedPassword);
     // console.log(match);
@@ -52,9 +52,9 @@ router.get("/verify", (req, res) => {
     if (err)
       return res.status(403).json({ message: "JWT not verified properly." });
     let email = jwtDecode(token).Personal_Email;
-    console.log(email);
+    // console.log(email);
     let x = await proreferuser.find({ Personal_Email: email });
-    console.log(x);
+    // console.log(x);
     currentUserId = x[0].User_ID;
     return res.status(200).json({ message: "JWT verified properly." });
   });
