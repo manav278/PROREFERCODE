@@ -250,7 +250,7 @@ const EditProfileForm = () => {
         style={{ marginTop: "3%", marginBottom: "3%" }}
       >
         <div className="row gx-5s">
-          <div className="col-md-6 col-12 align-items-center">
+          <div className="col-md-6 col-12 align-items-center my-md-1 my-4 mx-md-0 mx-3" style={{marginLeft:'7%'}}>
             <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
               <h4 className="merriweather-regular">Applicant Credentials</h4>
             </div>
@@ -366,7 +366,7 @@ const EditProfileForm = () => {
             </div>
           </div>
           {/* <div className="col-2"></div> */}
-          <div className="col-md-6 col-12">
+          <div className="col-md-6 col-12 my-md-1 my-4 mx-md-0 mx-3">
             <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
               <h4 className="merriweather-regular">Employee Credentials</h4>
             </div>
