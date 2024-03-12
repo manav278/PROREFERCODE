@@ -34,46 +34,47 @@ export default function Requestreferral() {
   async function submit(e) {
     e.preventDefault();
     let response = null;
-    try {
-      response = await axios
-        .post("http://localhost:3003/api/requestref", {
-          position,
-          selectedCompany,
-          country,
-          url,
-        })
-        .then((res) => {
-          if (res.data.message === "Information taken successfully.") {
-            alert("Information taken successfully.");
-          }
-          if (res.data.message === "Server Error") {
-            alert("Please Try Again Later.");
-          }
-          if (
-            res.data.message ===
-            "Please fill the values properly.Some values are Null"
-          ) {
-            alert("Please fill the values properly.Values are Null");
-          }
-        });
-    } catch (e) {
-      console.log("Error Generated : ", e);
+    if (selectedCompany == null) {
+      alert("Please select company.");
+    } else {
+      try {
+        response = await axios
+          .post("http://localhost:3003/api/requestref", {
+            position,
+            selectedCompany,
+            country,
+            url,
+          })
+          .then((res) => {
+            if (res.data.message === "Information taken successfully.") {
+              alert("Information taken successfully.");
+            }
+            if (res.data.message === "Server Error") {
+              alert("Please Try Again Later.");
+            }
+            if (
+              res.data.message ===
+              "Please fill the values properly.Some values are Null"
+            ) {
+              alert("Please fill the values properly.Values are Null");
+            }
+          });
+      } catch (e) {
+        console.log("Error Generated : ", e);
+      }
     }
   }
   return (
     <>
       <MainNav></MainNav>
-      {/* <div className="container text-center">
+      <div className="container text-center">
         <div className="row text-light">
           <div className="col-12">
-            <h4 className="merriweather-regular">
-              You can directly contact us at{" "}
-              <span className="text-primary">prorefer.team@gmail.com</span> or
-              in case of any feedbacks, fill the below form
-            </h4>
+            <h1 className="text-primary" style={{marginTop:"2%"}}>Apply for Referral
+            </h1>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className="container" style={{ marginTop: "5%" }}>
         <div className="row text-dark">
