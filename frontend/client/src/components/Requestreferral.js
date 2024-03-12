@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import "../App.css";
 import referral from "./assets/referral.jpg";
 export default function Requestreferral() {
+  const navigate = useNavigate();
   const [position, setPosition] = useState("");
   const [country, setCountry] = useState("");
   const [url, setUrl] = useState("");
@@ -14,7 +16,7 @@ export default function Requestreferral() {
   const apiCall = async () => {
     try {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.message === "Server Error") {
           alert("Server Error");
         }
@@ -46,8 +48,20 @@ export default function Requestreferral() {
             url,
           })
           .then((res) => {
-            if (res.data.message === "Information taken successfully.") {
-              alert("Information taken successfully.");
+            if (res.data.message === "Error processing request") {
+              alert("Error processing request. Please try again later");
+              navigate("/dashboard");
+            }
+            if (
+              res.data.message ===
+              "Referrals Requested This Month Limit Exceeded"
+            ) {
+              alert("Your monthly limit has already exhausted");
+            }
+            if (res.data.message === "Request received successfully") {
+              alert("Request received successfully");
+              axios.get("http://localhost:3003/api/process-request");
+              navigate("/dashboard");
             }
             if (res.data.message === "Server Error") {
               alert("Please Try Again Later.");
@@ -70,7 +84,8 @@ export default function Requestreferral() {
       <div className="container text-center">
         <div className="row text-light">
           <div className="col-12">
-            <h1 className="text-primary" style={{marginTop:"2%"}}>Apply for Referral
+            <h1 className="text-primary" style={{ marginTop: "2%" }}>
+              Apply for Referral
             </h1>
           </div>
         </div>

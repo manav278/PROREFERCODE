@@ -9,7 +9,7 @@ import proreferuser from "../Model/proreferuser.js";
 const expiresIn = 20;
 let currentUserId;
 
-function getUserId(id) {
+function getUserId() {
   return currentUserId;
 }
 

@@ -30,3 +30,5 @@ async function filterByLocation(requestedLocation) {
     console.error("Error fetching employees:", error);
   }
 }
+
+export default filterByLocation;
