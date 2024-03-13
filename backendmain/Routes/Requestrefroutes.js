@@ -42,8 +42,8 @@ router.post("/requestref", async (req, res) => {
           const updateUser = await users.findOneAndUpdate(
             { User_ID: y },
             {
-              Referrals_Requested_ThisMonth: (a+1),
-              Total_Referrals_Requested: (b+1),
+              Referrals_Requested_ThisMonth: a + 1,
+              Total_Referrals_Requested: b + 1,
             },
             { new: true }
           );

@@ -52,8 +52,8 @@ const request = async (position, company, requestedLocation, url) => {
       const employee = await proreferusers.findOne({ User_ID: intResult });
       const employeeEmail = employee.Work_Email;
       const applicantId = await getUserId();
-      const reqdate = await requestdate();
-
+      const reqdate = await requestdate(); //date in number format
+      const Emp_LRD = employee.Last_Referral_Date;
       //   --------------------------------------------
 
       let lengthOfSchema;
@@ -74,6 +74,7 @@ const request = async (position, company, requestedLocation, url) => {
             Job_Portal_Url: url,
             Denial_Count: 0,
             No_Reply_Count: 0,
+            Employee_LRD: Emp_LRD,
           });
 
           // Save the new user to the database
@@ -86,12 +87,38 @@ const request = async (position, company, requestedLocation, url) => {
               console.error("Error saving user:", err);
             });
 
+          // ----------------------------------- Employee updated
+
+          proreferusers
+            .findOneAndUpdate(
+              { User_ID: intResult },
+              {
+                $inc: {
+                  Referrals_Reviewed_ThisMonth: 1,
+                  Total_Referrals_Reviewed: 1
+                },
+                $set:{
+                  Last_Referral_Date: reqdate,
+                }
+              },
+              { new: true }
+            )
+            .then((updatedUser) => {
+              if (!updatedUser) {
+                console.error(`No user found with User_ID: ${intResult}`);
+                return;
+              }
+              // console.log("Updated user:", updatedUser);
+            })
+            .catch((error) => {
+              console.error("Error updating user:", error);
+            });
+
+          //------------------------------------ Email
           const applicantToSend = await proreferusers.findOne({
             User_ID: applicantId,
           });
           let applicantEmail = applicantToSend.Personal_Email;
-          // console.log(applicantEmail);
-          // console.log(employeeEmail);
           firstSuccessfulToApplicant(applicantEmail);
           firstSuccessfulToEmployee(employeeEmail);
         })

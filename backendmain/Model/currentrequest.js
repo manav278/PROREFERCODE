@@ -26,6 +26,7 @@ const currentRequestsSchema = new mongoose.Schema({
   Job_Portal_Url: String,
   Denial_Count: Number,
   No_Reply_Count: Number,
+  Employee_LRD: Number //Employee last referral date
 });
 
 const currReqModel = mongoose.model("current-request", currentRequestsSchema);

@@ -11,12 +11,21 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function generateMessageId() {
+  return `<${Date.now()}@gmail.com>`;
+}
+
 const sendEmail = async (email, email_subject, body) => {
+  const messageId = generateMessageId();
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
     subject: email_subject,
     text: body,
+    messageId: messageId,
+    headers: {
+      "Message-ID": messageId,
+    },
   };
 
   try {
@@ -27,22 +36,29 @@ const sendEmail = async (email, email_subject, body) => {
   }
 };
 
-const firstSuccessfulToApplicant = async(email) => {
-    let email_subject="Referral request successfully proccessed";
-    let email_body="We're pleased to inform you that your referral request has been successfully processed. You can expect a response within 4 days.";
-    sendEmail(email,email_subject, email_body);
-}
+const firstSuccessfulToApplicant = async (email) => {
+  let email_subject = "Referral request successfully proccessed";
+  let email_body =
+    "We're pleased to inform you that your referral request has been successfully processed. You can expect a response within 4 days.";
+  sendEmail(email, email_subject, email_body);
+};
 
-const firstSuccessfulToEmployee = async(email) => {
-    let email_subject="Referral request received";
-    let email_body="You have one pending referral request! Please attend to it within 24 hours, as the request will expire after this time.";
-    sendEmail(email,email_subject, email_body);
-}
+const firstSuccessfulToEmployee = async (email) => {
+  let email_subject = "Referral request received";
+  let email_body =
+    "You have one pending referral request! Please attend to it within 24 hours, as the request will expire after this time.";
+  sendEmail(email, email_subject, email_body);
+};
 
-const firstFailToApplicant = async(email) => {
-    let email_subject="Referral request failed";
-    let email_body="We regret to inform you that we are currently unable to process your referral request due to the temporary unavailability of employees who can assist you. Please try again later.";
-    sendEmail(email,email_subject, email_body);
-}
+const firstFailToApplicant = async (email) => {
+  let email_subject = "Referral request failed";
+  let email_body =
+    "We regret to inform you that we are currently unable to process your referral request due to the temporary unavailability of employees who can assist you. Please try again later.";
+  sendEmail(email, email_subject, email_body);
+};
 
-export {firstSuccessfulToApplicant, firstSuccessfulToEmployee, firstFailToApplicant};
+export {
+  firstSuccessfulToApplicant,
+  firstSuccessfulToEmployee,
+  firstFailToApplicant,
+};
