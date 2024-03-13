@@ -29,7 +29,8 @@ router.post("/requestref", async (req, res) => {
       global_country = country;
       global_url = url;
       const user = await users.findOne({ User_ID: getUserId() });
-      const a = (user.Referrals_Requested_ThisMonth+1);
+      const a = user.Referrals_Requested_ThisMonth;
+      const b = user.Total_Referrals_Requested;
       if (a >= 3) {
         res
           .status(200)
@@ -37,19 +38,18 @@ router.post("/requestref", async (req, res) => {
       } else {
         try {
           const y = await getUserId();
-          console.log("Line 40 routes");
+          // console.log("Line 40 routes");
           const updateUser = await users.findOneAndUpdate(
             { User_ID: y },
             {
-              $inc: {
-                Referrals_Requested_ThisMonth: a,
-              },
+              Referrals_Requested_ThisMonth: (a+1),
+              Total_Referrals_Requested: (b+1),
             },
             { new: true }
           );
         } catch (error) {
           console.log(
-            "Error while updating ReferralsRequestedThisMonth: ",
+            "Error while updating ReferralsRequestedThisMonth/ TotalReferralsRequested: ",
             error
           );
           res.status(200).json({ message: "Error processing request" });

@@ -3,12 +3,49 @@ import proreferusers from "../Model/proreferuser.js";
 import currentrequest from "../Model/currentrequest.js";
 import { getUserId } from "../Routes/Loginroutes.js";
 import requestdate from "./date.js";
+import {
+  firstSuccessfulToApplicant,
+  firstSuccessfulToEmployee,
+  firstFailToApplicant,
+} from "./nodemailer.js";
+
 const request = async (position, company, requestedLocation, url) => {
   try {
     const result = await algo(requestedLocation, company);
     const intResult = Number(result);
     if (intResult === -1) {
-      console.log("No employee found");
+      try {
+        const applicantId = await getUserId();
+        console.log("The applicantid is : ", applicantId);
+        const applicantToSend = await proreferusers.findOne({
+          User_ID: applicantId,
+        });
+        proreferusers
+          .findOneAndUpdate(
+            { User_ID: applicantId },
+            {
+              $inc: {
+                Referrals_Requested_ThisMonth: -1,
+                Total_Referrals_Requested: -1,
+              },
+            },
+            { new: true }
+          )
+          .then((updatedUser) => {
+            if (!updatedUser) {
+              console.error(`No user found with User_ID: ${applicantId}`);
+              return;
+            }
+            console.log("Updated user:", updatedUser);
+          })
+          .catch((error) => {
+            console.error("Error updating user:", error);
+          });
+        let applicantEmail = applicantToSend.Personal_Email;
+        firstFailToApplicant(applicantEmail);
+      } catch (error) {
+        console.log("Error while employee not found for 1st request: ", error);
+      }
     } else {
       // --------------------------------------------
 
@@ -22,7 +59,7 @@ const request = async (position, company, requestedLocation, url) => {
       let lengthOfSchema;
       currentrequest
         .countDocuments({})
-        .then((count) => {
+        .then(async (count) => {
           lengthOfSchema = count + 1;
           const newCurrentRequest = new currentrequest({
             Referral_ID: lengthOfSchema,
@@ -43,11 +80,20 @@ const request = async (position, company, requestedLocation, url) => {
           newCurrentRequest
             .save()
             .then(() => {
-              console.log("Current Request tuple saved successfully");
+              // console.log("Current Request tuple saved successfully");
             })
             .catch((err) => {
               console.error("Error saving user:", err);
             });
+
+          const applicantToSend = await proreferusers.findOne({
+            User_ID: applicantId,
+          });
+          let applicantEmail = applicantToSend.Personal_Email;
+          // console.log(applicantEmail);
+          // console.log(employeeEmail);
+          firstSuccessfulToApplicant(applicantEmail);
+          firstSuccessfulToEmployee(employeeEmail);
         })
         .catch((err) => {
           console.log("Error in counting length of currentReq schema", err);
