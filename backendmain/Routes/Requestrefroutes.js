@@ -2,6 +2,8 @@ import express from "express";
 import Company from "../Model/companydata.js";
 import users from "../Model/proreferuser.js";
 import { getUserId } from "./Loginroutes.js";
+import request from "../Algorithm/request.js";
+
 const router = express.Router();
 let global_position;
 let global_selectedCompany;
@@ -9,8 +11,8 @@ let global_country;
 let global_url;
 
 router.get("/process-request", async (req, res) => {
-  console.log("In process request");
-  console.log(global_country);
+  // request("FSD", 2, "India", "URL");
+  request(global_position, global_selectedCompany, global_country, global_url);
 });
 
 router.post("/requestref", async (req, res) => {
@@ -27,20 +29,20 @@ router.post("/requestref", async (req, res) => {
       global_country = country;
       global_url = url;
       const user = await users.findOne({ User_ID: getUserId() });
-      const a = user.Referrals_Requested_ThisMonth;
+      const a = (user.Referrals_Requested_ThisMonth+1);
       if (a >= 3) {
         res
           .status(200)
           .json({ message: "Referrals Requested This Month Limit Exceeded" });
       } else {
         try {
-          const y = getUserId();
+          const y = await getUserId();
+          console.log("Line 40 routes");
           const updateUser = await users.findOneAndUpdate(
             { User_ID: y },
             {
               $inc: {
-                Referrals_Requested_ThisMonth:
-                  user.Referrals_Requested_ThisMonth,
+                Referrals_Requested_ThisMonth: a,
               },
             },
             { new: true }

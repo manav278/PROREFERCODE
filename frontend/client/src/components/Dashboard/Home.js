@@ -111,7 +111,7 @@ export default function Home() {
                         <p>Monthly Requests Received</p>
                       </td>
                       <td>
-                        <p>{userData.COMPANY_LOCATION}</p>
+                        <p>{userData.Referrals_Reviewed_ThisMonth}</p>
                       </td>
                     </tr>
                     <tr>

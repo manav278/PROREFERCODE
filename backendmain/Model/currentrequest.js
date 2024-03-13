@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const currentRequestsSchema = new mongoose.Schema({
   Referral_ID: {
