@@ -5,7 +5,7 @@ import Pdfroutes from "./Routes/Pdfroutes.js";
 import Dashboardroutes from "./Routes/Dashboardroutes.js";
 import Companyroutes from "./Routes/Companyroutes.js";
 import EditProfileRoutes from "./Routes/Editprofileroutes.js";
-
+import testRouter from "./Routes/Accept.js";
 import Requestrefroutes from "./Routes/Requestrefroutes.js";
 import * as env from "dotenv";
 env.config();
@@ -40,6 +40,7 @@ app.use("/api", EditProfileRoutes);
 app.use("/api", Pdfroutes);
 app.use("/api", Dashboardroutes);
 app.use("/api", Companyroutes);
+app.use("/test", testRouter);
 
 app.use("/api", Requestrefroutes);
 const port = process.env.PORT || 3003;

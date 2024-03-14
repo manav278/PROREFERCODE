@@ -1,28 +1,28 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const historySchema = new mongoose.Schema({
-    Referral_ID: {
-        type:Number,
-        require:true,
-        unique:true
-    },
-    Employee_ID: {
-        type:Number,
-        require:true
-    },
-    Applicant_ID: {
-        type: Number,
-        require: true
-    },
-    Company_ID:{
-        type: Number,
-        require: true
-    },
-    Date: Number,
-    Position: String,
-    Result: String
+  Referral_ID: {
+    unique: true,
+    type: Number,
+    required: true,
+  },
+  Employee_ID: {
+    type: Number,
+    required: true,
+  },
+  Applicant_ID: {
+    type: Number,
+    required: true,
+  },
+  Company_ID: {
+    type: Number,
+    required: true,
+  },
+  date: Number,
+  Position: String,
+  result: String,
 });
 
-const historyModel = mongoose.model('referral-history', historySchema);
+const historyModel = mongoose.model("ref-histories", historySchema);
 
 export default historyModel;
