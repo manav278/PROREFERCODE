@@ -10,7 +10,7 @@ const Counter = mongoose.model("Counter", counterSchema);
 async function initCounter(sequenceName) {
   await Counter.findOneAndUpdate(
     { _id: sequenceName },
-    { $setOnInsert: { sequence_value: 0 } },
+    { $setOnInsert: { sequence_value: 4 } },
     { upsert: true }
   );
 }

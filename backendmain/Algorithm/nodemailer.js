@@ -57,8 +57,16 @@ const firstFailToApplicant = async (email) => {
   sendEmail(email, email_subject, email_body);
 };
 
+const acceptedToApplicant = async (email) => {
+  let email_subject = "Referral approved";
+  let email_body =
+    "Congratulations! We're pleased to inform you that your referral request has been approved by an employee at your desired company. You've been referred for the requested job role. The ProRefer team wishes you the best for the next steps in the process.";
+  sendEmail(email, email_subject, email_body);
+};
+
 export {
   firstSuccessfulToApplicant,
   firstSuccessfulToEmployee,
   firstFailToApplicant,
+  acceptedToApplicant
 };

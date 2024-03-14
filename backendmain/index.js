@@ -43,7 +43,7 @@ app.use("/api", EditProfileRoutes);
 app.use("/api", Pdfroutes);
 app.use("/api", Dashboardroutes);
 app.use("/api", Companyroutes);
-app.use("/test", testRouter);
+app.use("/api", testRouter);
 app.use("/api", Receivedroutes);
 app.use("/api", Requestrefroutes);
 app.use("/api", Sentroutes);
