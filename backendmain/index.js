@@ -7,6 +7,7 @@ import Companyroutes from "./Routes/Companyroutes.js";
 import EditProfileRoutes from "./Routes/Editprofileroutes.js";
 import testRouter from "./Routes/Accept.js";
 import Sentroutes from "./Routes/Sentroutes.js";
+import Receivedroutes from "./Routes/Receivedroutes.js";
 
 import Requestrefroutes from "./Routes/Requestrefroutes.js";
 import * as env from "dotenv";
@@ -43,7 +44,7 @@ app.use("/api", Pdfroutes);
 app.use("/api", Dashboardroutes);
 app.use("/api", Companyroutes);
 app.use("/test", testRouter);
-
+app.use("/api", Receivedroutes);
 app.use("/api", Requestrefroutes);
 app.use("/api", Sentroutes);
 const port = process.env.PORT || 3003;
