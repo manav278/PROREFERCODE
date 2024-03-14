@@ -21,6 +21,7 @@ const historySchema = new mongoose.Schema({
   date: Number,
   Position: String,
   result: String,
+  Company_Name: String,
 });
 
 const historyModel = mongoose.model("ref-histories", historySchema);

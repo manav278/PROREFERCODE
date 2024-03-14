@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const Sent = ({ currentRequest, pastRequest }) => {
+const Sent = () => {
+  const currentRequest = [];
+  const [pastRequest, setPastRequest] = useState([]);
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/sent");
+      setPastRequest(response.data);
+    } catch (error) {
+      console.error("Error fetching PastRequest Sent data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+  console.log("Manav");
+
   return (
     <div className="container">
       <div className="row">
@@ -111,21 +127,23 @@ const Sent = ({ currentRequest, pastRequest }) => {
                             <b style={{ color: "yellowgreen" }}>
                               Referral ID:{" "}
                             </b>
-                            {ob.name}
+                            {ob.Referral_ID}
                           </div>
                           <div>
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {ob.date}
+                            {ob.Date}
                           </div>
                         </div>
 
                         {/* ---------------------------------------------- */}
 
                         <div className="col-4">
-                          <div style={{ marginBottom: "2%" }}>{ob.company}</div>
-                          <div>{ob.pos}</div>
+                          <div style={{ marginBottom: "2%" }}>
+                            {ob.Company_ID}
+                          </div>
+                          <div>{ob.Position}</div>
                         </div>
 
                         {/* ---------------------------------------------- */}
@@ -133,9 +151,9 @@ const Sent = ({ currentRequest, pastRequest }) => {
                         <div className="col-4">
                           <button
                             className={`text-light ${
-                              ob.result === "Not Referred"
+                              ob.Result === "Not Referred"
                                 ? "bg-warning text-dark"
-                                : ob.result === "Referred"
+                                : ob.Result === "Referred"
                                 ? "bg-success"
                                 : "bg-danger"
                             }`}
@@ -145,7 +163,7 @@ const Sent = ({ currentRequest, pastRequest }) => {
                               margin: "6%",
                             }}
                           >
-                            {ob.result}
+                            {ob.Result}
                           </button>
                         </div>
                       </div>
