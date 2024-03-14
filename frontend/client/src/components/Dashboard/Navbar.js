@@ -180,7 +180,7 @@ const CustomNavbar = () => {
       <hr style={{ color: "white" }} />
       {mode === "Dashboard" && <Db />}
       {mode === "Received" && <Received currentRequest={currentRequest} pastRequest={pastRequest}/>}
-      {mode === "Sent" && <Sent currentRequest={currentRequest} pastRequest={pastRequest}/>}
+      {mode === "Sent" && <Sent currentRequest={currentRequest}/>}
       {mode === "Company" && <Company />}
     </div>
   );
