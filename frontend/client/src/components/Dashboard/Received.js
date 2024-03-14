@@ -1,6 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../App.css";
-const Received = ({ currentRequest, pastRequest }) => {
+const Received = () => {
+  const currentRequest = [];
+  const [pastRequest, setPastRequest] = useState([]);
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/receive");
+      const formattedData = response.data.map((obj) => {
+        return {
+          ...obj,
+          date: formatDate(obj.date),
+        };
+      });
+      setPastRequest(formattedData);
+    } catch (error) {
+      console.error("Error fetching PastRequest Sent data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const formatDate = (dateNumber) => {
+    let dateString = dateNumber.toString(); // Convert number to string
+
+    let year = dateString.substring(0, 4); // Extract year
+    let month = dateString.substring(4, 6); // Extract month
+    let day = dateString.substring(6, 8); // Extract day
+
+    let formattedDate = `${year}/${month}/${day}`;
+    // console.log(formattedDate);
+    return formattedDate;
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -135,7 +168,7 @@ const Received = ({ currentRequest, pastRequest }) => {
                             <b style={{ color: "yellowgreen" }}>
                               Referral ID:{" "}
                             </b>
-                            {ob.name}
+                            {ob.Referral_ID}
                           </div>
                           <div>
                             <b style={{ color: "yellowgreen" }}>
@@ -148,8 +181,8 @@ const Received = ({ currentRequest, pastRequest }) => {
                         {/* ---------------------------------------------- */}
 
                         <div className="col-4">
-                          <div style={{ margin: "2%" }}>{ob.company}</div>
-                          <div>{ob.pos}</div>
+                          <div style={{ margin: "2%" }}>{ob.Company_Name}</div>
+                          <div>{ob.Position}</div>
                         </div>
 
                         {/* ---------------------------------------------- */}
