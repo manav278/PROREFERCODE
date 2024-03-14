@@ -6,7 +6,7 @@ router.get("/sent", async (req, res) => {
   try {
     let id = getUserId();
     let user = await referralhistory.find({ Applicant_ID: id });
-    console.log(user);
+    // console.log(user);
     res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching past Requests in Sentroutes:", error);

@@ -7,7 +7,13 @@ const Sent = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get("http://localhost:3003/api/sent");
-      setPastRequest(response.data);
+      const formattedData = response.data.map((obj) => {
+        return {
+          ...obj,
+          date: formatDate(obj.date),
+        };
+      });
+      setPastRequest(formattedData);
     } catch (error) {
       console.error("Error fetching PastRequest Sent data:", error);
     }
@@ -15,7 +21,18 @@ const Sent = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
-  console.log("Manav");
+
+  const formatDate = (dateNumber) => {
+    let dateString = dateNumber.toString(); // Convert number to string
+
+    let year = dateString.substring(0, 4); // Extract year
+    let month = dateString.substring(4, 6); // Extract month
+    let day = dateString.substring(6, 8); // Extract day
+
+    let formattedDate = `${year}/${month}/${day}`;
+    // console.log(formattedDate);
+    return formattedDate;
+  };
 
   return (
     <div className="container">
@@ -59,7 +76,7 @@ const Sent = () => {
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {ob.date}
+                            {formatDate(ob.date)}
                           </div>
                         </div>
 
@@ -133,7 +150,7 @@ const Sent = () => {
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {ob.Date}
+                            {ob.date}
                           </div>
                         </div>
 
@@ -141,7 +158,7 @@ const Sent = () => {
 
                         <div className="col-4">
                           <div style={{ marginBottom: "2%" }}>
-                            {ob.Company_ID}
+                            {ob.Company_Name}
                           </div>
                           <div>{ob.Position}</div>
                         </div>
@@ -151,7 +168,7 @@ const Sent = () => {
                         <div className="col-4">
                           <button
                             className={`text-light ${
-                              ob.Result === "Not Referred"
+                              ob.result === "Not Referred"
                                 ? "bg-warning text-dark"
                                 : ob.Result === "Referred"
                                 ? "bg-success"
@@ -163,7 +180,7 @@ const Sent = () => {
                               margin: "6%",
                             }}
                           >
-                            {ob.Result}
+                            {ob.result}
                           </button>
                         </div>
                       </div>
