@@ -6,10 +6,11 @@ const currentRequestsSchema = new mongoose.Schema({
     require: true,
     unique: true,
   },
-  Employee_ID: {
-    type: Number,
-    require: true,
-  },
+  History: [{
+    Employee_ID: Number,
+    Result_Date: Number,
+    Result: Number,
+  }],
   Applicant_ID: {
     type: Number,
     require: true,
@@ -18,6 +19,7 @@ const currentRequestsSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  Company_Name: String,
   Request_Date: Number,
   Latest_Req_Date: Number,
   Result: String,
@@ -27,6 +29,7 @@ const currentRequestsSchema = new mongoose.Schema({
   Denial_Count: Number,
   No_Reply_Count: Number,
   Employee_LRD: Number //Employee last referral date
+  // Previous_Employees
 });
 
 const currReqModel = mongoose.model("current-request", currentRequestsSchema);
