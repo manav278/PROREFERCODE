@@ -9,6 +9,8 @@ import express from "express";
 
 let applicantEmail;
 const router = express.Router();
+
+//---------------------------------------
 router.post("/init", async (req, res) => {
   try {
     initCounter("current");
@@ -18,6 +20,7 @@ router.post("/init", async (req, res) => {
   }
 });
 
+//Sequencing------------------------------
 router.post("/addition", async (req, res) => {
   try {
     const count = await getNextSequenceValue("current");
@@ -27,46 +30,45 @@ router.post("/addition", async (req, res) => {
   }
 });
 
+//---------------------------------------------
+
 router.get("/accept1", async (req, res) => {
   try {
     const { Referral_ID } = req.body;
     const dateToday = await getDate();
     let curr = await currReqModel.findOne({ Referral_ID: Referral_ID });
-    // console.log(curr);
     const company = await companyModel.findOne({
       Company_ID: curr.Company_ID,
     });
     const companyName = company.Company_Name;
-    // res.json(curr);
+    curr.History[curr.History.length - 1].Result = "Referred";
     const newHist = new historyModel({
       Referral_ID: curr.Referral_ID,
-      Employee_ID: curr.Employee_ID,
+      History: curr.History,
       Applicant_ID: curr.Applicant_ID,
       Company_ID: curr.Company_ID,
-      date: dateToday,
+      date: curr.Request_Date,
       Position: curr.Position,
       result: "Referred",
       Company_Name: companyName,
     });
     newHist
       .save()
-      .then(() => {
-        // res.json("Added");
+      .then(async () => {
+        const applicant = await proreferusers.findOne({
+          User_ID: curr.Applicant_ID,
+        });
+        applicantEmail = applicant.Personal_Email;
+
+        await currReqModel.findOneAndDelete({
+          Referral_ID: Referral_ID,
+        });
+        res.json("Added");
       })
       .catch((err) => {
-        console.error("Error saving user:", err);
+        console.error("Error saving user in DataBase :", err);
         res.json(-1);
       });
-
-    const applicant = await proreferusers.findOne({
-      User_ID: curr.Applicant_ID,
-    });
-    applicantEmail = applicant.Personal_Email;
-
-    const resp = await currReqModel.findOneAndDelete({
-      Referral_ID: Referral_ID,
-    });
-    res.json(0);
   } catch (error) {
     console.log("Error in accept1", error);
     res.json(-1);

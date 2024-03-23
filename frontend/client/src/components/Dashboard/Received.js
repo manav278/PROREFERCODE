@@ -2,11 +2,78 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../App.css";
 const Received = () => {
-  const currentRequest = [];
-  const [pastRequest, setPastRequest] = useState([]);
-  const fetchUserData = async () => {
+  const [id, setId] = useState(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3003/api/getreceiveemployeeid")
+      .then((response) => {
+        setId(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching ID:", error);
+      });
+  }, []);
+
+  // ------------------------------------------
+  const viewResume = async (applicantId) => {
     try {
-      const response = await axios.get("http://localhost:3003/api/receive");
+      const response = await axios.get(
+        `http://localhost:3003/api/getApplicantPdf/${applicantId}`,
+        {
+          responseType: "blob", // Use blob responseType to handle binary data
+        }
+      );
+
+      // Create a Blob object from the binary data
+      const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+
+      // Create a URL for the Blob object
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      // Use the download attribute to trigger a download of the PDF file
+      const link = document.createElement("a");
+      link.href = pdfUrl;
+      link.setAttribute("download", "file.pdf"); // Specify the file name here
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up by revoking the URL object
+      URL.revokeObjectURL(pdfUrl);
+    } catch (error) {
+      console.error("Error fetching PDF:", error);
+    }
+  };
+
+  //----------------------------------------------------
+  const [currentRequest, setCurrentRequest] = useState([]);
+  const fetchCurrentData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3003/api/currentreceive"
+      );
+      console.log(response);
+      const formattedData = response.data.map((obj) => {
+        return {
+          ...obj,
+          Request_Date: formatDate(obj.Request_Date),
+        };
+      });
+      setCurrentRequest(formattedData);
+    } catch (error) {
+      console.error("Error fetching PastRequest Sent data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCurrentData();
+  }, []);
+
+  // -------------------------------------------------
+
+  const [pastRequest, setPastRequest] = useState([]);
+  const fetchPastData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/pastreceive");
+      console.log(response);
       const formattedData = response.data.map((obj) => {
         return {
           ...obj,
@@ -19,18 +86,16 @@ const Received = () => {
     }
   };
   useEffect(() => {
-    fetchUserData();
+    fetchPastData();
   }, []);
 
   const formatDate = (dateNumber) => {
     let dateString = dateNumber.toString(); // Convert number to string
-
     let year = dateString.substring(0, 4); // Extract year
     let month = dateString.substring(4, 6); // Extract month
     let day = dateString.substring(6, 8); // Extract day
 
     let formattedDate = `${year}/${month}/${day}`;
-    // console.log(formattedDate);
     return formattedDate;
   };
 
@@ -73,13 +138,19 @@ const Received = () => {
                             <b style={{ color: "yellowgreen" }}>
                               Referral ID:{" "}
                             </b>
-                            {ob.name}
+                            {ob.Referral_ID}
                           </div>
                           <div>
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {ob.date}
+                            {/* {ob.Request_Date} */}
+                            {formatDate(
+                              id &&
+                                ob.History.filter(
+                                  (obj) => obj.Employee_ID === id
+                                )[0]?.Employee_Request_Date
+                            ) || "Not Available"}
                           </div>
                         </div>
 
@@ -90,11 +161,15 @@ const Received = () => {
                             <button
                               className="bg-warning text-dark"
                               style={{ borderRadius: "10px", border: "none" }}
+                              onClick={() => {
+                                window.open(ob.Job_Portal_Url, "_blank");
+                                // window.location.href = `${ob.Job_Portal_Url}`;
+                              }}
                             >
                               Job-URL
                             </button>
                           </div>
-                          <div>{ob.pos}</div>
+                          <div>{ob.Position}</div>
                         </div>
 
                         {/* ---------------------------------------------- */}
@@ -104,11 +179,14 @@ const Received = () => {
                             <button
                               className="bg-info text-dark"
                               style={{ borderRadius: "10px", border: "none" }}
+                              onClick={() => {
+                                viewResume(ob.Applicant_ID);
+                              }}
                             >
                               Resume
                             </button>
                           </div>
-                          <div>{ob.company}</div>
+                          <div>{ob.Company_Name}</div>
                         </div>
 
                         {/* ---------------------------------------------- */}
@@ -174,7 +252,12 @@ const Received = () => {
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {ob.date}
+                            {formatDate(
+                              id &&
+                                ob.History.filter(
+                                  (obj) => obj.Employee_ID === id
+                                )[0]?.Employee_Request_Date
+                            ) || "Not Available"}
                           </div>
                         </div>
 
@@ -190,7 +273,10 @@ const Received = () => {
                         <div className="col-4">
                           <button
                             className={`text-light ${
-                              ob.result === "Not Referred"
+                              (id &&
+                                ob.History.filter(
+                                  (obj) => obj.Employee_ID === id
+                                )[0]?.Result) === "Not Referred"
                                 ? "bg-warning text-dark"
                                 : ob.result === "Referred"
                                 ? "bg-success"
@@ -202,7 +288,12 @@ const Received = () => {
                               margin: "6%",
                             }}
                           >
-                            {ob.result}
+                            {(id &&
+                              ob.History.filter(
+                                (obj) => obj.Employee_ID === id
+                              )[0]?.Result) ||
+                              "Not Available"}
+                            {/* {ob.result} */}
                           </button>
                         </div>
                       </div>

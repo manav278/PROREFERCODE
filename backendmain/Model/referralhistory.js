@@ -6,11 +6,14 @@ const historySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  History: [{
-    Employee_ID: Number,
-    Result_Date: Number,
-    Result: Number,
-  }],
+  History: [
+    {
+      Employee_ID: Number,
+      Employee_Request_Date: Number,
+      Result: String,
+      //Result - Pending, Referred, Not Referred.
+    },
+  ], // Max Array Size - 3
   Applicant_ID: {
     type: Number,
     required: true,
@@ -28,17 +31,3 @@ const historySchema = new mongoose.Schema({
 const historyModel = mongoose.model("ref-histories", historySchema);
 
 export default historyModel;
-
-[
-{
-  emp:1,
-  result:resolveObjectURL,
-  date:jah,
-  
-},
-{
-
-},{
-
-}
-]

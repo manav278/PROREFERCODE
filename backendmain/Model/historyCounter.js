@@ -10,19 +10,19 @@ const Counter = mongoose.model("Counter", counterSchema);
 async function initCounter(sequenceName) {
   await Counter.findOneAndUpdate(
     { _id: sequenceName },
-    { $setOnInsert: { sequence_value: 4 } },
+    { $setOnInsert: { sequence_value: 0 } },
     { upsert: true }
   );
 }
 
 async function getNextSequenceValue(sequenceName) {
-    const sequenceDocument = await Counter.findOneAndUpdate(
-      { _id: sequenceName },
-      { $inc: { sequence_value: 1 } },
-      { new: true, upsert: true }
-    );
-    return sequenceDocument.sequence_value;
-  }
+  const sequenceDocument = await Counter.findOneAndUpdate(
+    { _id: sequenceName },
+    { $inc: { sequence_value: 1 } },
+    { new: true, upsert: true }
+  );
+  return sequenceDocument.sequence_value;
+}
 
 export default Counter;
 export { initCounter, getNextSequenceValue };

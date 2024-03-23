@@ -1,9 +1,10 @@
 import algo from "./algo.js";
+import companyModel from "../Model/companydata.js";
 import proreferusers from "../Model/proreferuser.js";
 import currentrequest from "../Model/currentrequest.js";
 import { getUserId } from "../Routes/Loginroutes.js";
 import requestdate from "./date.js";
-import { initCounter, getNextSequenceValue } from "../Model/historyCounter.js";
+import { getNextSequenceValue } from "../Model/historyCounter.js";
 import {
   firstSuccessfulToApplicant,
   firstSuccessfulToEmployee,
@@ -55,12 +56,16 @@ const request = async (position, company, requestedLocation, url) => {
       const applicantId = await getUserId();
       const reqdate = await requestdate(); //date in number format
       const Emp_LRD = employee.Last_Referral_Date;
+      // ---------------------------------------------
+      const companyDetails = await companyModel.findOne({
+        Company_ID: company,
+      });
+      const companyName = companyDetails.Company_Name;
       //   --------------------------------------------
 
       const count = await getNextSequenceValue("current");
       const newCurrentRequest = new currentrequest({
         Referral_ID: count,
-        Employee_ID: employee.User_ID,
         Applicant_ID: applicantId,
         Company_ID: company,
         Request_Date: reqdate,
@@ -72,13 +77,21 @@ const request = async (position, company, requestedLocation, url) => {
         Denial_Count: 0,
         No_Reply_Count: 0,
         Employee_LRD: Emp_LRD,
+        Company_Name: companyName,
+        History: [
+          {
+            Employee_ID: employee.User_ID,
+            Employee_Request_Date: reqdate,
+            Result: "Pending",
+          },
+        ],
       });
 
       // Save the new user to the database
       newCurrentRequest
         .save()
         .then(() => {
-          // console.log("Current Request tuple saved successfully");
+          console.log("Current Request tuple saved successfully");
         })
         .catch((err) => {
           console.error("Error saving user:", err);

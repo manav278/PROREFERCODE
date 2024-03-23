@@ -31,7 +31,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 router.get("/getPdf", async (req, res) => {
-  
   try {
     let userID = getUserId();
     const file = await File.findOne({ User_ID: userID });
@@ -55,4 +54,30 @@ router.get("/getPdf", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.get("/getApplicantPdf/:applicantId", async (req, res) => {
+  try {
+    let user = req.params.applicantId;
+    const file = await File.findOne({ User_ID: Number(user) });
+
+    if (file) {
+      // Save the file to the server temporarily (optional)
+      //   fs.writeFileSync(userID, file.data);
+
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Length": file.data.length,
+      });
+
+      // Send the file to the client
+      res.send(file.data);
+    } else {
+      res.status(404).json({ error: "File not found" });
+    }
+  } catch (error) {
+    console.error("Error retrieving file:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 export default router;

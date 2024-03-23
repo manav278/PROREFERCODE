@@ -1,26 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Sent = () => {
-  const currentRequest = [];
-  const [pastRequest, setPastRequest] = useState([]);
-  const fetchUserData = async () => {
+  const viewResume = async () => {
     try {
-      const response = await axios.get("http://localhost:3003/api/sent");
-      const formattedData = response.data.map((obj) => {
-        return {
-          ...obj,
-          date: formatDate(obj.date),
-        };
+      const response = await axios.get("http://localhost:3003/api/getPdf", {
+        responseType: "blob", // Use blob responseType to handle binary data
       });
-      setPastRequest(formattedData);
+
+      // Create a Blob object from the binary data
+      const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+
+      // Create a URL for the Blob object
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      // Use the download attribute to trigger a download of the PDF file
+      const link = document.createElement("a");
+      link.href = pdfUrl;
+      link.setAttribute("download", "file.pdf"); // Specify the file name here
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up by revoking the URL object
+      URL.revokeObjectURL(pdfUrl);
     } catch (error) {
-      console.error("Error fetching PastRequest Sent data:", error);
+      console.error("Error fetching PDF:", error);
     }
   };
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+
+  // -------------------------------------------------------
 
   const formatDate = (dateNumber) => {
     let dateString = dateNumber.toString(); // Convert number to string
@@ -33,6 +42,48 @@ const Sent = () => {
     // console.log(formattedDate);
     return formattedDate;
   };
+
+  const [currentRequest, setCurrentRequest] = useState([]);
+  const fetchCurrentSent = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/currentsent");
+      console.log(response);
+      const formattedData = response.data.map((obj) => {
+        return {
+          ...obj,
+          Request_Date: formatDate(obj.Request_Date),
+        };
+      });
+      console.log(formattedData);
+      setCurrentRequest(formattedData);
+    } catch (error) {
+      console.error("Error fetching CurrentRequest Sent data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCurrentSent();
+  }, []);
+
+  // -------------------------------------------------------
+
+  const [pastRequest, setPastRequest] = useState([]);
+  const fetchHistoricalSent = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/historysent");
+      const formattedData = response.data.map((obj) => {
+        return {
+          ...obj,
+          date: formatDate(obj.date),
+        };
+      });
+      setPastRequest(formattedData);
+    } catch (error) {
+      console.error("Error fetching PastRequest Sent data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchHistoricalSent();
+  }, []);
 
   return (
     <div className="container">
@@ -70,13 +121,13 @@ const Sent = () => {
                             <b style={{ color: "yellowgreen" }}>
                               Referral ID:{" "}
                             </b>
-                            {ob.name}
+                            {ob.Referral_ID}
                           </div>
                           <div>
                             <b style={{ color: "yellowgreen" }}>
                               Request Date:{" "}
                             </b>
-                            {formatDate(ob.date)}
+                            {ob.Request_Date}
                           </div>
                         </div>
 
@@ -85,13 +136,17 @@ const Sent = () => {
                         <div className="col-12 col-sm-3 col-md-3">
                           <div style={{ marginBottom: "4%" }}>
                             <button
+                              onClick={() => {
+                                window.open(ob.Job_Portal_Url, "_blank");
+                                // window.location.href = `${ob.Job_Portal_Url}`;
+                              }}
                               className="bg-warning text-dark"
                               style={{ borderRadius: "10px", border: "none" }}
                             >
                               Job-URL
                             </button>
                           </div>
-                          <div>{ob.pos}</div>
+                          <div>{ob.Position}</div>
                         </div>
 
                         {/* ---------------------------------------------- */}
@@ -101,11 +156,12 @@ const Sent = () => {
                             <button
                               className="bg-info text-dark"
                               style={{ borderRadius: "10px", border: "none" }}
+                              onClick={viewResume}
                             >
                               Resume
                             </button>
                           </div>
-                          <div>{ob.company}</div>
+                          <div>{ob.Company_Name}</div>
                         </div>
                       </div>
                     </div>
@@ -170,7 +226,7 @@ const Sent = () => {
                             className={`text-light ${
                               ob.result === "Not Referred"
                                 ? "bg-warning text-dark"
-                                : ob.Result === "Referred"
+                                : ob.result === "Referred"
                                 ? "bg-success"
                                 : "bg-danger"
                             }`}
