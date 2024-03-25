@@ -32,9 +32,9 @@ router.post("/addition", async (req, res) => {
 
 //---------------------------------------------
 
-router.get("/accept1", async (req, res) => {
+router.get("/accept1/:Referral_ID", async (req, res) => {
   try {
-    const { Referral_ID } = req.body;
+    const Referral_ID = req.params.Referral_ID;
     const dateToday = await getDate();
     let curr = await currReqModel.findOne({ Referral_ID: Referral_ID });
     const company = await companyModel.findOne({
@@ -63,7 +63,7 @@ router.get("/accept1", async (req, res) => {
         await currReqModel.findOneAndDelete({
           Referral_ID: Referral_ID,
         });
-        res.json("Added");
+        res.status(200).json({ message: "Added" });
       })
       .catch((err) => {
         console.error("Error saving user in DataBase :", err);

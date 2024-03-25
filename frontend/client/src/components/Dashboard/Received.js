@@ -1,7 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 import axios from "axios";
 import "../../App.css";
 const Received = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null);
+  const fetchAccept = async (Referral_ID) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:3003/api/accept1/${Referral_ID}`
+      );
+      console.log(response);
+      if (response.data.message === "Added") {
+        setLoading(false);
+        setMsg(response.data.msg);
+        alert("Finally Accepted");
+        navigate("/dashboard");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error fetching Accept data:", error);
+    }
+  };
+
+  // -------------------------------------------------
   const [id, setId] = useState(null);
   useEffect(() => {
     axios
@@ -194,9 +219,28 @@ const Received = () => {
                         <div className="col-6 col-sm-3 col-md-3">
                           <div style={{ marginBottom: "4%" }}>
                             <button
+                              onClick={() => {
+                                fetchAccept(ob.Referral_ID);
+                              }}
+                              disabled={loading}
                               className="bg-success text-light"
                               style={{ borderRadius: "10px", border: "none" }}
                             >
+                              {loading ? (
+                                <Spinner
+                                  animation="border"
+                                  size="sm"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </Spinner>
+                              ) : msg ? (
+                                <div>
+                                  <p>{msg}</p>
+                                </div>
+                              ) : null}
                               Accept
                             </button>
                           </div>

@@ -22,7 +22,7 @@ const historySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  date: Number,
+  date: Number, //Request_date of the currentrequest.
   Position: String,
   result: String, //This is the final result of the whole request
   Company_Name: String,

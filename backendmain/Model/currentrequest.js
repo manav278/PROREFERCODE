@@ -16,7 +16,7 @@ const currentRequestsSchema = new mongoose.Schema({
   },
   Request_Date: Number,
   Latest_Req_Date: Number,
-  Result: String,
+  // Result: String,
   Position: String,
   Location: String,
   Job_Portal_Url: String,
