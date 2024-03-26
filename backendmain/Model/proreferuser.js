@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   },
   Work_Email: {
     type: String,
-    require: true,
+    // require: true,
     unique: true,
   },
   Referrals_Requested_ThisMonth: Number,

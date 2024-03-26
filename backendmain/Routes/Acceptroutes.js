@@ -41,34 +41,71 @@ router.get("/accept1/:Referral_ID", async (req, res) => {
       Company_ID: curr.Company_ID,
     });
     const companyName = company.Company_Name;
-    curr.History[curr.History.length - 1].Result = "Referred";
-    const newHist = new historyModel({
-      Referral_ID: curr.Referral_ID,
-      History: curr.History,
-      Applicant_ID: curr.Applicant_ID,
-      Company_ID: curr.Company_ID,
-      date: curr.Request_Date,
-      Position: curr.Position,
-      result: "Referred",
-      Company_Name: companyName,
-    });
-    newHist
-      .save()
-      .then(async () => {
-        const applicant = await proreferusers.findOne({
-          User_ID: curr.Applicant_ID,
-        });
-        applicantEmail = applicant.Personal_Email;
-
-        await currReqModel.findOneAndDelete({
-          Referral_ID: Referral_ID,
-        });
-        res.status(200).json({ message: "Added" });
-      })
-      .catch((err) => {
-        console.error("Error saving user in DataBase :", err);
-        res.json(-1);
+    let count = curr.No_Reply_Count + curr.Denial_Count;
+    // --------------------------------------------
+    if (count == 0) {
+      // *********************************************
+      curr.History[0].Result = "Referred";
+      const newHist = new historyModel({
+        Referral_ID: curr.Referral_ID,
+        History: curr.History,
+        Applicant_ID: curr.Applicant_ID,
+        Company_ID: curr.Company_ID,
+        date: curr.Request_Date,
+        Position: curr.Position,
+        result: "Referred",
+        Company_Name: companyName,
       });
+      // *********************************************
+      newHist
+        .save()
+        .then(async () => {
+          const applicant = await proreferusers.findOne({
+            User_ID: curr.Applicant_ID,
+          });
+          applicantEmail = applicant.Personal_Email;
+
+          await currReqModel.findOneAndDelete({
+            Referral_ID: Referral_ID,
+          });
+          res.status(200).json({ message: "Added" });
+        })
+        .catch((err) => {
+          console.error("Error saving user in DataBase :", err);
+          res.json(-1);
+        });
+      // *********************************************
+    }
+    // --------------------------------------------
+    else if (count != 0) {
+      // *********************************************
+      curr.History[0].Result = "Referred";
+      let hist = await historyModel.findOne({ Referral_ID: Referral_ID });
+      if (!hist) {
+        throw new Error(
+          "History document not found in History Model for Referral_ID: " +
+            Referral_ID
+        );
+      }
+      // *********************************************
+      hist.History.push(curr.History[0]);
+      hist
+        .save()
+        .then(async (updatedHist) => {
+          const applicant = await proreferusers.findOne({
+            User_ID: curr.Applicant_ID,
+          });
+          applicantEmail = applicant.Personal_Email;
+          console.log("Updated History Document:", updatedHist);
+        })
+        .catch((err) => {
+          console.error("Error Saving Updated History Document:", err);
+        });
+      await currReqModel.findOneAndDelete({
+        Referral_ID: Referral_ID,
+      });
+      // *********************************************
+    }
   } catch (error) {
     console.log("Error in accept1", error);
     res.json(-1);

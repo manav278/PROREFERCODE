@@ -11,7 +11,10 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import axios from "axios";
+import SignupForm from "./components/SignupForm";
 import Requestreferral from "./components/Requestreferral";
+
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +61,7 @@ function App() {
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<SignupForm />} />
           <Route
             path="/login"
             element={
@@ -77,6 +80,10 @@ function App() {
             path="/requestreferral"
             element={<Requestreferral></Requestreferral>}
           />
+          {/* <Route
+            path="/signupform"
+            element={<SignupForm></SignupForm>}
+          /> */}
           
         </Routes>
       </MyContext.Provider>
