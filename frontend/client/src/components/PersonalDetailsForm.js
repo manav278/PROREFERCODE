@@ -4,39 +4,7 @@ import axios from "axios";
 import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
-const Signup = () => {
-  //firstname , lastname, mobilenumber,personalemail,country,
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [personalemail, setPersonalEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [mobilenumber, setMobileNumber] = useState("");
-  const [country, setCountry] = useState("");
-
-  async function submit(e) {
-    e.preventDefault();
-
-    try {
-      await axios
-        .post("http://localhost:3003/signup", {
-          personalemail,
-          password,
-        })
-        .then((res) => {
-          if (res.data === "exist") {
-            alert("User already exists");
-          } else if (res.data === "notexist") {
-            alert("Your account is successfully created.");
-          }
-        })
-        .catch((e) => {
-          alert("wrong details");
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+const PersonalDetailsForm = ({ formData, handleChange, nextStep }) => {
   return (
     <div>
       <MainNav></MainNav>
@@ -62,15 +30,16 @@ const Signup = () => {
                 <h1>Join us today!</h1>
                 <div>
                   <p>Sign up now to become a member.</p>
+                  <h3>Personal Details</h3>
                 </div>
               </div>
               <div className="col-12">
                 <form
                   action="POST"
-                  // onSubmit={(e) => {
-                  //   e.preventDefault();
-                  //   nextStep();
-                  // }}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    nextStep();
+                  }}
                 >
                   <div className="mb-3">
                     <label
@@ -78,7 +47,7 @@ const Signup = () => {
                       style={{ marginTop: "2%" }}
                       className="form-label font-family-label"
                     >
-                      FirstName
+                      First Name
                     </label>
                     <input
                       className="form-control text-light bg-dark createcampaign-placeholder"
@@ -86,9 +55,8 @@ const Signup = () => {
                       placeholder="First Name"
                       id="firstname"
                       name="firstname"
-                      // value={formData.firstname}
-                      // onChange={handleChange}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={formData.firstname}
+                      onChange={handleChange}
                     ></input>
                   </div>
                   <div className="mb-3">
@@ -97,16 +65,16 @@ const Signup = () => {
                       style={{ marginTop: "2%" }}
                       className="form-label font-family-label"
                     >
-                      LastName
+                      Last Name
                     </label>
                     <input
                       className="form-control text-light bg-dark createcampaign-placeholder"
-                      type="email"
+                      type="text"
                       placeholder="Last Name"
                       id="lastname"
-                      // value={formData.lastname}
-                      onChange={(e) => setLastName(e.target.value)}
-                      // onChange={handleChange}
+                      name="lastname"
+                      value={formData.lastname}
+                      onChange={handleChange}
                     ></input>
                   </div>
                   <div className="mb-3">
@@ -122,9 +90,9 @@ const Signup = () => {
                       type="email"
                       placeholder="Personal Email Address"
                       id="personalemail"
-                      // value={formData.personalemail}
-                      onChange={(e) => setPersonalEmail(e.target.value)}
-                      // onChange={handleChange}
+                      name="personalemail"
+                      value={formData.personalemail}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
@@ -141,31 +109,11 @@ const Signup = () => {
                       type="text"
                       placeholder="Mobile Number"
                       id="mobilenumber"
-                      // value={formData.mobilenumber}
-                      onChange={(e) => setMobileNumber(e.target.value)}
-                      // onChange={handleChange}
+                      name="mobilenumber"
+                      value={formData.mobilenumber}
+                      onChange={handleChange}
                     ></input>
                   </div>
-
-                  <div className="mb-3">
-                    <label
-                      for="country"
-                      style={{ marginTop: "2%" }}
-                      className="form-label font-family-label"
-                    >
-                      Country
-                    </label>
-                    <input
-                      className="form-control text-light bg-dark createcampaign-placeholder"
-                      type="text"
-                      placeholder="Country"
-                      id="country"
-                      // value={formData.country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      // onChange={handleChange}
-                    ></input>
-                  </div>
-
                   <div className="mb-3" style={{ marginTop: "1%" }}>
                     <label
                       for="password"
@@ -179,16 +127,15 @@ const Signup = () => {
                       className="form-control text-light bg-dark createcampaign-placeholder"
                       placeholder="Password"
                       id="password"
-                      // value={formData.password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      // onChange={handleChange}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
                   <div>
                     <button
                       type="submit"
-                      // onClick={submit}
                       className="btn-createcampaign-form bg-success"
                       style={{
                         borderRadius: "5px",
@@ -200,7 +147,7 @@ const Signup = () => {
                         marginTop: "2%",
                       }}
                     >
-                      Signup
+                      Next
                     </button>
                   </div>
                 </form>
@@ -217,4 +164,5 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
+
+export default PersonalDetailsForm;

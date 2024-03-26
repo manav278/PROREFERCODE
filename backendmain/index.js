@@ -8,6 +8,7 @@ import EditProfileRoutes from "./Routes/Editprofileroutes.js";
 import testRouter from "./Routes/Acceptroutes.js";
 import Sentroutes from "./Routes/Sentroutes.js";
 import Receivedroutes from "./Routes/Receivedroutes.js";
+import Signuproutes from "./Routes/Signuproutes.js"
 
 import Requestrefroutes from "./Routes/Requestrefroutes.js";
 import * as env from "dotenv";
@@ -47,6 +48,7 @@ app.use("/api", testRouter);
 app.use("/api", Receivedroutes);
 app.use("/api", Requestrefroutes);
 app.use("/api", Sentroutes);
+app.use("/api",Signuproutes)
 const port = process.env.PORT || 3003;
 app.listen(port, () => {
   console.log("started " + port);
