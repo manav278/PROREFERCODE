@@ -64,9 +64,17 @@ const acceptedToApplicant = async (email) => {
   sendEmail(email, email_subject, email_body);
 };
 
+const rejectedToApplicant = async (email) => {
+  let email_subject = "Referral request result";
+  let email_body =
+    "ProRefer has forwarded your referral request to several employees listed on our site. However, we regret to inform you that your resume was not shortlisted and, consequently, not referred. We wish you the best for your future endeavors.";
+  sendEmail(email, email_subject, email_body);
+};
+
 export {
   firstSuccessfulToApplicant,
   firstSuccessfulToEmployee,
   firstFailToApplicant,
-  acceptedToApplicant
+  acceptedToApplicant,
+  rejectedToApplicant
 };
