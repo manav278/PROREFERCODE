@@ -6,6 +6,7 @@ import "../../App.css";
 const Received = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [loadingReject, setLoadingReject] = useState(false);
   const [msg, setMsg] = useState(null);
   const fetchAccept = async (Referral_ID) => {
     setLoading(true);
@@ -13,11 +14,32 @@ const Received = () => {
       const response = await axios.get(
         `http://localhost:3003/api/accept1/${Referral_ID}`
       );
-      console.log(response);
+      // console.log(response);
       if (response.data.message === "Added") {
         setLoading(false);
-        setMsg(response.data.msg);
-        alert("Finally Accepted");
+        setMsg("Accepted");
+        alert("Accepted successfully");
+        axios.get('http://localhost:3003/api/accept2');
+        navigate("/dashboard");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error fetching Accept data:", error);
+    }
+  };
+
+  const fetchReject = async (Referral_ID) => {
+    setLoadingReject(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:3003/api/reject1/${Referral_ID}`
+      );
+      // console.log(response);
+      if (response.data === 0) {
+        setLoadingReject(false);
+        setMsg("Rejected");
+        alert("Rejected successfully");
+        axios.get('http://localhost:3003/api/reject2');
         navigate("/dashboard");
         window.location.reload();
       }
@@ -76,7 +98,7 @@ const Received = () => {
       const response = await axios.get(
         "http://localhost:3003/api/currentreceive"
       );
-      console.log(response);
+      // console.log(response);
       const formattedData = response.data.map((obj) => {
         return {
           ...obj,
@@ -246,9 +268,28 @@ const Received = () => {
                           </div>
                           <div>
                             <button
+                              onClick={() => {
+                                fetchReject(ob.Referral_ID);
+                              }}
+                              disabled={loadingReject}
                               className="bg-danger text-light"
                               style={{ borderRadius: "10px", border: "none" }}
                             >
+                              {loadingReject ? (
+                                <Spinner
+                                  animation="border"
+                                  size="sm"
+                                  role="status"
+                                >
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </Spinner>
+                              ) : msg ? (
+                                <div>
+                                  <p>{msg}</p>
+                                </div>
+                              ) : null}
                               Reject
                             </button>
                           </div>

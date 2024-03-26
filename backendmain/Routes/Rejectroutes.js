@@ -29,6 +29,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
     //Now check if NRC+DC>=3
     if (NRC + DC >= 3) {
       let historyZero = currReqTuple.History[0];
+      historyZero.Result = "Not Referred";
       let historyTuple = await historyModel
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
@@ -68,11 +69,12 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
       // NRC+DC<3 => Case 2
 
       let historyZero = currReqTuple.History[0];
+      historyZero.Result = "Not Referred";
       let historyTuple = await historyModel
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
           {
-            $push: { History: [historyZero] },
+            $push: { History: historyZero },
           },
           { new: true }
         )
