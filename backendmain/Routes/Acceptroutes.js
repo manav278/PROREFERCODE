@@ -104,6 +104,7 @@ router.get("/accept1/:Referral_ID", async (req, res) => {
       await currReqModel.findOneAndDelete({
         Referral_ID: Referral_ID,
       });
+      res.status(200).json({ message: "Added" });
       // *********************************************
     }
   } catch (error) {

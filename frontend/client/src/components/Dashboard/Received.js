@@ -19,7 +19,7 @@ const Received = () => {
         setLoading(false);
         setMsg("Accepted");
         alert("Accepted successfully");
-        axios.get('http://localhost:3003/api/accept2');
+        axios.get("http://localhost:3003/api/accept2");
         navigate("/dashboard");
         window.location.reload();
       }
@@ -39,7 +39,7 @@ const Received = () => {
         setLoadingReject(false);
         setMsg("Rejected");
         alert("Rejected successfully");
-        axios.get('http://localhost:3003/api/reject2');
+        axios.get("http://localhost:3003/api/reject2");
         navigate("/dashboard");
         window.location.reload();
       }
