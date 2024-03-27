@@ -1,10 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const Db = () => {
+  const navigate = useNavigate();
   const [showUpload, setShowUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleReqRefClick = async() => {
+    let result = await axios.get("http://localhost:3003/api/resumeUploaded");
+    if(result.data===0)
+    {
+      navigate("/requestreferral");
+    }else{
+      alert("Please upload your resume before requesting a referral");
+    }
+  }
 
   const handleShow = () => {
     setShowUpload(!showUpload);
@@ -85,13 +96,8 @@ const Db = () => {
               role. Take the first step towards your career goals today!
             </p>
 
-            <button type="button" class="btn btn-primary border-light">
-              <Link
-                to="/requestreferral"
-                style={{ color: "white", textDecoration: "none" }}
-              >
+            <button type="button" class="btn btn-primary border-light" onClick={handleReqRefClick}>
                 Request Referral
-              </Link>
             </button>
           </div>
         </div>

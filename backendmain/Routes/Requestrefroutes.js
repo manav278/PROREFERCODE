@@ -1,6 +1,6 @@
 import express from "express";
-import Company from "../Model/companydata.js";
 import users from "../Model/proreferuser.js";
+import files from "../Model/File.js";
 import { getUserId } from "./Loginroutes.js";
 import request from "../Algorithm/request.js";
 
@@ -9,6 +9,18 @@ let global_position;
 let global_selectedCompany;
 let global_country;
 let global_url;
+
+router.get("/resumeUploaded", async(req, res) => {
+  let uid = await getUserId();
+  let isPresent = await files.findOne({User_ID: Number(uid)});
+  if(isPresent){
+    res.json(0);
+  }
+  else
+  {
+    res.json(-1);
+  }
+});
 
 router.get("/process-request", async (req, res) => {
   // request("FSD", 2, "India", "URL");
