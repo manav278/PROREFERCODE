@@ -63,21 +63,35 @@ const SignupForm = () => {
             formData.location !== "" &&
             formData.position !== ""))
       ) {
-        await axios.post("http://localhost:3003/api/signup", formData);
-        alert("Signup Successful!");
-        setFormData({
-          firstname: "",
-          lastname: "",
-          personalemail: "",
-          mobilenumber: "",
-          password: "",
-          workemail: "",
-          companyname: "",
-          selectedcompany: "",
-          location: "",
-          position: "",
-        });
-        navigate("/login");
+        const response = await axios.post(
+          "http://localhost:3003/api/signup",
+          formData
+        );
+        if (response.data.message === "Personal Email Already Exists.") {
+          alert("Personal Email Already Exists.");
+        } else if (
+          response.data.message ===
+          "Personal Email and Company Email Already Exists."
+        ) {
+          alert("Personal Email and Company Email Already Exists.");
+        } else if (response.data.message==="Company Email Already Exists.") {
+          alert("Company Email Already Exists.");
+        } else {
+          alert("Signup Successful!");
+          setFormData({
+            firstname: "",
+            lastname: "",
+            personalemail: "",
+            mobilenumber: "",
+            password: "",
+            workemail: "",
+            companyname: "",
+            selectedcompany: "",
+            location: "",
+            position: "",
+          });
+          navigate("/login");
+        }
       } else {
         alert(
           "One or more fields are empty in Personal Details Section or Company Details Section."
