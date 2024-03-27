@@ -7,14 +7,21 @@ const Company = () => {
   const [storedData, setStoredData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleSearchChange = (event) => {
-    if(document.getElementById('search').value!==""){
-    setSearchTerm(document.getElementById('search').value);
+  const handleChange = () => {
+    if(searchTerm!==""){
     setCompanyList(storedData.filter(item => item.company.toLowerCase().includes(searchTerm.toLowerCase())));
     }else{
       setCompanyList(storedData);
     }
   };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  }
+
+  useEffect(()=>{
+    handleChange();
+  }, [searchTerm])
 
   const apiCall = async () => {
     try {

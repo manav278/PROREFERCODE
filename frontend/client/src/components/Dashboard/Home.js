@@ -8,6 +8,16 @@ import Footer from "../Footer";
 import { Navigate } from "react-router-dom";
 export default function Home() {
   const [userData, setUserData] = useState({});
+  const [date, setDate] = useState("Loading...");
+  const formatDate = async(dateNumber) => {
+    let dateString = dateNumber.toString(); // Convert number to string
+    let year = dateString.substring(0, 4); // Extract year
+    let month = dateString.substring(4, 6); // Extract month
+    let day = dateString.substring(6, 8); // Extract day
+
+    let formattedDate = `${year}/${month}/${day}`;
+    return formattedDate;
+  };
 
   useEffect(() => {
     fetchUserData();
@@ -18,6 +28,8 @@ export default function Home() {
       const response = await axios.get("http://localhost:3003/api/dashboard");
       // console.log(response);
       setUserData(response.data);
+      let date1 = await formatDate(response.data.Last_Referral_Date);
+      setDate(date1);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -127,7 +139,7 @@ export default function Home() {
                         <p>Last Referral Date</p>
                       </td>
                       <td>
-                        <p>{userData.Last_Referral_Date}</p>
+                        <p>{date}</p>
                       </td>
                     </tr>
                     <tr>
