@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import { getUserId } from "./Loginroutes.js";
 import proreferuser from "../Model/proreferuser.js";
+import comp from "../Model/companydata.js";
 import authdata from "../Model/authdata.js";
 import * as env from "dotenv";
 env.config();
@@ -67,30 +68,54 @@ router.post("/getEditProfileEmployeeDetails", async (req, res) => {
 
 router.post("/updateEmployee", async (req, res) => {
   try {
-    const { workEmail, position, selectedCompany } = req.body;
-    let ID = getUserId();
-    await proreferuser.findOneAndUpdate(
-      { User_ID: ID },
-      {
-        Work_Email: workEmail,
-        Position: position,
-        Company_ID: Number(selectedCompany),
-      }
-    );
-    res.json({ message: "Update successful" });
+    const { workEmail, position, selectedCompany, companyname } = req.body;
+    if (companyname !== null && selectedCompany == "") {
+      let ID = await getUserId();
+      const companyLength = await comp.countDocuments();
+      const newComp = new comp({
+        Company_ID: companyLength + 1,
+        Company_Name: companyname,
+      });
+      newComp
+        .save()
+        .then(async () => {
+          await proreferuser.findOneAndUpdate(
+            { User_ID: ID },
+            {
+              Company_ID: companyLength + 1,
+              Position: position,
+              Work_Email: workEmail,
+            }
+          );
+          res.status(200).json({ message: "Update successful" });
+        })
+        .catch((err) => {
+          res.status(200).json({ message: "Update unsuccessful" });
+          console.error("Error saving company in companydata DataBase :", err);
+        });
+    } else if (companyname === null && selectedCompany !== "") {
+      let ID = getUserId();
+      await proreferuser.findOneAndUpdate(
+        { User_ID: ID },
+        {
+          Work_Email: workEmail,
+          Position: position,
+          Company_ID: Number(selectedCompany),
+        }
+      );
+      res.json({ message: "Update successful" });
+    }
   } catch (error) {
     console.log("Error fetching data from MongoDB: ", error);
-    res.json({ message: "Internal server error from backend" });
+    res.status(200).json({ message: "Update unsuccessful" });
   }
 });
 
 router.post("/requestEmployeeOtp", async (req, res) => {
   try {
     const { workEmail, isWorkEmailChanged } = req.body;
-    console.log(req.body);
     if (isWorkEmailChanged) {
       const u1 = await proreferuser.findOne({ Work_Email: workEmail });
-      console.log(u1);
       if (u1) {
         res.status(200).json({
           message:

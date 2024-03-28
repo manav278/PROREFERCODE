@@ -1,5 +1,8 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -10,6 +13,7 @@ export default function Empcredentials() {
   const [companyList, setCompanyList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [companyname, setCompanyName] = useState(null);
   const apiCall = async () => {
     try {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
@@ -26,6 +30,7 @@ export default function Empcredentials() {
     apiCall();
   }, []);
   const handleSelect = (event) => {
+    console.log(event.target.value);
     setSelectedCompany(event.target.value);
   };
   // ---------------------------------------------------------
@@ -58,15 +63,31 @@ export default function Empcredentials() {
   const handleEmployeeSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (otpVerified === false) {
+        // alert("Verify OTP first, as your email is changed");
+        toast.error("Verify OTP first, as your email is changed", {
+          position: "top-center",
+          theme:"light",
+
+        });
+        return;
+      }
       if (
-        (selectedCompany && position && workEmail) ||
-        (!selectedCompany && !position && !workEmail)
+        (((selectedCompany === "" && companyname !== null) ||
+          (selectedCompany !== "" && companyname === null)) &&
+          position &&
+          workEmail) ||
+        (selectedCompany === "" &&
+          companyname === null &&
+          position === null &&
+          workEmail === null)
       ) {
         await axios
           .post("http://localhost:3003/api/updateEmployee", {
             workEmail,
             position,
             selectedCompany,
+            companyname,
           })
           .then((res) => {
             if (res.data.message === "Update successful") {
@@ -74,8 +95,9 @@ export default function Empcredentials() {
               window.location.reload();
             } else if (
               res.data.message === "Internal server error from backend"
-            )
+            ) {
               alert("Error updating details");
+            }
           });
       } else {
         alert("Correct format : (I) Either all field empty or filled ");
@@ -203,7 +225,7 @@ export default function Empcredentials() {
                     padding: "3px",
                   }}
                 >
-                  <option value="">Company</option>
+                  <option value="">Other</option>
                   {companyList
                     ? companyList.map((value) => (
                         <option key={value.id} value={value.id}>
@@ -215,6 +237,28 @@ export default function Empcredentials() {
               </div>
             </div>
           )}
+          {selectedCompany === null || selectedCompany === "" ? (
+            <div className="mb-3">
+              <label
+                for="companyname"
+                style={{ marginTop: "2%" }}
+                className="form-label font-family-label"
+              >
+                Company Name
+              </label>
+              <input
+                className="form-control text-light bg-dark createcampaign-placeholder"
+                type="text"
+                placeholder="Company Name"
+                id="companyname"
+                name="companyname"
+                value={companyname}
+                onChange={(event) => {
+                  setCompanyName(event.target.value);
+                }}
+              ></input>
+            </div>
+          ) : null}
           {isWorkEmailChanged && !getotpButtonClicked && (
             <div className="my-4">
               <button
@@ -279,6 +323,7 @@ export default function Empcredentials() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
