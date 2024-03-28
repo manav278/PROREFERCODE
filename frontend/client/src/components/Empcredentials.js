@@ -1,0 +1,284 @@
+import React from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+export default function Empcredentials() {
+  const [globalWorkEmail, setGlobalWorkEmail] = useState("");
+  const [isWorkEmailChanged, setIsWorkEmailChanged] = useState(false);
+  // ------------------------------------------------
+  const [companyList, setCompanyList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const apiCall = async () => {
+    try {
+      await axios.get("http://localhost:3003/api/getCompany").then((res) => {
+        // console.log(res.data);
+        setCompanyList(res.data);
+        setLoading(false);
+        if (res.data.message === "Server Error") alert("Server Error");
+      });
+    } catch (e) {
+      console.log("Error occured: ", e);
+    }
+  };
+  useEffect(() => {
+    apiCall();
+  }, []);
+  const handleSelect = (event) => {
+    setSelectedCompany(event.target.value);
+  };
+  // ---------------------------------------------------------
+  const [workEmail, setWorkEmail] = useState("");
+  const [position, setPosition] = useState("");
+  const handleWorkEmailChange = (event) => {
+    setWorkEmail(event.target.value);
+  };
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
+  const getDetails = async () => {
+    try {
+      await axios
+        .post("http://localhost:3003/api/getEditProfileEmployeeDetails")
+        .then((res) => {
+          res.data.Work_Email && setWorkEmail(res.data.Work_Email);
+          res.data.Position && setPosition(res.data.Position);
+          res.data.Company_ID && setSelectedCompany(res.data.Company_ID);
+          res.data.Work_Email && setGlobalWorkEmail(res.data.Work_Email);
+        });
+    } catch (e) {
+      console.log("Error occured: ", e);
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+  // ---------------------------------------------------------
+  const handleEmployeeSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (
+        (selectedCompany && position && workEmail) ||
+        (!selectedCompany && !position && !workEmail)
+      ) {
+        await axios
+          .post("http://localhost:3003/api/updateEmployee", {
+            workEmail,
+            position,
+            selectedCompany,
+          })
+          .then((res) => {
+            if (res.data.message === "Update successful") {
+              alert("Employee details successfully updated");
+              window.location.reload();
+            } else if (
+              res.data.message === "Internal server error from backend"
+            )
+              alert("Error updating details");
+          });
+      } else {
+        alert("Correct format : (I) Either all field empty or filled ");
+      }
+    } catch (error) {
+      alert("Error updating details");
+      console.log(error);
+    }
+  };
+  // ---------------------------------------------------------
+  const [otp, setOtp] = useState("");
+  const [getotpButtonClicked, setGetOtpButtonClicked] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(true);
+  const handleGetOTP = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:3003/api/requestEmployeeOtp", {
+          workEmail,
+          isWorkEmailChanged,
+        })
+        .then((res) => {
+          if (res.data.message === "Otp sent") {
+            setGetOtpButtonClicked(true);
+            alert("OTP sent successfully to your changed Email address");
+          } else if (
+            res.data.message ===
+            "Work Email Already Exists. So Work Credentials will not be Updated"
+          ) {
+            alert(
+              "Work Email Already Exists. So Work Credentials will not be Updated"
+            );
+          }
+        });
+    } catch (error) {
+      console.log("Error requesting OTP: ", error);
+    }
+  };
+
+  // ---------------------------------------------------------
+
+  const handleSubmitOtp = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:3003/api/verifyEmployeeOtp", { otp })
+        .then((res) => {
+          if (res.data.message === "Otp verified") {
+            alert("OTP verified successfully");
+            setGetOtpButtonClicked(false);
+            // setIsPersonalEmailChanged(false);
+            setOtpVerified(true);
+          } else {
+            alert("OTP incorrect! Try again");
+          }
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
+  // ---------------------------------------------------------
+  useEffect(() => {
+    if (globalWorkEmail !== workEmail) {
+      setIsWorkEmailChanged(true);
+      setOtpVerified(false);
+    } else setIsWorkEmailChanged(false);
+  }, [workEmail, globalWorkEmail]);
+
+  return (
+    <div>
+      <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
+        <h4 className="merriweather-regular">Employee Credentials</h4>
+      </div>
+
+      {/* ----------------------------- */}
+
+      <div
+        className="col-10 bg-warning p-4 bg-color-feedbackform text-dark"
+        style={{ borderRadius: "8px" }}
+      >
+        <form>
+          <div className="my-2">
+            <label for="workEmail" class="form-label">
+              Work Email
+            </label>
+            <input
+              type="email"
+              class="form-control text-light bg-dark feedback-placeholder"
+              id="workEmail"
+              value={workEmail}
+              onChange={handleWorkEmailChange}
+              placeholder="Enter Work Email"
+            />
+          </div>
+          <div className="my-2">
+            <label for="workPosition" class="form-label">
+              Work Position
+            </label>
+            <input
+              type="text"
+              class="form-control text-light bg-dark feedback-placeholder"
+              id="workPosition"
+              value={position}
+              onChange={handlePositionChange}
+              placeholder="Enter Work Position"
+            />
+          </div>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="my-4">
+              <div>
+                <select
+                  value={selectedCompany}
+                  onChange={handleSelect}
+                  className="bg-dark"
+                  style={{
+                    color: "#888",
+                    fontWeight: "lighter",
+                    borderRadius: "5px",
+                    padding: "3px",
+                  }}
+                >
+                  <option value="">Company</option>
+                  {companyList
+                    ? companyList.map((value) => (
+                        <option key={value.id} value={value.id}>
+                          {value.company}
+                        </option>
+                      ))
+                    : "None"}
+                </select>
+              </div>
+            </div>
+          )}
+          {isWorkEmailChanged && !getotpButtonClicked && (
+            <div className="my-4">
+              <button
+                className="btn-primary text-light bg-success"
+                style={{
+                  borderRadius: "5px",
+                  paddingLeft: "3%",
+                  paddingRight: "3%",
+                  paddingTop: "2%",
+                  paddingBottom: "2%",
+                }}
+                onClick={handleGetOTP}
+              >
+                Get OTP
+              </button>
+            </div>
+          )}
+          {/* --------------------------------------------------------------------- */}
+          {isWorkEmailChanged && getotpButtonClicked && (
+            <div className="my-4">
+              <div className="row">
+                <input
+                  className="col-5"
+                  type="text"
+                  class="form-control text-light bg-dark feedback-placeholder mx-3"
+                  id="otp"
+                  value={otp}
+                  onChange={handleOtpChange}
+                  placeholder="Enter OTP"
+                  style={{ width: "50%" }}
+                />
+                <button
+                  className="col-5 btn-primary text-light bg-success"
+                  style={{
+                    borderRadius: "5px",
+                    paddingLeft: "3%",
+                    paddingRight: "3%",
+                    paddingTop: "2%",
+                    paddingBottom: "2%",
+                  }}
+                  onClick={handleSubmitOtp}
+                >
+                  Verify OTP
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="my-4">
+            <button
+              className="btn-feedback-form bg-success"
+              style={{
+                borderRadius: "5px",
+                paddingLeft: "3%",
+                paddingRight: "3%",
+                paddingTop: "2%",
+                paddingBottom: "2%",
+              }}
+              onClick={handleEmployeeSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

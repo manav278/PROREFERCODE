@@ -6,9 +6,9 @@ import algo2 from "../Algorithm/algo2.js";
 import getDate from "../Algorithm/date.js";
 import { getUserId } from "../Routes/Loginroutes.js";
 import {
-    firstSuccessfulToEmployee,
-    rejectedToApplicant,
-  } from "../Algorithm/nodemailer.js";
+  firstSuccessfulToEmployee,
+  rejectedToApplicant,
+} from "../Algorithm/nodemailer.js";
 
 const Notreplied = async (Referral_ID) => {
   let caseForEmail, applicantEmail, employeeEmail;
@@ -75,6 +75,7 @@ const Notreplied = async (Referral_ID) => {
           );
         });
       applicantEmail = applicant.Personal_Email;
+      console.log(applicantEmail);
       caseForEmail = "NR3";
       currReqModel
         .findOneAndDelete({ Referral_ID: Referral_ID })
