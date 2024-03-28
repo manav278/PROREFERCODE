@@ -1,4 +1,5 @@
 import users from "../Model/proreferuser.js";
+import { getUserId } from "../Routes/Loginroutes.js";
 const customSort = (a, b) => {
   if (a.Last_Referral_Date != b.Last_Referral_Date) {
     return a.Last_Referral_Date - b.Last_Referral_Date;
@@ -10,27 +11,26 @@ const customSort = (a, b) => {
 async function filterByLocation(requestedLocation, companyId) {
   try {
     let employees;
+    let currentUser = getUserId();
     const employees1 = await users.find({
       Company_ID: companyId, //export from reqquestref routes.
       Referrals_Reviewed_ThisMonth: [0, 1, 2, 3, 4],
       COMPANY_LOCATION: requestedLocation,
+      User_ID: { $ne: Number(currentUser) },
     });
+
     const employees2 = await users.find({
       Company_ID: companyId, //export from reqquestref routes.
       Referrals_Reviewed_ThisMonth: [0, 1, 2, 3, 4],
+      User_ID: { $ne: Number(currentUser) },
     });
-    if (employees2.length===0 && employees1.length===0) {
+    if (employees2.length === 0 && employees1.length === 0) {
       return -1;
     }
-    // console.log("Employees1: ", employees1);
-    // console.log("Employees2: ", employees2);
 
-    if(employees1.length!=0)
-    {
+    if (employees1.length != 0) {
       employees = employees1;
-    }
-    else
-    {
+    } else {
       employees = employees2;
     }
 
