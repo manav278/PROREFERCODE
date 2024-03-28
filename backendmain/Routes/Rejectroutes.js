@@ -34,7 +34,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
           {
-            $push: { History:  historyZero  },
+            $push: { History: historyZero },
             $set: { result: "Not Referred" },
           },
           { new: true }
@@ -160,7 +160,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                     Referrals_Reviewed_ThisMonth: 1,
                     Total_Referrals_Reviewed: 1,
                   },
-                  $set: { Last_Referral_Date: dateToday },
+                  // $set: { Last_Referral_Date: dateToday },
                 },
                 { new: true }
               );
@@ -176,8 +176,18 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
               let newCurrReqTuple = await currReqModel.findOneAndUpdate(
                 { Referral_ID: Referral_ID },
                 {
-                  $set: { History: [newHistoryItem], Employee_LRD: employeeLRD },
+                  $set: {
+                    History: [newHistoryItem],
+                    Employee_LRD: employeeLRD,
+                  },
                 }
+              );
+              await proreferusers.findOneAndUpdate(
+                { User_ID: newEmployeeID },
+                {
+                  $set: { Last_Referral_Date: dateToday },
+                },
+                { new: true }
               );
               res.json(0);
             }
@@ -268,7 +278,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                 Referrals_Reviewed_ThisMonth: 1,
                 Total_Referrals_Reviewed: 1,
               },
-              $set: { Last_Referral_Date: dateToday },
+              // $set: { Last_Referral_Date: dateToday },
             },
             { new: true }
           );
@@ -286,6 +296,13 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
             {
               $set: { History: [newHistoryItem], Employee_LRD: employeeLRD },
             }
+          );
+          await proreferusers.findOneAndUpdate(
+            { User_ID: newEmployeeID },
+            {
+              $set: { Last_Referral_Date: dateToday },
+            },
+            { new: true }
           );
           res.json(0);
         }
