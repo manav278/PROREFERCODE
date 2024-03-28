@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import axios from "axios";
-import MyContext from '../MyContext';
+import MyContext from "../MyContext";
 
 const EditProfileForm = () => {
-  const {handleLogout} = useContext(MyContext);
+  const { handleLogout } = useContext(MyContext);
   const navigate = useNavigate();
   const [globalPersonalEmail, setGlobalPersonalEmail] = useState("");
   const [isPersonalEmailChanged, setIsPersonalEmailChanged] = useState(false);
@@ -152,25 +152,25 @@ const EditProfileForm = () => {
             mobileNumber,
             personalEmail,
             location,
-            isPersonalEmailChanged
+            isPersonalEmailChanged,
           })
           .then((res) => {
-            if (res.data.message === "Update successful")
-            {
-              if(isPersonalEmailChanged)
-              {
-                alert("Applicant details successfully updated, please login again");
+            if (res.data.message === "Update successful") {
+              if (isPersonalEmailChanged) {
+                alert(
+                  "Applicant details successfully updated, please login again"
+                );
                 setIsPersonalEmailChanged(false);
                 setOtpVerified(true);
                 handleLogout();
-                navigate('/login');
+                navigate("/login");
                 // <Navigate to="/login" />
+              } else {
+                alert("Applicant details successfully updated");
               }
-              else{
-              alert("Applicant details successfully updated");
-              }
-            }
-            else if (res.data.message === "Internal server error from backend")
+            } else if (
+              res.data.message === "Internal server error from backend"
+            )
               alert("Error updating details");
           });
       } else {
@@ -250,7 +250,10 @@ const EditProfileForm = () => {
         style={{ marginTop: "3%", marginBottom: "3%" }}
       >
         <div className="row gx-5s">
-          <div className="col-md-6 col-12 align-items-center my-md-1 my-4 mx-md-0 mx-3" style={{marginLeft:'7%'}}>
+          <div
+            className="col-md-6 col-12 align-items-center my-md-1 my-4 mx-md-0 mx-3"
+            style={{ marginLeft: "7%" }}
+          >
             <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
               <h4 className="merriweather-regular">Applicant Credentials</h4>
             </div>

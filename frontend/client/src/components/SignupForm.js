@@ -94,7 +94,7 @@ const SignupForm = () => {
         }
       } else {
         alert(
-          "One or more fields are empty in Personal Details Section or Company Details Section."
+          "One or more fields are empty in Personal Details Section or Company Details Section"
         );
       }
     } catch (error) {

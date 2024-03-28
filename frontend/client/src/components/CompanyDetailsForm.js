@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 const CompanyDetailsForm = ({
   formData,
   handleChange,
@@ -11,9 +11,114 @@ const CompanyDetailsForm = ({
   handleSubmit,
   updateFormData,
 }) => {
+  // console.log(formData);
+  const navigate = useNavigate();
   const [companyList, setCompanyList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCompany, setSelectedCompany] = useState(null);
+
+  const [getotpButtonClicked, setGetOtpButtonClicked] = useState(false);
+  const [personalOtp, setPersonalOtp] = useState("");
+  const [workOtp, setWorkOtp] = useState("");
+  const [otpVerified, setOtpVerified] = useState(false);
+
+  const handlePerOtpChange = (event) => {
+    setPersonalOtp(event.target.value);
+  };
+
+  const handleWorkOtpChange = (event) => {
+    setWorkOtp(event.target.value);
+  };
+
+  const handleSubmitOtp = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:3003/api/verifyOtpAtSignup", {
+          personalOtp,
+          workOtp,
+        })
+        .then((res) => {
+          if (res.data.message === "Otp verified") {
+            alert("OTP verified successfully");
+            setGetOtpButtonClicked(false);
+            setOtpVerified(true);
+          } else {
+            alert("OTP incorrect! Try again");
+          }
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  const handleGetOTP = async (event) => {
+    event.preventDefault();
+    if (
+      formData.firstname !== "" &&
+      formData.lastname !== "" &&
+      formData.personalemail !== "" &&
+      formData.mobilenumber !== "" &&
+      formData.password !== "" &&
+      ((formData.workemail === "" &&
+        formData.companyname === "" &&
+        formData.selectedcompany === null &&
+        formData.location === "" &&
+        formData.position === "") ||
+        (formData.workemail !== "" &&
+          formData.companyname !== "" &&
+          formData.selectedcompany == null &&
+          formData.location !== "" &&
+          formData.position !== "") ||
+        (formData.workemail !== "" &&
+          formData.companyname === "" &&
+          formData.selectedcompany !== null &&
+          formData.location !== "" &&
+          formData.position !== ""))
+    ) {
+      try {
+        let personalEmail = formData.personalemail;
+        let workEmail = formData.workemail;
+        let result = await axios.post(
+          "http://localhost:3003/api/checkEmailExistence",
+          { personalEmail, workEmail }
+        );
+        if (result.data === "Personal email exists") {
+          alert(
+            "The personal email already exists. You can proceed to log in."
+          );
+          navigate("/login");
+        } else if (result.data === "Work email exists") {
+          alert("The work email already exists. You can proceed to log in.");
+          navigate("/login");
+        } else if (result.data === "Both email exists") {
+          alert(
+            "The personal and work emails already exists. You can proceed to log in."
+          );
+          navigate("/login");
+        } else {
+          await axios
+            .post("http://localhost:3003/api/requestOtpAtSignup", {
+              personalEmail,
+              workEmail,
+            })
+            .then((res) => {
+              if (res.data.message === "Otp sent") {
+                setGetOtpButtonClicked(true);
+                alert("OTP sent successfully to your Email addresses");
+              }
+            });
+        }
+      } catch (error) {
+        console.log("Error requesting OTP: ", error);
+      }
+    } else {
+      alert(
+        "One or more fields are empty in Personal Details Section or Company Details Section"
+      );
+    }
+  };
+
   const apiCall = async () => {
     try {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
@@ -37,7 +142,7 @@ const CompanyDetailsForm = ({
   // -------------------------------------
   useEffect(() => {
     updateFormData({ ...formData, selectedcompany: selectedCompany });
-    console.log(selectedCompany);
+    // console.log(selectedCompany);
   }, [selectedCompany]);
   return (
     <div>
@@ -185,6 +290,78 @@ const CompanyDetailsForm = ({
                       onChange={handleChange}
                     ></input>
                   </div>
+                  {!otpVerified && !getotpButtonClicked && (
+                    <div>
+                      <button
+                        className="btn-createcampaign-form bg-success mx-2"
+                        style={{
+                          borderRadius: "5px",
+                          paddingLeft: "2%",
+                          paddingRight: "2%",
+                          paddingTop: "1%",
+                          paddingBottom: "1%",
+                          marginBottom: "2%",
+                          marginTop: "2%",
+                        }}
+                        type="button"
+                        onClick={handleGetOTP}
+                      >
+                        Get OTP
+                      </button>
+                    </div>
+                  )}
+                  {getotpButtonClicked && (
+                    <div className="my-4 container">
+                      <div className="row">
+                        <input
+                          className="col-5 my-1"
+                          type="text"
+                          class="form-control text-light bg-dark feedback-placeholder"
+                          id="otp"
+                          value={personalOtp}
+                          onChange={handlePerOtpChange}
+                          placeholder="Personal Email OTP"
+                          style={{ width: "50%" }}
+                        />
+                        {formData.workemail && (
+                          <input
+                            className="col-5 my-1"
+                            type="text"
+                            class="form-control text-light bg-dark feedback-placeholder"
+                            id="otp"
+                            value={workOtp}
+                            onChange={handleWorkOtpChange}
+                            placeholder="Work Email OTP"
+                            style={{ width: "50%" }}
+                          />
+                        )}
+                        <button
+                          className="col-5 btn-primary text-light bg-success"
+                          style={
+                            formData.workemail
+                              ? {
+                                  marginTop: "12px",
+                                  borderRadius: "5px",
+                                  paddingLeft: "3%",
+                                  paddingRight: "3%",
+                                  paddingTop: "2%",
+                                  paddingBottom: "2%",
+                                }
+                              : {
+                                  borderRadius: "5px",
+                                  paddingLeft: "3%",
+                                  paddingRight: "3%",
+                                  paddingTop: "2%",
+                                  paddingBottom: "2%",
+                                }
+                          }
+                          onClick={handleSubmitOtp}
+                        >
+                          Verify OTP
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <button
                       className="btn-createcampaign-form bg-success mx-2"
@@ -202,21 +379,23 @@ const CompanyDetailsForm = ({
                     >
                       Back
                     </button>
-                    <button
-                      className="btn-createcampaign-form bg-success"
-                      style={{
-                        borderRadius: "5px",
-                        paddingLeft: "2%",
-                        paddingRight: "2%",
-                        paddingTop: "1%",
-                        paddingBottom: "1%",
-                        marginBottom: "2%",
-                        marginTop: "2%",
-                      }}
-                      type="submit"
-                    >
-                      Sign Up
-                    </button>
+                    {otpVerified && (
+                      <button
+                        className="btn-createcampaign-form bg-success"
+                        style={{
+                          borderRadius: "5px",
+                          paddingLeft: "2%",
+                          paddingRight: "2%",
+                          paddingTop: "1%",
+                          paddingBottom: "1%",
+                          marginBottom: "2%",
+                          marginTop: "2%",
+                        }}
+                        type="submit"
+                      >
+                        Sign Up
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>
