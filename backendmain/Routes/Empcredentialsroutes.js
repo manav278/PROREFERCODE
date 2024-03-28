@@ -54,7 +54,7 @@ const verifyOTP = (encryptedOTP, enteredOTP) => {
   return enteredOTP === decryptedOTP;
 };
 
-router.post("/getEditProfileDetails", async (req, res) => {
+router.post("/getEditProfileEmployeeDetails", async (req, res) => {
   try {
     let ID = getUserId();
     let userProfile = await proreferuser.find({ User_ID: ID });
@@ -65,29 +65,18 @@ router.post("/getEditProfileDetails", async (req, res) => {
   }
 });
 
-router.post("/updateApplicant", async (req, res) => {
+router.post("/updateEmployee", async (req, res) => {
   try {
-    const { mobileNumber, personalEmail, location, isPersonalEmailChanged } =
-      req.body;
+    const { workEmail, position, selectedCompany } = req.body;
     let ID = getUserId();
-    let oldEmail;
-    if (isPersonalEmailChanged) {
-      let oldUser = await proreferuser.findOne({ User_ID: ID });
-      oldEmail = oldUser.Personal_Email;
-    }
     await proreferuser.findOneAndUpdate(
       { User_ID: ID },
       {
-        Mobile_Number: mobileNumber,
-        Personal_Email: personalEmail,
-        COMPANY_LOCATION: location,
+        Work_Email: workEmail,
+        Position: position,
+        Company_ID: Number(selectedCompany),
       }
     );
-    if (isPersonalEmailChanged)
-      await authdata.findOneAndUpdate(
-        { Personal_Email: oldEmail },
-        { Personal_Email: personalEmail }
-      );
     res.json({ message: "Update successful" });
   } catch (error) {
     console.log("Error fetching data from MongoDB: ", error);
@@ -95,18 +84,20 @@ router.post("/updateApplicant", async (req, res) => {
   }
 });
 
-router.post("/requestOtp", async (req, res) => {
+router.post("/requestEmployeeOtp", async (req, res) => {
   try {
-    const { personalEmail, isPersonalEmailChanged } = req.body;
-    if (isPersonalEmailChanged) {
-      const u1 = await proreferuser.findOne({ Personal_Email: personalEmail });
+    const { workEmail, isWorkEmailChanged } = req.body;
+    console.log(req.body);
+    if (isWorkEmailChanged) {
+      const u1 = await proreferuser.findOne({ Work_Email: workEmail });
+      console.log(u1);
       if (u1) {
         res.status(200).json({
           message:
-            "Personal Email Already Exists. So Applicant Credentials will not be Updated",
+            "Work Email Already Exists. So Work Credentials will not be Updated",
         });
       } else {
-        let { encryptedOTP, salt } = await sendOTPByEmail(personalEmail);
+        let { encryptedOTP, salt } = await sendOTPByEmail(workEmail);
         globalEncryptedOTP = encryptedOTP;
         globalSalt = salt;
         res.status(200).json({ message: "Otp sent" });
@@ -118,7 +109,7 @@ router.post("/requestOtp", async (req, res) => {
   }
 });
 
-router.post("/verifyOtp", async (req, res) => {
+router.post("/verifyEmployeeOtp", async (req, res) => {
   try {
     const { otp } = req.body;
     const isCorrect = verifyOTP(globalEncryptedOTP, otp);
