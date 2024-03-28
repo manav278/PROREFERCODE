@@ -59,4 +59,7 @@ async function filterByLocation(requestedLocation, companyId, employeeArray) {
   }
 }
 
+// let res = await filterByLocation("India", 1, [64, 80]);
+// console.log(res);
+
 export default filterByLocation;

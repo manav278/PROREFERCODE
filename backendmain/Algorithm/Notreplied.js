@@ -1,35 +1,32 @@
 import historyModel from "../Model/referralhistory.js";
 import currReqModel from "../Model/currentrequest.js";
 import proreferusers from "../Model/proreferuser.js";
+import companyModel from "../Model/companydata.js";
 import algo2 from "../Algorithm/algo2.js";
 import getDate from "../Algorithm/date.js";
+import { getUserId } from "../Routes/Loginroutes.js";
 import {
-  firstSuccessfulToEmployee,
-  rejectedToApplicant,
-} from "../Algorithm/nodemailer.js";
-import express from "express";
+    firstSuccessfulToEmployee,
+    rejectedToApplicant,
+  } from "../Algorithm/nodemailer.js";
 
-const router = express.Router();
-let caseForEmail, applicantEmail, employeeEmail;
-
-router.get("/reject1/:Referral_ID", async (req, res) => {
-  const Referral_ID = Number(req.params.Referral_ID);
+const Notreplied = async (Referral_ID) => {
+  let caseForEmail, applicantEmail, employeeEmail;
   let currReqTuple = await currReqModel.findOneAndUpdate(
     { Referral_ID: Referral_ID },
-    { $inc: { Denial_Count: 1 } },
+    { $inc: { No_Reply_Count: 1 } },
     { new: true }
   );
   let NRC = currReqTuple.No_Reply_Count;
   let DC = currReqTuple.Denial_Count;
-
   // Check if tuple already exists in referral history or not
-  if (NRC !== 0 || DC !== 1) {
-    //This is not the first request, previously tuple should have been created in referral history
-
-    //Now check if NRC+DC>=3
+  if (NRC !== 1 || DC !== 0) {
+    // ----------------------------------------------Case1
     if (NRC + DC >= 3) {
       let historyZero = currReqTuple.History[0];
-      historyZero.Result = "Not Referred";
+      //   ------------------------------
+      //Push Hist[0] from currentrequest to referralhistory.
+      historyZero.Result = "Not Replied";
       let historyTuple = await historyModel
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
@@ -41,11 +38,34 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         )
         .catch((error) => {
           console.log(
-            "Error updating data in historySchema at reject1 route: ",
+            "Error updating data in historySchema at Notreplied.js: ",
             error
           );
         });
-
+      // -----------------------------
+      //Employee_LRD Update,Decrement Referrals_Reviewed_ThisMonth: 1,Total_Referrals_Reviewed: 1,
+      let empID = currReqTuple.History[0].Employee_ID;
+      let empLRD = currReqTuple.Employee_LRD;
+      await proreferusers
+        .findOneAndUpdate(
+          { User_ID: Number(empID) },
+          {
+            $set: { Last_Referral_Date: empLRD },
+            $dec: {
+              Referrals_Reviewed_ThisMonth: 1,
+              Total_Referrals_Reviewed: 1,
+            },
+          },
+          { new: true }
+        )
+        .catch((error) => {
+          console.log(
+            "Error updating data in userSchema at Notreplied.js: ",
+            error
+          );
+        });
+      // -----------------------------
+      //Delete currentrequest data.
       let applicant = await proreferusers
         .findOne({ User_ID: currReqTuple.Applicant_ID })
         .catch((error) => {
@@ -55,7 +75,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
           );
         });
       applicantEmail = applicant.Personal_Email;
-      caseForEmail = "REJECT3";
+      caseForEmail = "NR3";
       currReqModel
         .findOneAndDelete({ Referral_ID: Referral_ID })
         .catch((error) => {
@@ -64,12 +84,11 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
             error
           );
         });
-      res.json(0);
     } else {
-      // NRC+DC<3 => Case 2
-
       let historyZero = currReqTuple.History[0];
-      historyZero.Result = "Not Referred";
+      historyZero.Result = "Not Replied";
+      //   ------------------------------------
+      //Push Hist[0] from currentrequest to referralhistory.
       let historyTuple = await historyModel
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
@@ -80,11 +99,33 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         )
         .catch((error) => {
           console.log(
-            "Error updating data in historySchema at reject1 route: ",
+            "Error updating data in historySchema at noreply route: ",
             error
           );
         });
-
+      //-----------------------------
+      //Employee_LRD Update,Decrement Referrals_Reviewed_ThisMonth: 1,Total_Referrals_Reviewed: 1,
+      let empID = currReqTuple.History[0].Employee_ID;
+      let empLRD = currReqTuple.Employee_LRD;
+      await proreferusers
+        .findOneAndUpdate(
+          { User_ID: Number(empID) },
+          {
+            $set: { Last_Referral_Date: empLRD },
+            $dec: {
+              Referrals_Reviewed_ThisMonth: 1,
+              Total_Referrals_Reviewed: 1,
+            },
+          },
+          { new: true }
+        )
+        .catch((error) => {
+          console.log(
+            "Error updating data in userSchema at Notreplied.js: ",
+            error
+          );
+        });
+      //-----------------------------
       currReqModel
         .findOneAndUpdate(
           { Referral_ID: Referral_ID },
@@ -92,7 +133,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
           { new: true }
         )
         .catch((error) => {
-          console.log("Error updating history array in reject1: ", error);
+          console.log("Error updating history array in noreply: ", error);
         });
 
       historyModel
@@ -110,6 +151,8 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         .then(async (result) => {
           if (result.length > 0) {
             const employeeIDs = result[0].Employee_IDs;
+            employeeIDs.push(currReqTuple.Applicant_ID);
+            console.log("At line 154: ", employeeIDs);
             let newEmployeeID = await algo2(
               currReqTuple.Location,
               currReqTuple.Company_ID,
@@ -125,12 +168,12 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                   );
                 });
               applicantEmail = applicant.Personal_Email;
-              caseForEmail = "REJECT2BREAK";
-              currReqModel
+              caseForEmail = "NR2BREAK";
+              await currReqModel
                 .findOneAndDelete({ Referral_ID: Referral_ID })
                 .catch((error) => {
                   console.log(
-                    "Error deleting tuple from currentRequests in reject1: ",
+                    "Error deleting tuple from currentRequests in NotReplied: ",
                     error
                   );
                 });
@@ -148,8 +191,6 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                     error
                   );
                 });
-
-              res.json(0);
             } else {
               // New Employee found
               let dateToday = await getDate();
@@ -166,7 +207,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
               );
               employeeEmail = user.Work_Email;
               let employeeLRD = user.Last_Referral_Date;
-              caseForEmail = "REJECT2CONTINUE";
+              caseForEmail = "NR2CONTINUE";
 
               let newHistoryItem = {
                 Employee_ID: newEmployeeID,
@@ -189,10 +230,9 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                 },
                 { new: true }
               );
-              res.json(0);
             }
           } else {
-            console.log("No document found for employeeIDs in reject1");
+            console.log("No document found for employeeIDs in NotReplied");
           }
         })
         .catch((error) => {
@@ -200,7 +240,6 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         });
     }
   } else {
-    // Referral_ID, currReqTuple, NRC, DC
     let dateToday = await getDate();
     let newTuple = new historyModel({
       Referral_ID: Referral_ID,
@@ -211,7 +250,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
                 Employee_ID: currReqTuple.History[0].Employee_ID,
                 Employee_Request_Date:
                   currReqTuple.History[0].Employee_Request_Date,
-                Result: "Not Referred",
+                Result: "Not Replied",
               },
             ]
           : [],
@@ -228,7 +267,29 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
       .save()
       .then(async (savedTuple) => {
         let empID = currReqTuple.History[0].Employee_ID;
+        let empLRD = currReqTuple.Employee_LRD;
+        await proreferusers
+          .findOneAndUpdate(
+            { User_ID: Number(empID) },
+            {
+              $set: { Last_Referral_Date: empLRD },
+              $dec: {
+                Referrals_Reviewed_ThisMonth: 1,
+                Total_Referrals_Reviewed: 1,
+              },
+            },
+            { new: true }
+          )
+          .catch((error) => {
+            console.log(
+              "Error updating data in userSchema at Notreplied.js: ",
+              error
+            );
+          });
+
         let empArray = [empID];
+        empArray.push(currReqTuple.Applicant_ID);
+        console.log("At line 290: ", empArray);
         let newEmployeeID = await algo2(
           currReqTuple.Location,
           currReqTuple.Company_ID,
@@ -239,17 +300,17 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
             .findOne({ User_ID: currReqTuple.Applicant_ID })
             .catch((error) => {
               console.log(
-                "Error finding data from ProReferUsers at reject1: ",
+                "Error finding data from ProReferUsers at NR: ",
                 error
               );
             });
           applicantEmail = applicant.Personal_Email;
-          caseForEmail = "REJECT1BREAK";
+          caseForEmail = "NR1BREAK";
           currReqModel
             .findOneAndDelete({ Referral_ID: Referral_ID })
             .catch((error) => {
               console.log(
-                "Error deleting tuple from currentRequests in reject1: ",
+                "Error deleting tuple from currentRequests in NR: ",
                 error
               );
             });
@@ -263,12 +324,10 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
             )
             .catch((error) => {
               console.log(
-                "Error setting history result to not referred in reject1: ",
+                "Error setting history result to not referred in NR: ",
                 error
               );
             });
-
-          res.json(0);
         } else {
           // New Employee found
           let dateToday = await getDate();
@@ -285,7 +344,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
           );
           employeeEmail = user.Work_Email;
           let employeeLRD = user.Last_Referral_Date;
-          caseForEmail = "REJECT1CONTINUE";
+          caseForEmail = "NR1CONTINUE";
 
           let newHistoryItem = {
             Employee_ID: newEmployeeID,
@@ -305,35 +364,28 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
             },
             { new: true }
           );
-          res.json(0);
         }
       })
       .catch((error) => {
-        console.error("Error saving tuple in reject1:", error);
-        res.json(-1);
+        console.error("Error saving tuple in NR:", error);
       });
   }
-});
 
-router.get("/reject2", async (req, res) => {
   try {
     if (
-      caseForEmail === "REJECT3" ||
-      caseForEmail === "REJECT2BREAK" ||
-      caseForEmail === "REJECT1BREAK"
+      caseForEmail === "NR3" ||
+      caseForEmail === "NR2BREAK" ||
+      caseForEmail === "NR1BREAK"
     ) {
       rejectedToApplicant(applicantEmail);
     } else if (
-      caseForEmail === "REJECT2CONTINUE" ||
-      caseForEmail === "REJECT1CONTINUE"
+      caseForEmail === "NR2CONTINUE" ||
+      caseForEmail === "NR1CONTINUE"
     ) {
       firstSuccessfulToEmployee(employeeEmail);
     }
-    res.json(0);
   } catch (error) {
-    console.log("Error in reject2: ", error);
-    res.json(-1);
+    console.log("Error in NR: ", error);
   }
-});
-
-export default router;
+};
+export default Notreplied;

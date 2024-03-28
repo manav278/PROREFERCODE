@@ -89,6 +89,7 @@ router.get("/accept1/:Referral_ID", async (req, res) => {
       }
       // *********************************************
       hist.History.push(curr.History[0]);
+      hist.result = "Referred";
       hist
         .save()
         .then(async (updatedHist) => {
