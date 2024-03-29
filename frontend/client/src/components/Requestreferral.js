@@ -4,6 +4,8 @@ import axios from "axios";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import "../App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import referral from "./assets/referral.jpg";
 export default function Requestreferral() {
   const navigate = useNavigate();
@@ -49,28 +51,77 @@ export default function Requestreferral() {
           })
           .then((res) => {
             if (res.data.message === "Error processing request") {
-              alert("Error processing request. Please try again later");
-              navigate("/dashboard");
+              toast.error("Error processing request. Please try again later", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                onClose: () => {
+                  navigate("/dashboard");
+                },
+              });
             }
             if (
               res.data.message ===
               "Referrals Requested This Month Limit Exceeded"
             ) {
-              alert("Your monthly limit has already exhausted");
+              toast.warn("Your monthly limit has already exhausted", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             }
             if (res.data.message === "Request received successfully") {
-              alert("Request received successfully");
-              axios.get("http://localhost:3003/api/process-request");
-              navigate("/dashboard");
+              toast.success("Request received successfully", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                onClose: () => {
+                  axios.get("http://localhost:3003/api/process-request");
+                  navigate("/dashboard");
+                },
+              });
             }
             if (res.data.message === "Server Error") {
-              alert("Please Try Again Later.");
+              toast.error("Please Try Again Later.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             }
             if (
               res.data.message ===
               "Please fill the values properly.Some values are Null"
             ) {
-              alert("Please fill the values properly.Values are Null");
+              toast.warn("Please fill the values properly.Values are Null", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             }
           });
       } catch (e) {
@@ -195,6 +246,7 @@ export default function Requestreferral() {
         </div>
       </div>
       <Footer></Footer>
+      <ToastContainer />
     </>
   );
 }

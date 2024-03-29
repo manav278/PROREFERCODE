@@ -4,6 +4,8 @@ import axios from "axios";
 import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +20,7 @@ export default function Login({ setLoggedIn }) {
 
   async function submit(e) {
     e.preventDefault();
-    let response=null;
+    let response = null;
 
     try {
       response = await axios
@@ -29,11 +31,32 @@ export default function Login({ setLoggedIn }) {
         .then((res) => {
           // console.log(res);
           if (res.data.message === "Invalid email or password") {
-            alert("Invalid Username or password");
+            toast.error("Invalid Username or password", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           } else {
-            const { token } = res.data;
-            localStorage.setItem("token", token); // Store token in local storage
-            setLoggedIn(true);
+            toast.success("Loggedin Successfully", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                const { token } = res.data;
+                localStorage.setItem("token", token); // Store token in local storage
+                setLoggedIn(true);
+              },
+            });
           }
         });
     } catch (e) {
@@ -124,6 +147,7 @@ export default function Login({ setLoggedIn }) {
         </div>
       </div>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 }

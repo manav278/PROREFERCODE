@@ -6,6 +6,8 @@ import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CompanyDetailsForm = ({
   formData,
   handleChange,
@@ -48,11 +50,31 @@ const CompanyDetailsForm = ({
         })
         .then((res) => {
           if (res.data.message === "Otp verified") {
-            alert("OTP verified successfully");
-            setGetOtpButtonClicked(false);
-            setOtpVerified(true);
+            toast.success("OTP verified successfully", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(false);
+                setOtpVerified(true);
+              },
+            });
           } else {
-            alert("OTP incorrect! Try again");
+            toast.error("OTP incorrect! Try again", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           }
         });
     } catch (error) {
@@ -92,18 +114,56 @@ const CompanyDetailsForm = ({
           { personalEmail, workEmail }
         );
         if (result.data === "Personal email exists") {
-          alert(
-            "The personal email already exists. You can proceed to log in."
+          toast.warn(
+            "The personal email already exists. You can proceed to log in.",
+            {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                navigate("/login");
+              },
+            }
           );
-          navigate("/login");
         } else if (result.data === "Work email exists") {
-          alert("The work email already exists. You can proceed to log in.");
-          navigate("/login");
-        } else if (result.data === "Both email exists") {
-          alert(
-            "The personal and work emails already exists. You can proceed to log in."
+          toast.warn(
+            "The work email already exists. You can proceed to log in.",
+            {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                navigate("/login");
+              },
+            }
           );
-          navigate("/login");
+        } else if (result.data === "Both email exists") {
+          toast.warn(
+            "The personal and work emails already exists. You can proceed to log in.",
+            {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                navigate("/login");
+              },
+            }
+          );
         } else {
           await axios
             .post("http://localhost:3003/api/requestOtpAtSignup", {
@@ -113,7 +173,16 @@ const CompanyDetailsForm = ({
             .then((res) => {
               if (res.data.message === "Otp sent") {
                 setGetOtpButtonClicked(true);
-                alert("OTP sent successfully to your Email addresses");
+                toast.success("OTP sent successfully to your Email addresses", {
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
               }
             });
         }
@@ -121,8 +190,18 @@ const CompanyDetailsForm = ({
         console.log("Error requesting OTP: ", error);
       }
     } else {
-      alert(
-        "One or more fields are empty in Personal Details Section or Company Details Section"
+      toast.error(
+        "One or more fields are empty in Personal Details Section or Company Details Section",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
       );
     }
   };
@@ -131,7 +210,16 @@ const CompanyDetailsForm = ({
     try {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
         if (res.data.message === "Server Error") {
-          alert("Server Error");
+          toast.error("Server Error", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
         setCompanyList(res.data);
         setGlobalCompanies(res.data);
@@ -188,7 +276,6 @@ const CompanyDetailsForm = ({
   // -------------------------------------
   useEffect(() => {
     updateFormData({ ...formData, selectedcompany: selectedCompany });
-    // console.log(selectedCompany);
   }, [selectedCompany]);
   return (
     <div>

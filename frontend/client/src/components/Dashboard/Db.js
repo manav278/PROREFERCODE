@@ -1,21 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Db = () => {
   const navigate = useNavigate();
   const [showUpload, setShowUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleReqRefClick = async() => {
+  const handleReqRefClick = async () => {
     let result = await axios.get("http://localhost:3003/api/resumeUploaded");
-    if(result.data===0)
-    {
+    if (result.data === 0) {
       navigate("/requestreferral");
-    }else{
-      alert("Please upload your resume before requesting a referral");
+    } else {
+      toast.warn("Please upload your resume before requesting a referral", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
 
   const handleShow = () => {
     setShowUpload(!showUpload);
@@ -60,9 +70,16 @@ const Db = () => {
             },
           }
         );
-
-        console.log("File uploaded successfully:", response.data);
-        alert("File Uploaded successfully");
+        toast.success("File Uploaded successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } catch (error) {
         console.error("Error uploading file:", error);
       }
@@ -96,8 +113,12 @@ const Db = () => {
               role. Take the first step towards your career goals today!
             </p>
 
-            <button type="button" class="btn btn-primary border-light" onClick={handleReqRefClick}>
-                Request Referral
+            <button
+              type="button"
+              class="btn btn-primary border-light"
+              onClick={handleReqRefClick}
+            >
+              Request Referral
             </button>
           </div>
         </div>
@@ -148,50 +169,10 @@ const Db = () => {
         </div>
         {/* <hr style={{color:'white'}}/> */}
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default Db;
 
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const Fileupload = () => {
-//   const [selectedFile, setSelectedFile] = useState(null);
-
-//   const handleFileChange = (e) => {
-//     const file = e.target.files[0];
-//     setSelectedFile(file);
-//   };
-
-//   const handleUpload = async () => {
-//     if (selectedFile) {
-//       const formData = new FormData();
-//       formData.append('file', selectedFile);
-
-//       try {
-//         const response = await axios.post('http://localhost:3001/upload', formData, {
-//           headers: {
-//             'Content-Type': 'multipart/form-data',
-//           },
-//         });
-
-//         console.log('File uploaded successfully:', response.data);
-//       } catch (error) {
-//         console.error('Error uploading file:', error);
-//       }
-//     } else {
-//       console.error('No file selected');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <input type="file" onChange={handleFileChange} accept=".pdf" />
-//       <button onClick={handleUpload}>Upload</button>
-//     </div>
-//   );
-// };
-
-// export default Fileupload;

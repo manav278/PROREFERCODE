@@ -20,7 +20,18 @@ export default function Empcredentials() {
         // console.log(res.data);
         setCompanyList(res.data);
         setLoading(false);
-        if (res.data.message === "Server Error") alert("Server Error");
+        if (res.data.message === "Server Error") {
+          toast.error("Server Error", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       });
     } catch (e) {
       console.log("Error occured: ", e);
@@ -65,10 +76,15 @@ export default function Empcredentials() {
       e.preventDefault();
       if (otpVerified === false) {
         // alert("Verify OTP first, as your email is changed");
-        toast.error("Verify OTP first, as your email is changed", {
+        toast.warn("Verify OTP first, as your email is changed", {
           position: "top-center",
-          theme:"light",
-
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
         return;
       }
@@ -91,19 +107,58 @@ export default function Empcredentials() {
           })
           .then((res) => {
             if (res.data.message === "Update successful") {
-              alert("Employee details successfully updated");
-              window.location.reload();
+              toast.success("Employee details successfully updated", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                onClose: () => {
+                  window.location.reload();
+                  return;
+                },
+              });
             } else if (
               res.data.message === "Internal server error from backend"
             ) {
-              alert("Error updating details");
+              toast.error("Error updating details", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             }
           });
       } else {
-        alert("Correct format : (I) Either all field empty or filled ");
+        toast.warn("Correct format : (I) Either all field empty or filled ", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      alert("Error updating details");
+      toast.error("Error updating details", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log(error);
     }
   };
@@ -121,14 +176,35 @@ export default function Empcredentials() {
         })
         .then((res) => {
           if (res.data.message === "Otp sent") {
-            setGetOtpButtonClicked(true);
-            alert("OTP sent successfully to your changed Email address");
+            toast.success("Otp successfully sent", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(true);
+              },
+            });
           } else if (
             res.data.message ===
             "Work Email Already Exists. So Work Credentials will not be Updated"
           ) {
-            alert(
-              "Work Email Already Exists. So Work Credentials will not be Updated"
+            toast.warn(
+              "Work Email Already Exists. So Work Credentials will not be Updated",
+              {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              }
             );
           }
         });
@@ -146,12 +222,32 @@ export default function Empcredentials() {
         .post("http://localhost:3003/api/verifyEmployeeOtp", { otp })
         .then((res) => {
           if (res.data.message === "Otp verified") {
-            alert("OTP verified successfully");
-            setGetOtpButtonClicked(false);
-            // setIsPersonalEmailChanged(false);
-            setOtpVerified(true);
+            toast.success("OTP verified successfully", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(false);
+                // setIsPersonalEmailChanged(false);
+                setOtpVerified(true);
+              },
+            });
           } else {
-            alert("OTP incorrect! Try again");
+            toast.error("OTP incorrect! Try again", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           }
         });
     } catch (error) {

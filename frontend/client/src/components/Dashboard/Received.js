@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import axios from "axios";
 import "../../App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Received = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -14,14 +16,23 @@ const Received = () => {
       const response = await axios.get(
         `http://localhost:3003/api/accept1/${Referral_ID}`
       );
-      // console.log(response);
       if (response.data.message === "Added") {
         setLoading(false);
-        setMsg("Accepted");
-        alert("Accepted successfully");
-        axios.get("http://localhost:3003/api/accept2");
-        navigate("/dashboard");
-        window.location.reload();
+        toast.success("Accepted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          onClose: () => {
+            axios.get("http://localhost:3003/api/accept2");
+            navigate("/dashboard");
+            window.location.reload();
+          },
+        });
       }
     } catch (error) {
       console.error("Error fetching Accept data:", error);
@@ -34,14 +45,23 @@ const Received = () => {
       const response = await axios.get(
         `http://localhost:3003/api/reject1/${Referral_ID}`
       );
-      // console.log(response);
       if (response.data === 0) {
         setLoadingReject(false);
-        setMsg("Rejected");
-        alert("Rejected successfully");
-        axios.get("http://localhost:3003/api/reject2");
-        navigate("/dashboard");
-        window.location.reload();
+        toast.success("Rejected successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          onClose: () => {
+            axios.get("http://localhost:3003/api/reject2");
+            navigate("/dashboard");
+            window.location.reload();
+          },
+        });
       }
     } catch (error) {
       console.error("Error fetching Accept data:", error);
@@ -54,7 +74,7 @@ const Received = () => {
     axios
       .get("http://localhost:3003/api/getreceiveemployeeid")
       .then((response) => {
-        setId(response.data);
+        setId(response.data.id);
       })
       .catch((error) => {
         console.error("Error fetching ID:", error);
@@ -390,76 +410,9 @@ const Received = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default Received;
-
-// {
-//   /* <div className="col">
-//           <h4>Companies</h4>
-//           <div className="scrollable-list">
-//             <ul className="list-group">
-//               {companies.map((company, index) => (
-//                 <li key={index} className="list-group-item">
-//                   {company}
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-//         </div> */
-// }
-
-// {
-//   /* <table style={{ width: "100%" }} className="table1">
-//                     <tr>
-//                       <td>
-//                         <b>Referral ID:</b> {ob.name}
-//                       </td>
-//                       <td>
-//                         <button className="bg-warning text-dark">
-//                           Job Portal URL
-//                         </button>
-//                       </td>
-//                       <td>
-//                         <button className="bg-info text-dark">Resume</button>
-//                       </td>
-//                       <td>
-//                         <button className="bg-success text-light">
-//                           Accept
-//                         </button>
-//                       </td>
-//                     </tr>
-//                     <tr>
-//                       <td>
-//                         <b>Request Date:</b> 12/02/2024
-//                       </td>
-//                       <td>Full Stack Developer</td>
-//                       <td style={{ textAlign: "left" }}>Amazon</td>
-//                       <td>
-//                         <button className="bg-danger text-light">Reject</button>
-//                       </td>
-//                     </tr>
-//                   </table> */
-// }
-
-// {
-//   /* <table style={{ width: "100%" }} className="table1">
-//                     <tr>
-//                       <td>
-//                         <b>Referral ID:</b> {ob.name}
-//                       </td>
-//                       <td style={{ textAlign: "left" }}>Amazon</td>
-//                       <td rowSpan={2}>
-//                         <button style={{width:"90px",height:"40px"}}>{ob.result}</button>
-//                       </td>
-//                     </tr>
-//                     <tr>
-//                       <td>
-//                         <b>Request Date:</b> 12/02/2024
-//                       </td>
-//                       <td>Full Stack Developer</td>
-//                     </tr>
-//                   </table> */
-// }

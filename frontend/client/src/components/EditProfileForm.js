@@ -6,6 +6,8 @@ import Footer from "./Footer";
 import axios from "axios";
 import MyContext from "../MyContext";
 import Empcredentials from "./Empcredentials";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProfileForm = () => {
   // ------------------------------------------------------------
@@ -76,14 +78,38 @@ const EditProfileForm = () => {
         })
         .then((res) => {
           if (res.data.message === "Otp sent") {
-            setGetOtpButtonClicked(true);
-            alert("OTP sent successfully to your changed Email address");
+            toast.success(
+              "OTP sent successfully to your changed Email address",
+              {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                onClose: () => {
+                  setGetOtpButtonClicked(true);
+                },
+              }
+            );
           } else if (
             res.data.message ===
             "Personal Email Already Exists. So Applicant Credentials will not be Updated"
           ) {
-            alert(
-              "Personal Email Already Exists. So Applicant Credentials will not be Updated"
+            toast.warn(
+              "Personal Email Already Exists. So Applicant Credentials will not be Updated",
+              {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              }
             );
           }
         });
@@ -99,12 +125,31 @@ const EditProfileForm = () => {
         .post("http://localhost:3003/api/verifyOtp", { otp })
         .then((res) => {
           if (res.data.message === "Otp verified") {
-            alert("OTP verified successfully");
-            setGetOtpButtonClicked(false);
-            // setIsPersonalEmailChanged(false);
-            setOtpVerified(true);
+            toast.success("OTP verified successfully", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(false);
+                setOtpVerified(true);
+              },
+            });
           } else {
-            alert("OTP incorrect! Try again");
+            toast.error("OTP incorrect! Try again", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           }
         });
     } catch (error) {
@@ -120,7 +165,16 @@ const EditProfileForm = () => {
     try {
       e.preventDefault();
       if (otpVerified === false) {
-        alert("Verify OTP first, as your email is changed");
+        toast.warn("Verify OTP first, as your email is changed", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return;
       }
       if (mobileNumber && personalEmail && location) {
@@ -134,27 +188,75 @@ const EditProfileForm = () => {
           .then((res) => {
             if (res.data.message === "Update successful") {
               if (isPersonalEmailChanged) {
-                alert(
-                  "Applicant details successfully updated, please login again"
+                toast.success(
+                  "Applicant details successfully updated, please login again",
+                  {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    onClose: () => {
+                      setIsPersonalEmailChanged(false);
+                      setOtpVerified(true);
+                      handleLogout();
+                      navigate("/login");
+                    },
+                  }
                 );
-                setIsPersonalEmailChanged(false);
-                setOtpVerified(true);
-                handleLogout();
-                navigate("/login");
-                // <Navigate to="/login" />
               } else {
-                alert("Applicant details successfully updated");
+                toast.success("Applicant details successfully updated", {
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
               }
             } else if (
               res.data.message === "Internal server error from backend"
-            )
-              alert("Error updating details");
+            ) {
+              toast.error("Error updating details", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
           });
       } else {
-        alert("Fields cannot be empty");
+        toast.warn("Fields cannot be empty", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      alert("Error updating details");
+      toast.error("Error updating details", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log(error);
     }
   };
@@ -326,6 +428,7 @@ const EditProfileForm = () => {
         </div>
       </div>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 };
