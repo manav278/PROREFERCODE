@@ -44,7 +44,7 @@ const CompanyDetailsForm = ({
           if (res.data.message === "Otp verified") {
             toast.success("OTP verified successfully", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -59,7 +59,7 @@ const CompanyDetailsForm = ({
           } else {
             toast.error("OTP incorrect! Try again", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -110,7 +110,7 @@ const CompanyDetailsForm = ({
             "The personal email already exists. You can proceed to log in.",
             {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -127,7 +127,7 @@ const CompanyDetailsForm = ({
             "The work email already exists. You can proceed to log in.",
             {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -144,7 +144,7 @@ const CompanyDetailsForm = ({
             "The personal and work emails already exists. You can proceed to log in.",
             {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -167,7 +167,7 @@ const CompanyDetailsForm = ({
                 setGetOtpButtonClicked(true);
                 toast.success("OTP sent successfully to your Email addresses", {
                   position: "top-center",
-                  autoClose: 3000,
+                  autoClose: 1500,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -204,7 +204,7 @@ const CompanyDetailsForm = ({
         if (res.data.message === "Server Error") {
           toast.error("Server Error", {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

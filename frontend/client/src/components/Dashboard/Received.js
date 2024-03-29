@@ -20,7 +20,7 @@ const Received = () => {
         setLoading(false);
         toast.success("Accepted successfully", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -49,7 +49,7 @@ const Received = () => {
         setLoadingReject(false);
         toast.success("Rejected successfully", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

@@ -82,7 +82,7 @@ const EditProfileForm = () => {
               "OTP sent successfully to your changed Email address",
               {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -102,7 +102,7 @@ const EditProfileForm = () => {
               "Personal Email Already Exists. So Applicant Credentials will not be Updated",
               {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -127,7 +127,7 @@ const EditProfileForm = () => {
           if (res.data.message === "Otp verified") {
             toast.success("OTP verified successfully", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -142,7 +142,7 @@ const EditProfileForm = () => {
           } else {
             toast.error("OTP incorrect! Try again", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -167,7 +167,7 @@ const EditProfileForm = () => {
       if (otpVerified === false) {
         toast.warn("Verify OTP first, as your email is changed", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -192,7 +192,7 @@ const EditProfileForm = () => {
                   "Applicant details successfully updated, please login again",
                   {
                     position: "top-center",
-                    autoClose: 3000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -210,7 +210,7 @@ const EditProfileForm = () => {
               } else {
                 toast.success("Applicant details successfully updated", {
                   position: "top-center",
-                  autoClose: 3000,
+                  autoClose: 1500,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -224,7 +224,7 @@ const EditProfileForm = () => {
             ) {
               toast.error("Error updating details", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -237,7 +237,7 @@ const EditProfileForm = () => {
       } else {
         toast.warn("Fields cannot be empty", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -249,7 +249,7 @@ const EditProfileForm = () => {
     } catch (error) {
       toast.error("Error updating details", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

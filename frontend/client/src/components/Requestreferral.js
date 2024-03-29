@@ -20,7 +20,16 @@ export default function Requestreferral() {
       await axios.get("http://localhost:3003/api/getCompany").then((res) => {
         // console.log(res.data);
         if (res.data.message === "Server Error") {
-          alert("Server Error");
+          toast.error("Server Error", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
         setCompanyList(res.data);
         setLoading(false);
@@ -39,7 +48,16 @@ export default function Requestreferral() {
     e.preventDefault();
     let response = null;
     if (selectedCompany == null) {
-      alert("Please select company.");
+      toast.warn("Please select company.", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
       try {
         response = await axios
@@ -53,7 +71,7 @@ export default function Requestreferral() {
             if (res.data.message === "Error processing request") {
               toast.error("Error processing request. Please try again later", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -71,7 +89,7 @@ export default function Requestreferral() {
             ) {
               toast.warn("Your monthly limit has already exhausted", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -83,7 +101,7 @@ export default function Requestreferral() {
             if (res.data.message === "Request received successfully") {
               toast.success("Request received successfully", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -99,7 +117,7 @@ export default function Requestreferral() {
             if (res.data.message === "Server Error") {
               toast.error("Please Try Again Later.", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -114,7 +132,7 @@ export default function Requestreferral() {
             ) {
               toast.warn("Please fill the values properly.Values are Null", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
