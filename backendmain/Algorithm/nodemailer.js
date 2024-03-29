@@ -25,6 +25,8 @@ const sendEmail = async (email, email_subject, body) => {
     messageId: messageId,
     headers: {
       "Message-ID": messageId,
+      "In-Reply-To": null, // or ""
+      "References": null, // or ""
     },
   };
 

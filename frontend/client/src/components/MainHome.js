@@ -12,20 +12,20 @@ const MainHome = () => {
   return (
     <div>
       <MainNav />
-      <div style={{ marginTop: "3%" }}>
+      <div style={{ marginTop: "3%", marginBottom:'3%'}}>
         <h1 style={{ textAlign: "center" }} className="text-light">
           How does ProRefer work?
         </h1>
       </div>
       <div class="container text-center text-light">
-        <div class="row g-2">
-          <div class="col-12 col-md-6 order-md-first order-2">
+        <div class="row g-2 ">
+          <div class="col-12 col-md-6 order-md-first order-2 ">
             <div
-              class="p-3 home-div"
-              style={{ height: "52vh", textAlign: "center" }}
+              class="home-div"
+              style={{ height: "45vh", textAlign: "center" }}
             >
-              <h3 className="text-primary">The basics for a new user</h3>
-              <p>
+              <h2 className="text-primary">The basics for a new user</h2>
+              <p style={{fontSize: '120%'}}>
                 As a new user, you can get started with ProRefer by submitting
                 referral requests. Once submitted, our employees will review the
                 resumes and either accept or reject the referral requests. You
@@ -35,26 +35,26 @@ const MainHome = () => {
             </div>
           </div>
           <div class="col-12 col-md-6 order-md-2 order-first">
-            <div class="p-3">
+            <div class="">
               <img src={Hom1} alt="1-ProRefer" width="62.4%" height="48%" />
               {/* 520:406 */}
             </div>
           </div>
           <div class="col-12 col-md-6 order-md-3 order-3">
-            <div class="p-3">
+            <div class="">
               <img src={Hom2} alt="1-ProRefer" width="54%" height="48%" />
               {/* 530:471 */}
             </div>
           </div>
           <div class="col-12 col-md-6 order-md-4 order-4">
             <div
-              class="p-3 home-div"
-              style={{ height: "52vh", textAlign: "center" }}
+              class=" home-div"
+              style={{ height: "45vh", textAlign: "center" }}
             >
-              <h3 className="text-primary">
-                ProRefer and the referral process
-              </h3>
-              <p>
+              <h2 className="text-primary">
+              ProRefer and the referral process
+              </h2>
+              <p style={{fontSize: '120%'}}>
                 ProRefer is the platform that connects referral seekers with
                 employees. Our referral process is efficient, transparent, and
                 reliable. It's a place for users to find the right job
@@ -64,11 +64,11 @@ const MainHome = () => {
           </div>
           <div class="col-12 col-md-6 order-md-5 order-last">
             <div
-              class="p-3 home-div"
-              style={{ height: "52vh", textAlign: "center" }}
+              class="home-div"
+              style={{ height: "45vh", textAlign: "center" }}
             >
-              <h3 className="text-primary">Revolutionize your job search</h3>
-              <p>
+              <h2 className="text-primary">Revolutionize your job search</h2>
+              <p style={{fontSize: '120%'}}>
                 ProRefer enables organizations to streamline their referral
                 process, making it easier for employees to refer candidates and
                 for referral seekers to find job opportunities. Join ProRefer
@@ -77,7 +77,7 @@ const MainHome = () => {
             </div>
           </div>
           <div class="col-12 col-md-6 order-md-last order-5">
-            <div class="p-3">
+            <div class="">
               <img src={Hom3} alt="1-ProRefer" width="59%" height="48%" />
               {/* 390:317 */}
             </div>
@@ -93,7 +93,7 @@ const MainHome = () => {
             <div className="col-4 home-numbers">
               <h2 className="text-primary">
                 {counterOn && (
-                  <CountUp start={0} end={10000} duration={2} delay={0} />
+                  <CountUp start={0} end={10000} duration={1.5} delay={0} />
                 )}
                 +
               </h2>
@@ -102,7 +102,7 @@ const MainHome = () => {
             <div className="col-4 home-numbers">
               <h2 className="text-primary">
                 {counterOn && (
-                  <CountUp start={0} end={500} duration={2} delay={0} />
+                  <CountUp start={0} end={500} duration={1.5} delay={0} />
                 )}
                 +
               </h2>
@@ -111,7 +111,7 @@ const MainHome = () => {
             <div className="col-4 home-numbers">
               <h2 className="text-primary">
                 {counterOn && (
-                  <CountUp start={0} end={5000} duration={2} delay={0} />
+                  <CountUp start={0} end={5000} duration={1.5} delay={0} />
                 )}
                 +
               </h2>

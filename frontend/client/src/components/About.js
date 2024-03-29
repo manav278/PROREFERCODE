@@ -27,7 +27,7 @@ export default function About() {
                 style={{ borderRadius: "8px" }}
               >
                 <h2 className="text-center text-primary">Mission</h2>
-                <p>
+                <p style={{fontSize: '120%'}}>
                   Our mission at ProRefer is to bridge the gap between job
                   seekers and potential employers by facilitating the referral
                   process. We believe that personal recommendations are a
@@ -40,7 +40,7 @@ export default function About() {
                 style={{ borderRadius: "8px" }}
               >
                 <h2 className="text-center text-primary">Company Story</h2>
-                <p>
+                <p style={{fontSize: '120%'}}>
                   ProRefer was founded in 2024 by a group of professionals who
                   saw a need for a platform that could connect job seekers with
                   potential referrals. Since then, we have grown to become a
@@ -67,7 +67,7 @@ export default function About() {
                 style={{ borderRadius: "8px" }}
               >
                 <h2 className="text-center text-primary">Values</h2>
-                <p>
+                <p style={{fontSize: '120%'}}>
                   At ProRefer, we are guided by a set of core values that shape
                   everything we do. These values include integrity,
                   transparency, and inclusivity, and they drive our commitment
@@ -80,7 +80,7 @@ export default function About() {
                 style={{ borderRadius: "8px" }}
               >
                 <h2 className="text-center text-primary">Benefits</h2>
-                <p>
+                <p style={{fontSize: '120%'}}>
                   Joining ProRefer has many benefits. Job seekers can access
                   exclusive job listings and connect with potential employers,
                   while employees can earn rewards for referring qualified
