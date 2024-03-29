@@ -7,7 +7,7 @@ export default function About() {
   return (
     <div>
       <MainNav></MainNav>
-      <h1 className="text-center text-primary my-5">The ProRefer Story</h1>
+      <h1 className="text-center text-light" style={{marginTop:"36px",marginBottom:"-1%"}}>The ProRefer Story</h1>
       <div class="container text-light">
         <div class="row text-center p-3 gx-5">
           <div class="col-md-6 col-12 order-md-first order-first" style={{display:'grid', placeContent:'center'}}>
@@ -26,7 +26,7 @@ export default function About() {
                 className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h2 className="text-center">Mission</h2>
+                <h2 className="text-center text-primary">Mission</h2>
                 <p>
                   Our mission at ProRefer is to bridge the gap between job
                   seekers and potential employers by facilitating the referral
@@ -39,7 +39,7 @@ export default function About() {
                 className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h2 className="text-center">Company Story</h2>
+                <h2 className="text-center text-primary">Company Story</h2>
                 <p>
                   ProRefer was founded in 2024 by a group of professionals who
                   saw a need for a platform that could connect job seekers with
@@ -53,7 +53,7 @@ export default function About() {
         </div>
       </div>
       <div class="container text-light">
-        <div class="row text-center gx-5">
+        <div class="row text-center gx-5" style={{marginBottom:"3%"}}>
           <div
             className="col-md-6 col-12 text-dark order-md-first order-last"
             style={{
@@ -66,7 +66,7 @@ export default function About() {
                 className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h2 className="text-center">Values</h2>
+                <h2 className="text-center text-primary">Values</h2>
                 <p>
                   At ProRefer, we are guided by a set of core values that shape
                   everything we do. These values include integrity,
@@ -79,7 +79,7 @@ export default function About() {
                 className="col-12 text-light my-1 p-3"
                 style={{ borderRadius: "8px" }}
               >
-                <h2 className="text-center">Benefits</h2>
+                <h2 className="text-center text-primary">Benefits</h2>
                 <p>
                   Joining ProRefer has many benefits. Job seekers can access
                   exclusive job listings and connect with potential employers,

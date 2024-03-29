@@ -8,7 +8,16 @@ export default function Testimonials() {
   return (
     <div>
       <MainNav></MainNav>
-      <div class="container text-center">
+      <div class="container px-4 text-center">
+        <div class="row gx-2">
+          <div class="col-12">
+            <div class="p-4 text-white">
+              <h2>Real Stories, Real Results: Hear It Straight From Our Community</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container text-center" style={{marginBottom:"6%"}}>
         <div class="row g-4">
           <div class="col-md-4 col-12">
             <div

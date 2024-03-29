@@ -9,8 +9,8 @@ const MainHome = () => {
   return (
     <div>
       <MainNav />
-      <div style={{marginTop:'3%'}}>
-        <h1 style={{ textAlign: "center" }} className="text-primary">
+      <div style={{ marginTop: "3%" }}>
+        <h1 style={{ textAlign: "center" }} className="text-light">
           How does ProRefer work?
         </h1>
       </div>
@@ -21,7 +21,7 @@ const MainHome = () => {
               class="p-3 home-div"
               style={{ height: "52vh", textAlign: "center" }}
             >
-              <h3>The basics for a new user</h3>
+              <h3 className="text-primary">The basics for a new user</h3>
               <p>
                 As a new user, you can get started with ProRefer by submitting
                 referral requests. Once submitted, our employees will review the
@@ -48,7 +48,9 @@ const MainHome = () => {
               class="p-3 home-div"
               style={{ height: "52vh", textAlign: "center" }}
             >
-              <h3>ProRefer and the referral process</h3>
+              <h3 className="text-primary">
+                ProRefer and the referral process
+              </h3>
               <p>
                 ProRefer is the platform that connects referral seekers with
                 employees. Our referral process is efficient, transparent, and
@@ -62,7 +64,7 @@ const MainHome = () => {
               class="p-3 home-div"
               style={{ height: "52vh", textAlign: "center" }}
             >
-              <h3>Revolutionize your job search</h3>
+              <h3 className="text-primary">Revolutionize your job search</h3>
               <p>
                 ProRefer enables organizations to streamline their referral
                 process, making it easier for employees to refer candidates and
@@ -79,7 +81,7 @@ const MainHome = () => {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container" style={{ marginBottom: "-2%" }}>
         <div className="row" style={{ height: "25vh", width: "100%" }}>
           <div className="col-4 home-numbers">
             <h2 className="text-primary">10000+</h2>
