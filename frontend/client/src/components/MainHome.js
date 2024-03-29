@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import MainNav from "./MainNav";
 import Hom1 from "./assets/Hom1.jpg";
 import Hom2 from "./assets/Hom2.jpg";
 import Hom3 from "./assets/Hom3.jpg";
+import CountUp from "react-countup";
+import ScrollTrigger from "react-scroll-trigger";
 import Footer from "./Footer";
 import "../App.css";
 const MainHome = () => {
+  const [counterOn, setCounterOn] = useState(false);
   return (
     <div>
       <MainNav />
@@ -81,22 +84,42 @@ const MainHome = () => {
           </div>
         </div>
       </div>
-      <div className="container" style={{ marginBottom: "-2%" }}>
-        <div className="row" style={{ height: "25vh", width: "100%" }}>
-          <div className="col-4 home-numbers">
-            <h2 className="text-primary">10000+</h2>
-            <p className="text-light">Referrals</p>
-          </div>
-          <div className="col-4 home-numbers">
-            <h2 className="text-primary">500+</h2>
-            <p className="text-light">Companies</p>
-          </div>
-          <div className="col-4 home-numbers">
-            <h2 className="text-primary">5000+</h2>
-            <p className="text-light">Employees</p>
+      <ScrollTrigger
+        onEnter={() => setCounterOn(true)}
+        onExit={() => setCounterOn(false)}
+      >
+        <div className="container" style={{ marginBottom: "-2%" }}>
+          <div className="row" style={{ height: "25vh", width: "100%" }}>
+            <div className="col-4 home-numbers">
+              <h2 className="text-primary">
+                {counterOn && (
+                  <CountUp start={0} end={10000} duration={2} delay={0} />
+                )}
+                +
+              </h2>
+              <p className="text-light">Referrals</p>
+            </div>
+            <div className="col-4 home-numbers">
+              <h2 className="text-primary">
+                {counterOn && (
+                  <CountUp start={0} end={500} duration={2} delay={0} />
+                )}
+                +
+              </h2>
+              <p className="text-light">Companies</p>
+            </div>
+            <div className="col-4 home-numbers">
+              <h2 className="text-primary">
+                {counterOn && (
+                  <CountUp start={0} end={5000} duration={2} delay={0} />
+                )}
+                +
+              </h2>
+              <p className="text-light">Employees</p>
+            </div>
           </div>
         </div>
-      </div>
+      </ScrollTrigger>
       <Footer></Footer>
     </div>
   );
