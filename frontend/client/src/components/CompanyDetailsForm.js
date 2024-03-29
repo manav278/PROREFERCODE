@@ -6,8 +6,6 @@ import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const CompanyDetailsForm = ({
   formData,
   handleChange,
