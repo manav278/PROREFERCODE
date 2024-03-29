@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import login from "./assets/Login.jpg";
 import MainNav from "./MainNav";
@@ -13,6 +15,8 @@ const CompanyDetailsForm = ({
 }) => {
   // console.log(formData);
   const navigate = useNavigate();
+  const [filterCompanies, setFilterCompanies] = useState("");
+  const [globalCompanies, setGlobalCompanies] = useState([]);
   const [companyList, setCompanyList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -21,6 +25,10 @@ const CompanyDetailsForm = ({
   const [personalOtp, setPersonalOtp] = useState("");
   const [workOtp, setWorkOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
+
+  const handleFilterCompany = (event) => {
+    setFilterCompanies(event.target.value);
+  };
 
   const handlePerOtpChange = (event) => {
     setPersonalOtp(event.target.value);
@@ -126,6 +134,7 @@ const CompanyDetailsForm = ({
           alert("Server Error");
         }
         setCompanyList(res.data);
+        setGlobalCompanies(res.data);
         setLoading(false);
       });
     } catch (e) {
@@ -135,9 +144,46 @@ const CompanyDetailsForm = ({
   useEffect(() => {
     apiCall();
   }, []);
+
+  useEffect(() => {
+    if (filterCompanies && globalCompanies) {
+      setCompanyList(
+        globalCompanies.filter((Company) =>
+          Company.company.toLowerCase().includes(filterCompanies.toLowerCase())
+        )
+      );
+    } else {
+      setCompanyList(globalCompanies);
+    }
+  }, [filterCompanies]);
   // -------------------------------------
   const handleSelect = (event) => {
     setSelectedCompany(event.target.value);
+    if (event.target.value != "") {
+      let cName = globalCompanies[Number(event.target.value) - 1].company;
+      toast.info(`${cName} selected`, {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else{
+      toast.info(`Other option selected, you may enter company name in the below text field`, {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
   // -------------------------------------
   useEffect(() => {
@@ -207,8 +253,8 @@ const CompanyDetailsForm = ({
                     {loading ? (
                       <p>Loading...</p>
                     ) : (
-                      <div className="mb-3">
-                        <div>
+                      <div className="mb-3 row">
+                        <div className="col-6">
                           <select
                             value={selectedCompany}
                             onChange={handleSelect}
@@ -218,8 +264,18 @@ const CompanyDetailsForm = ({
                               fontWeight: "lighter",
                               borderRadius: "5px",
                               padding: "3px",
+                              paddingRight: '15%'
                             }}
+                            size="5"
                           >
+                            {/* {selectedCompany && (
+                              <option value={selectedCompany} disabled>
+                                {
+                                  companyList[Number(selectedCompany) - 1]
+                                    .company
+                                }
+                              </option>
+                            )} */}
                             <option value="">Other</option>
                             {companyList
                               ? companyList.map((value) => (
@@ -229,6 +285,39 @@ const CompanyDetailsForm = ({
                                 ))
                               : "None"}
                           </select>
+                        </div>
+                        <div className="col-6">
+                          <div className="row">
+                            <div className="col-12">
+                              <input
+                                className="form-control text-light bg-dark createcampaign-placeholder"
+                                type="text"
+                                placeholder="Filter Companies"
+                                id="filterCompanies"
+                                name="filterCompanies"
+                                value={filterCompanies}
+                                onChange={handleFilterCompany}
+                              />
+                            </div>
+                            <div
+                              className="col-12 text-center"
+                              style={{ marginTop: "3%" }}
+                            >
+                              {selectedCompany &&
+                                globalCompanies[Number(selectedCompany)] && (
+                                  <div>
+                                    <p className="p-0 m-0">Selected Company</p>
+                                    <p className="text-primary p-0">
+                                      {
+                                        globalCompanies[
+                                          Number(selectedCompany) - 1
+                                        ].company
+                                      }
+                                    </p>
+                                  </div>
+                                )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -404,6 +493,7 @@ const CompanyDetailsForm = ({
         </div>
       </div>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 };

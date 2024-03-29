@@ -34,10 +34,10 @@ export default function Contact() {
     <>
       <MainNav></MainNav>
 
-      <div className="container text-center">
+      <div className="container text-center" style={{marginTop:'40px'}}>
         <div className="row text-light">
           <div className="col-12">
-            <h4 className="merriweather-regular">
+            <h4 className="lato-thin">
               You can directly contact us at{" "}
               <span className="text-primary">prorefer.team@gmail.com</span> or
               in case of any feedbacks, fill the below form
@@ -46,7 +46,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="container" style={{ marginTop: "5%" }}>
+      <div className="container" style={{ marginTop: "3%", height: '40%'}}>
         <div className="row text-dark">
           <div
             className="col-lg-6 col-12"
@@ -63,7 +63,7 @@ export default function Contact() {
           <form
             ref={form}
             onSubmit={sendEmail}
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px" , height:'40%'}}
             className="col-lg-6 col-12 px-3 py-3 bg-color-feedbackform"
           >
             <div className="mb-3" style={{ marginTop: "2%" }}>
@@ -102,7 +102,7 @@ export default function Contact() {
                 name="message"
               ></textarea>
             </div>
-            <div style={{ marginTop: "5%", marginBottom: "5%" }}>
+            <div style={{ marginTop: "5%" }}>
               <button
                 className="btn-feedback-form bg-success"
                 style={{
