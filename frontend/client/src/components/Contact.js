@@ -4,6 +4,8 @@ import Footer from "./Footer";
 import "../App.css";
 import feedback from "./assets/Feedback-1.png";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Contact() {
   // service_id=service_owt5xga
   // template_id=template_utm62cj;
@@ -18,13 +20,29 @@ export default function Contact() {
       })
       .then(
         () => {
-          alert(
-            "Successfully Feedbackmail sended to prorefer.team@gmail.com!!!"
-          );
+          toast.success("Successfully Sent", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         },
         (error) => {
+          toast.error("Please try again later.", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
           console.log("FAILED...", error.text);
-          alert("Please try again later.");
         }
       );
   };
@@ -119,8 +137,8 @@ export default function Contact() {
           </form>
         </div>
       </div>
-
       <Footer></Footer>
+      <ToastContainer />
     </>
   );
 }

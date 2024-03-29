@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <>
       <hr className="text-light" style={{marginTop:"3%"}}></hr>
-      <div className="container text-white" style={{ marginTop: "5%" }}>
+      <div className="container text-white" style={{ marginTop: "3%" }}>
         <div className="row">
           <div className="col-12">
             <div style={{ marginLeft: "-0.7%" }}>
@@ -34,11 +34,11 @@ export default function Footer() {
           <div className="col-12">
             <div className="row">
               <div className="col-12 col-md-6" style={{ marginTop: "1.5%" }}>
-                ProRefer is a platform that bridges the gap between referral
+                <p>ProRefer is a platform that bridges the gap between referral
                 seekers and employees. Our referral process is designed to be
                 efficient, transparent, and reliable. We provide users with a
                 place to discover ideal job opportunities through employee
-                referrals.
+                referrals.</p>
               </div>
             </div>
           </div>

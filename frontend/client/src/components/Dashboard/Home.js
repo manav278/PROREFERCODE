@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../App.css";
 import CustomNavbar from "./Navbar";
@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 export default function Home() {
   const [userData, setUserData] = useState({});
   const [date, setDate] = useState("Loading...");
-  const formatDate = async(dateNumber) => {
+  const formatDate = async (dateNumber) => {
     let dateString = dateNumber.toString(); // Convert number to string
     let year = dateString.substring(0, 4); // Extract year
     let month = dateString.substring(4, 6); // Extract month
@@ -26,7 +26,6 @@ export default function Home() {
   const fetchUserData = async () => {
     try {
       const response = await axios.get("http://localhost:3003/api/dashboard");
-      // console.log(response);
       setUserData(response.data);
       let date1 = await formatDate(response.data.Last_Referral_Date);
       setDate(date1);
