@@ -51,9 +51,11 @@ const CompanyDetailsForm = ({
               draggable: true,
               progress: undefined,
               theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(false);
+                setOtpVerified(true);
+              },
             });
-            setGetOtpButtonClicked(false);
-            setOtpVerified(true);
           } else {
             toast.error("OTP incorrect! Try again", {
               position: "top-center",

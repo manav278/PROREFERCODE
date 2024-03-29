@@ -74,7 +74,7 @@ const Received = () => {
     axios
       .get("http://localhost:3003/api/getreceiveemployeeid")
       .then((response) => {
-        setId(response.data);
+        setId(response.data.id);
       })
       .catch((error) => {
         console.error("Error fetching ID:", error);

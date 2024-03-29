@@ -78,7 +78,6 @@ const EditProfileForm = () => {
         })
         .then((res) => {
           if (res.data.message === "Otp sent") {
-            setGetOtpButtonClicked(true);
             toast.success(
               "OTP sent successfully to your changed Email address",
               {
@@ -90,6 +89,9 @@ const EditProfileForm = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
+                onClose: () => {
+                  setGetOtpButtonClicked(true);
+                },
               }
             );
           } else if (
@@ -132,9 +134,11 @@ const EditProfileForm = () => {
               draggable: true,
               progress: undefined,
               theme: "light",
+              onClose: () => {
+                setGetOtpButtonClicked(false);
+                setOtpVerified(true);
+              },
             });
-            setGetOtpButtonClicked(false);
-            setOtpVerified(true);
           } else {
             toast.error("OTP incorrect! Try again", {
               position: "top-center",
@@ -213,10 +217,6 @@ const EditProfileForm = () => {
                   draggable: true,
                   progress: undefined,
                   theme: "light",
-                  onClose: () => {
-                    setIsPersonalEmailChanged(false);
-                    setOtpVerified(true);
-                  },
                 });
               }
             } else if (

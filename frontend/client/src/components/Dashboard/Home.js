@@ -70,7 +70,7 @@ export default function Home() {
               >
                 <Link to="/form">
                   <button
-                    style={{ width: "80%" }}
+                    style={{ width: "90%" }}
                     type="button"
                     class="btn btn-primary border-light"
                   >
@@ -89,7 +89,7 @@ export default function Home() {
                       <td>
                         <p>Name</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.First_Name}</p>
                       </td>
                     </tr>
@@ -97,7 +97,7 @@ export default function Home() {
                       <td>
                         <p>Location</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.COMPANY_LOCATION}</p>
                       </td>
                     </tr>
@@ -105,7 +105,7 @@ export default function Home() {
                       <td>
                         <p>Total Referrals Requested</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.Total_Referrals_Requested}</p>
                       </td>
                     </tr>
@@ -113,7 +113,7 @@ export default function Home() {
                       <td>
                         <p>Total Referrals Received</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.Referrals_Reviewed_ThisMonth}</p>
                       </td>
                     </tr>
@@ -121,7 +121,7 @@ export default function Home() {
                       <td>
                         <p>Monthly Requests Received</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.Referrals_Reviewed_ThisMonth}</p>
                       </td>
                     </tr>
@@ -129,7 +129,7 @@ export default function Home() {
                       <td>
                         <p>Monthly Requests Sent</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.Referrals_Requested_ThisMonth}</p>
                       </td>
                     </tr>
@@ -145,7 +145,7 @@ export default function Home() {
                       <td>
                         <p>Warning</p>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <p>{userData.Warning}</p>
                       </td>
                     </tr>
