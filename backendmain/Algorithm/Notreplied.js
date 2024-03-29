@@ -74,7 +74,6 @@ const Notreplied = async (Referral_ID) => {
             );
           });
         applicantEmail = applicant.Personal_Email;
-        console.log(applicantEmail);
         caseForEmail = "NR3";
         await currReqModel
           .findOneAndDelete({ Referral_ID: Referral_ID })
@@ -153,7 +152,6 @@ const Notreplied = async (Referral_ID) => {
             if (result.length > 0) {
               const employeeIDs = result[0].Employee_IDs;
               employeeIDs.push(currReqTuple.Applicant_ID);
-              console.log("At line 154: ", employeeIDs);
               let newEmployeeID = await algo2(
                 currReqTuple.Location,
                 currReqTuple.Company_ID,
@@ -292,7 +290,6 @@ const Notreplied = async (Referral_ID) => {
 
           let empArray = [empID];
           empArray.push(currReqTuple.Applicant_ID);
-          console.log("At line 290: ", empArray);
           let newEmployeeID = await algo2(
             currReqTuple.Location,
             currReqTuple.Company_ID,
@@ -376,33 +373,19 @@ const Notreplied = async (Referral_ID) => {
         });
     }
   });
-  console.log("Before try block: ", caseForEmail);
   try {
     if (
       caseForEmail === "NR3" ||
       caseForEmail === "NR2BREAK" ||
       caseForEmail === "NR1BREAK"
     ) {
-      console.log(
-        "Case for email at 379 is is: ",
-        caseForEmail,
-        " email is: ",
-        applicantEmail
-      );
       rejectedToApplicant(applicantEmail);
     } else if (
       caseForEmail === "NR2CONTINUE" ||
       caseForEmail === "NR1CONTINUE"
     ) {
-      console.log(
-        "Case for email at 385 is is: ",
-        caseForEmail,
-        " email is: ",
-        employeeEmail
-      );
       firstSuccessfulToEmployee(employeeEmail);
     } else {
-      console.log("In else");
     }
   } catch (error) {
     console.log("Error in NR: ", error);
