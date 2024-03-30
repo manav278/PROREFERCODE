@@ -110,6 +110,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
         .then(async (result) => {
           if (result.length > 0) {
             const employeeIDs = result[0].Employee_IDs;
+            employeeIDs.push(currReqTuple.Applicant_ID);
             let newEmployeeID = await algo2(
               currReqTuple.Location,
               currReqTuple.Company_ID,
@@ -229,6 +230,7 @@ router.get("/reject1/:Referral_ID", async (req, res) => {
       .then(async (savedTuple) => {
         let empID = currReqTuple.History[0].Employee_ID;
         let empArray = [empID];
+        empArray.push(currReqTuple.Applicant_ID);
         let newEmployeeID = await algo2(
           currReqTuple.Location,
           currReqTuple.Company_ID,

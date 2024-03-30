@@ -11,7 +11,7 @@ import Receivedroutes from "./Routes/Receivedroutes.js";
 import RejectRoutes from "./Routes/Rejectroutes.js";
 import Signuproutes from "./Routes/Signuproutes.js";
 import Empcredentialsroutes from "./Routes/Empcredentialsroutes.js";
-import job from "./cron.js";
+import job, {jobDaily, jobMonthly} from "./cron.js";
 
 import Requestrefroutes from "./Routes/Requestrefroutes.js";
 import * as env from "dotenv";

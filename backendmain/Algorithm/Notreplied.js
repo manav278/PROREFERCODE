@@ -211,7 +211,7 @@ const Notreplied = async (Referral_ID) => {
 
                 let newHistoryItem = {
                   Employee_ID: newEmployeeID,
-                  Employee_Request_Date: dateToday,
+                  Employee_Request_Date: dateToday-1,
                   Result: "Pending",
                 };
                 let newCurrReqTuple = await currReqModel.findOneAndUpdate(
@@ -349,7 +349,7 @@ const Notreplied = async (Referral_ID) => {
 
             let newHistoryItem = {
               Employee_ID: newEmployeeID,
-              Employee_Request_Date: dateToday,
+              Employee_Request_Date: dateToday-1,
               Result: "Pending",
             };
             let newCurrReqTuple = await currReqModel.findOneAndUpdate(
