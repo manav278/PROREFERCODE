@@ -273,7 +273,7 @@ const EditProfileForm = () => {
           style={{ borderRadius: "0" }}
         >
           <div>
-            <p style={{ fontSize: "85%" }}>
+            <p style={{ fontSize: "105%" }}>
               Please provide your employee credentials only if you are currently
               employed at a company. If you do provide them, you'll receive
               referral requests tailored to your profile.
@@ -296,7 +296,7 @@ const EditProfileForm = () => {
           marginBottom: "3%",
         }}
       >
-        <h3>Edit Profile</h3>
+        <h2>Edit Profile</h2>
       </div>
       <div
         className="container text-light px-4"
@@ -308,22 +308,26 @@ const EditProfileForm = () => {
             style={{ marginLeft: "7%" }}
           >
             <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
-              <h4 className="merriweather-regular">Applicant Credentials</h4>
+              <h4 className="roboto-thin">Applicant Credentials</h4>
             </div>
 
             {/* ----------------------------- */}
             <div
-              className="col-10 bg-warning p-4 bg-color-feedbackform text-dark"
+              className="col-10 p-4 bg-color-feedbackform text-dark"
               style={{ borderRadius: "8px" }}
             >
-              <form>
+              <form data-bs-theme="dark">
                 <div className="my-2">
-                  <label for="phone" class="form-label">
+                  <label
+                    for="phone"
+                    class="form-label"
+                    style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                  >
                     Mobile Number
                   </label>
                   <input
                     type="tel"
-                    class="form-control text-light bg-dark feedback-placeholder"
+                    class="form-control text-light feedback-placeholder"
                     id="phone"
                     value={mobileNumber}
                     onChange={handleMobileChange}
@@ -331,12 +335,16 @@ const EditProfileForm = () => {
                   />
                 </div>
                 <div className="my-2">
-                  <label for="personalEmail" class="form-label">
+                  <label
+                    for="personalEmail"
+                    class="form-label"
+                    style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                  >
                     Personal Email
                   </label>
                   <input
                     type="email"
-                    class="form-control text-light bg-dark feedback-placeholder"
+                    class="form-control text-light feedback-placeholder"
                     id="personalEmail"
                     value={personalEmail}
                     onChange={handlePersonalEmailChange}
@@ -344,12 +352,16 @@ const EditProfileForm = () => {
                   />
                 </div>
                 <div className="my-2">
-                  <label for="location" class="form-label">
+                  <label
+                    for="location"
+                    class="form-label"
+                    style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                  >
                     Location
                   </label>
                   <input
                     type="text"
-                    class="form-control text-light bg-dark feedback-placeholder"
+                    class="form-control text-light feedback-placeholder"
                     id="location"
                     value={location}
                     onChange={handleLocationChange}
@@ -359,7 +371,7 @@ const EditProfileForm = () => {
                 {isPersonalEmailChanged && !getotpButtonClicked && (
                   <div className="my-4">
                     <button
-                      className="btn-primary text-light bg-success"
+                      className="col-12 btn-feedback-form play-btn"
                       style={{
                         borderRadius: "5px",
                         paddingLeft: "3%",
@@ -380,7 +392,7 @@ const EditProfileForm = () => {
                       <input
                         className="col-5"
                         type="text"
-                        class="form-control text-light bg-dark feedback-placeholder mx-3"
+                        class="form-control text-light feedback-placeholder mx-3"
                         id="otp"
                         value={otp}
                         onChange={handleOtpChange}
@@ -388,7 +400,7 @@ const EditProfileForm = () => {
                         style={{ width: "50%" }}
                       />
                       <button
-                        className="col-5 btn-primary text-light bg-success"
+                        className="col-5 btn-feedback-form play-btn"
                         style={{
                           borderRadius: "5px",
                           paddingLeft: "3%",
@@ -405,7 +417,7 @@ const EditProfileForm = () => {
                 )}
                 <div className="my-4">
                   <button
-                    className="btn-feedback-form bg-success"
+                    className="btn-feedback-form play-btn col-12"
                     style={{
                       borderRadius: "5px",
                       paddingLeft: "3%",

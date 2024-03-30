@@ -170,7 +170,7 @@ const Received = () => {
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <div className="scrollable-list">
+          <div className="scrollable-list" style={{maxHeight:"33.5em"}}>
             <ul className="list-group">
               {/* ---------------currentRequest Data------------ */}
               <h3

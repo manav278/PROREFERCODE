@@ -59,7 +59,7 @@ const Company = () => {
   return (
     <div>
       <input
-        className="p-2 my-2"
+        className="p-2 mt-2 mb-4"
         style={{ color: "black", border: "none", borderRadius: "5px" }}
         type="text"
         id="search"
@@ -71,22 +71,28 @@ const Company = () => {
           {loading ? (
             <p>Loading</p>
           ) : (
+            <div style={{display:"grid",placeContent:"center",}}>
             <div
               className="scrollable-list"
-              style={{ maxHeight: "40vh", overflowY: "scroll" }}
+              style={{overflowY: "scroll",width:"50vw",placeItems:"center",maxHeight:"28.2em"}}
             >
               <ul className="list-group">
                 {companyList
-                  ? companyList.map((value) => (
+                  ? companyList.map((value, index) => (
                       <li
-                        className="list-group-item text-light my-1"
-                        style={{ backgroundColor: "#172b3d" }}
+                        key={index}
+                        className={`list-group-item ${
+                          index % 2 === 0
+                            ? "bg-dark-blue text-light"
+                            : "bg-light-blue text-light"
+                        }`}
                       >
                         {value.company}
                       </li>
                     ))
                   : "None"}
               </ul>
+            </div>
             </div>
           )}
         </div>

@@ -102,9 +102,9 @@ const Db = () => {
       }}
     >
       <div class="row gx-5 align-items-center">
-        <div class="col">
-          <div class="p-3">
-            <p style={{ color: "white" }}>
+        <div class="col-lg-6" style={{ marginBottom: "0.5%" }}>
+          <div>
+            <p style={{ color: "white", fontSize: "113%", textAlign: "left" }}>
               Seeking a referral for your dream position at your preferred
               company? You're in luck! Simply request it here. If you need more
               information, check out our FAQ section. We've got all the details
@@ -115,59 +115,72 @@ const Db = () => {
 
             <button
               type="button"
-              class="btn btn-primary border-light"
+              // class="btn btn-primary border-light"
+              className="play-btn mb-2 col-12"
               onClick={handleReqRefClick}
             >
               Request Referral
             </button>
           </div>
         </div>
-        <div class="col">
+        <div class="col-lg-6">
           <div class="p-3">
-            <p style={{ color: "white" }}>
+            <p
+              style={{
+                color: "white",
+                fontSize: "113%",
+                textAlign: "left",
+                marginTop: "1%",
+              }}
+            >
               Transform your resume here for a stellar impression when
               requesting a referral. Your resume is your professional
               story—update it with your latest achievements and experiences to
               captivate potential employers. A well-crafted resume is your key
               to unlocking new career opportunities. Keep it current and
-              compelling to highlight your unique skills and qualifications,
-              setting you apart from the competition
+              compelling to highlight your unique skills and qualifications!
+              {/* setting you apart from the competition */}
             </p>
-            <div className="row">
+            <div className="row justify-content-around mt-4">
               <button
                 type="button"
-                className="col btn btn-primary border-light m-3"
+                // className="col btn btn-primary border-light m-3"
+                className="col-12 col-md-12 mb-2 play-btn"
                 onClick={viewResume}
               >
-                Download
+                Download Resume
               </button>
               <button
                 type="button"
-                className="col btn btn-primary border-light m-3"
+                className="col-12 col-md-12 mb-2 play-btn"
                 onClick={handleShow}
               >
                 Upload Resume
               </button>
             </div>
-            {showUpload && (
-              <div className="row m-3 text-light">
-                <input
-                  className="col-12 m-3 p-1"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                />
-                <button
-                  className="col m-3 p-1 text-light bg-success btn"
-                  onClick={handleUpload}
-                >
-                  Upload
-                </button>
-              </div>
-            )}
           </div>
         </div>
-        {/* <hr style={{color:'white'}}/> */}
+      </div>
+      <div className="container">
+        {showUpload && (
+          <div className="row justify-content-around text-light">
+            <hr style={{ color: "white" }}></hr>
+            <input
+              className="col-12 col-lg-6 mb-3 align-self-center"
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+              // style={{paddingLeft:"2%",paddingTop:"3%"}}
+            />
+            <button
+              onClick={handleUpload}
+              type="button"
+              className="mx-2 col-lg-5 col-12 play-btn mb-3"
+            >
+              Upload
+            </button>
+          </div>
+        )}
       </div>
       <ToastContainer />
     </div>
@@ -175,4 +188,3 @@ const Db = () => {
 };
 
 export default Db;
-

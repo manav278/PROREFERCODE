@@ -269,23 +269,27 @@ export default function Empcredentials() {
   return (
     <div>
       <div className="col-10 text-center" style={{ marginBottom: "3%" }}>
-        <h4 className="merriweather-regular">Employee Credentials</h4>
+        <h4 className="roboto-thin">Employee Credentials</h4>
       </div>
 
       {/* ----------------------------- */}
 
       <div
-        className="col-10 bg-warning p-4 bg-color-feedbackform text-dark"
+        className="col-10 p-4 bg-color-feedbackform text-dark"
         style={{ borderRadius: "8px" }}
       >
-        <form>
+        <form data-bs-theme="dark">
           <div className="my-2">
-            <label for="workEmail" class="form-label">
+            <label
+              for="workEmail"
+              class="form-label"
+              style={{ color: "rgba(255, 255, 255, 0.8)" }}
+            >
               Work Email
             </label>
             <input
               type="email"
-              class="form-control text-light bg-dark feedback-placeholder"
+              class="form-control text-light feedback-placeholder"
               id="workEmail"
               value={workEmail}
               onChange={handleWorkEmailChange}
@@ -293,12 +297,16 @@ export default function Empcredentials() {
             />
           </div>
           <div className="my-2">
-            <label for="workPosition" class="form-label">
+            <label
+              for="workPosition"
+              class="form-label"
+              style={{ color: "rgba(255, 255, 255, 0.8)" }}
+            >
               Work Position
             </label>
             <input
               type="text"
-              class="form-control text-light bg-dark feedback-placeholder"
+              class="form-control text-light feedback-placeholder"
               id="workPosition"
               value={position}
               onChange={handlePositionChange}
@@ -308,14 +316,20 @@ export default function Empcredentials() {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="my-4">
+            <div>
               <div>
+                <label
+                  class="form-label col-12"
+                  style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                >
+                  Company
+                </label>
                 <select
                   value={selectedCompany}
                   onChange={handleSelect}
-                  className="bg-dark"
+                  className="feedback-placeholder"
                   style={{
-                    color: "#888",
+                    color: "rgba(255, 255, 255, 0.8)",
                     fontWeight: "lighter",
                     borderRadius: "5px",
                     padding: "3px",
@@ -337,7 +351,7 @@ export default function Empcredentials() {
             <div className="mb-3">
               <label
                 for="companyname"
-                style={{ marginTop: "2%" }}
+                style={{ marginTop: "2%", color: "rgba(255, 255, 255, 0.8)" }}
                 className="form-label font-family-label"
               >
                 Company Name
@@ -358,7 +372,7 @@ export default function Empcredentials() {
           {isWorkEmailChanged && !getotpButtonClicked && (
             <div className="my-4">
               <button
-                className="btn-primary text-light bg-success"
+                className="col-12 btn-feedback-form play-btn"
                 style={{
                   borderRadius: "5px",
                   paddingLeft: "3%",
@@ -379,7 +393,7 @@ export default function Empcredentials() {
                 <input
                   className="col-5"
                   type="text"
-                  class="form-control text-light bg-dark feedback-placeholder mx-3"
+                  class="form-control text-light feedback-placeholder mx-3"
                   id="otp"
                   value={otp}
                   onChange={handleOtpChange}
@@ -387,7 +401,7 @@ export default function Empcredentials() {
                   style={{ width: "50%" }}
                 />
                 <button
-                  className="col-5 btn-primary text-light bg-success"
+                  className="col-5 btn-feedback-form play-btn"
                   style={{
                     borderRadius: "5px",
                     paddingLeft: "3%",
@@ -404,7 +418,7 @@ export default function Empcredentials() {
           )}
           <div className="my-4">
             <button
-              className="btn-feedback-form bg-success"
+              className="col-12 btn-feedback-form play-btn"
               style={{
                 borderRadius: "5px",
                 paddingLeft: "3%",

@@ -52,7 +52,7 @@ export default function Contact() {
     <>
       <MainNav></MainNav>
 
-      <div className="container text-center" style={{marginTop:'40px'}}>
+      <div className="container text-center" style={{ marginTop: "40px" }}>
         <div className="row text-light">
           <div className="col-12">
             <h4 className="lato-thin">
@@ -64,7 +64,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="container" style={{ marginTop: "3%", height: '40%'}}>
+      <div className="container" style={{ marginTop: "3%", height: "40%" }}>
         <div className="row text-dark">
           <div
             className="col-lg-6 col-12"
@@ -81,39 +81,52 @@ export default function Contact() {
           <form
             ref={form}
             onSubmit={sendEmail}
-            style={{ borderRadius: "8px" , height:'40%'}}
+            style={{ borderRadius: "8px", height: "40%" }}
             className="col-lg-6 col-12 px-3 py-3 bg-color-feedbackform"
+            data-bs-theme="dark"
           >
             <div className="mb-3" style={{ marginTop: "2%" }}>
-              <label for="user_name" className="form-label">
+              <label
+                for="user_name"
+                className="form-label"
+                style={{ color: "rgba(255, 255, 255, 0.8)" }}
+              >
                 Full Name
               </label>
               <input
                 type="text"
-                className="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light feedback-placeholder"
                 id="fullname"
                 placeholder="Enter your name"
                 name="user_name"
               />
             </div>
             <div className="mb-3" style={{ marginTop: "2%" }}>
-              <label for="user_email" class="form-label">
+              <label
+                for="user_email"
+                class="form-label"
+                style={{ color: "rgba(255, 255, 255, 0.8)" }}
+              >
                 Email
               </label>
               <input
                 type="email"
-                className="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light feedback-placeholder"
                 id="email"
                 placeholder="name@example.com"
                 name="user_email"
               />
             </div>
             <div className="mb-3" style={{ marginTop: "2%" }}>
-              <label for="message" className="form-label">
+              <label
+                for="message"
+                // className="form-label"
+                style={{ color: "rgba(255, 255, 255, 0.8)" }}
+              >
                 Feedback
               </label>
               <textarea
-                className="form-control text-light bg-dark feedback-placeholder"
+                className="form-control text-light feedback-placeholder"
                 id="feedback"
                 rows="3"
                 placeholder="Enter your feedback"
@@ -122,13 +135,11 @@ export default function Contact() {
             </div>
             <div style={{ marginTop: "5%" }}>
               <button
-                className="btn-feedback-form bg-success"
+                className="btn-feedback-form play-btn col-12"
                 style={{
-                  borderRadius: "5px",
-                  paddingLeft: "3%",
-                  paddingRight: "3%",
-                  paddingTop: "2%",
-                  paddingBottom: "2%",
+                  borderRadius: "10px",
+                  paddingTop: "1.5%",
+                  paddingBottom: "1.5%",
                 }}
               >
                 Submit

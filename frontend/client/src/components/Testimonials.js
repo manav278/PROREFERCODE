@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactTyped } from "react-typed";
 import MainNav from "./MainNav";
 import img1 from "./assets/Testimonials-1.png";
 import img2 from "./assets/Testimonials-2.png";
@@ -12,12 +13,23 @@ export default function Testimonials() {
         <div class="row gx-2">
           <div class="col-12">
             <div class="p-4 text-white">
-              <h2>Real Stories, Real Results: Hear It Straight From Our Community</h2>
+              <h2>
+                <ReactTyped
+                  strings={[
+                    "Real Stories, Real Results: Hear It Straight From Our Community",
+                    "Discover Genuine Insights: Stories Shared by Our Community",
+                    "Uncover Impactful Journeys: Insights from Our Community",
+                  ]}
+                  typeSpeed={30}
+                  backSpeed={30}
+                  loop
+                />
+              </h2>
             </div>
           </div>
         </div>
       </div>
-      <div class="container text-center" style={{marginBottom:"6%"}}>
+      <div class="container text-center" style={{ marginBottom: "6%" }}>
         <div class="row g-4">
           <div class="col-md-4 col-12">
             <div

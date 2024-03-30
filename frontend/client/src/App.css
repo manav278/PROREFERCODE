@@ -27,7 +27,8 @@ body {
 }
 
 .navbut button {
-  background-color: #6c757d;
+  /* background-color: #6c757d; */
+  background-color: #232931;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -62,12 +63,16 @@ body {
 }
 
 .bg-color-feedbackform {
-  background: linear-gradient(45deg, #a8c2ed, #d7f9f8);
+  /* background: linear-gradient(45deg, #a8c2ed, #d7f9f8); */
+  background-color: #232931;
 }
 
 .feedback-placeholder::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: lighter;
+}
+.feedback-placeholder {
+  background-color: rgb(0, 0, 0);
 }
 
 .btn-feedback-form {
@@ -109,4 +114,23 @@ body {
 .main-nav.active-link {
   /* background-color: #007bff; */
   color: #007bff;
+}
+
+/* .link-no-underline:hover {
+  color:black;
+  background-color: #172b3d;
+} */
+.play-btn {
+  background-color: #4ecca3;
+  color: black;
+  border-radius: 4px;
+  padding: 1%;
+  font-size: 110%;
+  cursor: pointer;
+  border: none;
+}
+
+.play-btn:hover {
+  background-color: #118a7e;
+  color: white;
 }

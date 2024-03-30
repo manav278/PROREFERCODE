@@ -89,7 +89,7 @@ const Sent = () => {
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <div className="scrollable-list">
+          <div className="scrollable-list" style={{maxHeight:"33.5em"}}>
             <ul className="list-group">
               {/* ---------------currentRequest Data------------ */}
               <h3
@@ -138,7 +138,6 @@ const Sent = () => {
                             <button
                               onClick={() => {
                                 window.open(ob.Job_Portal_Url, "_blank");
-                                // window.location.href = `${ob.Job_Portal_Url}`;
                               }}
                               className="bg-warning text-dark"
                               style={{ borderRadius: "10px", border: "none" }}

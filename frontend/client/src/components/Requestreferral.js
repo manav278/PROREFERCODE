@@ -172,12 +172,16 @@ export default function Requestreferral() {
               className="px-3 py-3 bg-color-feedbackform"
             >
               <div className="mb-3" style={{ marginTop: "2%" }}>
-                <label for="position" className="form-label">
+                <label
+                  for="position"
+                  className="form-label"
+                  style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                >
                   Referral Position
                 </label>
                 <input
                   type="text"
-                  className="form-control text-light bg-dark feedback-placeholder"
+                  className="form-control text-light feedback-placeholder"
                   id="position"
                   placeholder="Enter Referral Position"
                   name="position"
@@ -185,7 +189,11 @@ export default function Requestreferral() {
                 />
               </div>
               <div className="mb-3" style={{ marginTop: "2%" }}>
-                <label for="referral_position" className="form-label">
+                <label
+                  for="referral_position"
+                  className="form-label"
+                  style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                >
                   Select Company for Referral
                 </label>
                 {loading ? (
@@ -196,9 +204,9 @@ export default function Requestreferral() {
                       <select
                         value={selectedCompany}
                         onChange={handleSelect}
-                        className="bg-dark"
+                        className="feedback-placeholder"
                         style={{
-                          color: "#888",
+                          color: "rgba(255, 255, 255, 0.8)",
                           fontWeight: "lighter",
                           borderRadius: "5px",
                           padding: "3px",
@@ -218,12 +226,16 @@ export default function Requestreferral() {
                 )}
               </div>
               <div className="mb-3" style={{ marginTop: "2%" }}>
-                <label for="country" className="form-label">
+                <label
+                  for="country"
+                  className="form-label"
+                  style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                >
                   Referral Country
                 </label>
                 <input
                   type="text"
-                  className="form-control text-light bg-dark feedback-placeholder"
+                  className="form-control text-light feedback-placeholder"
                   id="country"
                   placeholder="Enter Referral Country"
                   name="country"
@@ -231,12 +243,16 @@ export default function Requestreferral() {
                 />
               </div>
               <div className="mb-3" style={{ marginTop: "2%" }}>
-                <label for="url" className="form-label">
+                <label
+                  for="url"
+                  className="form-label"
+                  style={{ color: "rgba(255, 255, 255, 0.8)" }}
+                >
                   Job portal URL
                 </label>
                 <input
                   type="text"
-                  className="form-control text-light bg-dark feedback-placeholder"
+                  className="form-control text-light feedback-placeholder"
                   id="url"
                   placeholder="Enter Job portal URL"
                   name="url"
@@ -247,7 +263,7 @@ export default function Requestreferral() {
                 <button
                   type="submit"
                   onClick={submit}
-                  className="btn-feedback-form bg-success"
+                  className="col-12 btn-feedback-form play-btn"
                   style={{
                     borderRadius: "5px",
                     paddingLeft: "3%",

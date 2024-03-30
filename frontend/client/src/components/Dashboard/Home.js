@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../App.css";
+import profile from "../assets/profileicon.jpg";
 import CustomNavbar from "./Navbar";
 import MainNav from "../MainNav";
 import { Link, useNavigate } from "react-router-dom";
@@ -61,38 +62,47 @@ export default function Home() {
             {/* col-lg-4 col-md-5 col-sm-6 */}
             <div class="col-md-4 col-12">
               <div
-                class="p-3 bg-secondary dashinner2 text-white"
+                class="p-3 dashinner2 text-light"
                 style={{
-                  height: "96%",
-                  border: "5px solid #6C757D",
+                  backgroundColor: "#232931",
+                  paddingBottom: "3%",
+                  height: "auto",
+                  marginBottom: "3%",
                   borderRadius: "8px",
                 }}
               >
                 <Link to="/form">
                   <button
-                    style={{ width: "90%" }}
+                    style={{
+                      width: "75%",
+                      marginTop: "2%",
+                    }}
                     type="button"
-                    class="btn btn-primary border-light"
+                    className="play-btn py-2"
                   >
                     Edit Profile
                   </button>
                 </Link>
-
-                <div style={{ display: "grid", placeItems: "center" }}>
+                <div className="my-3">
+                  <img
+                    src={profile}
+                    alt="Feedback"
+                    width="27.6%"
+                    height="22.6%"
+                  ></img>
+                  {/* 552:452 */}
+                  <h4 className="mt-3 mb-4">
+                    {userData.First_Name} {userData.Last_name}
+                  </h4>
+                </div>
+                <div
+                  style={{
+                    display: "grid",
+                    placeItems: "center",
+                    fontSize: "115%",
+                  }}
+                >
                   <table className="table1">
-                    <tr>
-                      <td>
-                        <br />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p>Name</p>
-                      </td>
-                      <td style={{ textAlign: "center" }}>
-                        <p>{userData.First_Name}</p>
-                      </td>
-                    </tr>
                     <tr>
                       <td>
                         <p>Location</p>
@@ -122,7 +132,7 @@ export default function Home() {
                         <p>Monthly Requests Received</p>
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        <p>{userData.Referrals_Reviewed_ThisMonth}</p>
+                        <p>{userData.Referrals_Reviewed_ThisMonth} / 5</p>
                       </td>
                     </tr>
                     <tr>
@@ -130,7 +140,7 @@ export default function Home() {
                         <p>Monthly Requests Sent</p>
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        <p>{userData.Referrals_Requested_ThisMonth}</p>
+                        <p>{userData.Referrals_Requested_ThisMonth} / 3</p>
                       </td>
                     </tr>
                     <tr>
@@ -158,11 +168,12 @@ export default function Home() {
             {/* col-lg-8 col-md-7 col-sm-6 */}
             <div class="col-md-8 col-12">
               <div
-                class="p-3 bg-secondary dashinner2"
+                class="p-3 dashinner2"
                 style={{
-                  height: "100%",
-                  border: "5px solid #6C757D",
+                  height: "auto",
+                  // border: "5px solid #6C757D",
                   borderRadius: "8px",
+                  backgroundColor: "#232931",
                 }}
               >
                 <CustomNavbar />

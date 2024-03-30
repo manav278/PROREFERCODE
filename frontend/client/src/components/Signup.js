@@ -65,13 +65,7 @@ const Signup = () => {
                 </div>
               </div>
               <div className="col-12">
-                <form
-                  action="POST"
-                  // onSubmit={(e) => {
-                  //   e.preventDefault();
-                  //   nextStep();
-                  // }}
-                >
+                <form action="POST" data-bs-theme="dark">
                   <div className="mb-3">
                     <label
                       for="firstname"
@@ -81,13 +75,11 @@ const Signup = () => {
                       FirstName
                     </label>
                     <input
-                      className="form-control text-light bg-dark createcampaign-placeholder"
+                      className="form-control text-light createcampaign-placeholder"
                       type="text"
                       placeholder="First Name"
                       id="firstname"
                       name="firstname"
-                      // value={formData.firstname}
-                      // onChange={handleChange}
                       onChange={(e) => setFirstName(e.target.value)}
                     ></input>
                   </div>
@@ -104,9 +96,7 @@ const Signup = () => {
                       type="email"
                       placeholder="Last Name"
                       id="lastname"
-                      // value={formData.lastname}
                       onChange={(e) => setLastName(e.target.value)}
-                      // onChange={handleChange}
                     ></input>
                   </div>
                   <div className="mb-3">
@@ -122,9 +112,7 @@ const Signup = () => {
                       type="email"
                       placeholder="Personal Email Address"
                       id="personalemail"
-                      // value={formData.personalemail}
                       onChange={(e) => setPersonalEmail(e.target.value)}
-                      // onChange={handleChange}
                     ></input>
                   </div>
 
@@ -141,9 +129,7 @@ const Signup = () => {
                       type="text"
                       placeholder="Mobile Number"
                       id="mobilenumber"
-                      // value={formData.mobilenumber}
                       onChange={(e) => setMobileNumber(e.target.value)}
-                      // onChange={handleChange}
                     ></input>
                   </div>
 
