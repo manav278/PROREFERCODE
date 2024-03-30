@@ -16,7 +16,7 @@ const Db = () => {
     } else {
       toast.warn("Please upload your resume before requesting a referral", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -72,7 +72,7 @@ const Db = () => {
         );
         toast.success("File Uploaded successfully", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

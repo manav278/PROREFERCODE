@@ -33,7 +33,7 @@ export default function Login({ setLoggedIn }) {
           if (res.data.message === "Invalid email or password") {
             toast.error("Invalid Username or password", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -44,7 +44,7 @@ export default function Login({ setLoggedIn }) {
           } else {
             toast.success("Loggedin Successfully", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 300,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,

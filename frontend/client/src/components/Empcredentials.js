@@ -23,7 +23,7 @@ export default function Empcredentials() {
         if (res.data.message === "Server Error") {
           toast.error("Server Error", {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -78,7 +78,7 @@ export default function Empcredentials() {
         // alert("Verify OTP first, as your email is changed");
         toast.warn("Verify OTP first, as your email is changed", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -109,7 +109,7 @@ export default function Empcredentials() {
             if (res.data.message === "Update successful") {
               toast.success("Employee details successfully updated", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -126,7 +126,7 @@ export default function Empcredentials() {
             ) {
               toast.error("Error updating details", {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -139,7 +139,7 @@ export default function Empcredentials() {
       } else {
         toast.warn("Correct format : (I) Either all field empty or filled ", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -151,7 +151,7 @@ export default function Empcredentials() {
     } catch (error) {
       toast.error("Error updating details", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -178,7 +178,7 @@ export default function Empcredentials() {
           if (res.data.message === "Otp sent") {
             toast.success("Otp successfully sent", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -197,7 +197,7 @@ export default function Empcredentials() {
               "Work Email Already Exists. So Work Credentials will not be Updated",
               {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -224,7 +224,7 @@ export default function Empcredentials() {
           if (res.data.message === "Otp verified") {
             toast.success("OTP verified successfully", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -240,7 +240,7 @@ export default function Empcredentials() {
           } else {
             toast.error("OTP incorrect! Try again", {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
