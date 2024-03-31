@@ -14,7 +14,7 @@ const MainHome = () => {
   useEffect(()=>{
     setTimeout(()=>{
       setIsloading(false);
-    },1200)
+    },12000)
   },[])
   return (
     <div>
@@ -102,8 +102,8 @@ const MainHome = () => {
             onExit={() => setCounterOn(false)}
           >
             <div className="container" style={{ marginBottom: "-2%" }}>
-              <div className="row" style={{ height: "25vh", width: "100%" }}>
-                <div className="col-4 home-numbers">
+              <div className="row justify-content-around" style={{ height: "25vh", width: "100%" }}>
+                <div className="col-4 home-numbers" style={{borderRight: "2px solid white"}}>
                   <h2 className="text-primary">
                     {counterOn && (
                       <CountUp start={0} end={10000} duration={1.5} delay={0} />
@@ -112,7 +112,7 @@ const MainHome = () => {
                   </h2>
                   <p className="text-light">Referrals</p>
                 </div>
-                <div className="col-4 home-numbers">
+                <div className="col-4 home-numbers" style={{borderRight: "2px solid white"}}>
                   <h2 className="text-primary">
                     {counterOn && (
                       <CountUp start={0} end={500} duration={1.5} delay={0} />

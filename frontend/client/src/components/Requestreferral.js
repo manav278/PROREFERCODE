@@ -170,6 +170,7 @@ export default function Requestreferral() {
               action="POST"
               style={{ borderRadius: "8px" }}
               className="px-3 py-3 bg-color-feedbackform"
+              data-bs-theme="dark"
             >
               <div className="mb-3" style={{ marginTop: "2%" }}>
                 <label
