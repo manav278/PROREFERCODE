@@ -41,7 +41,23 @@ export default function Login({ setLoggedIn }) {
               progress: undefined,
               theme: "light",
             });
-          } else {
+          }
+          else if(res.data===-2){
+            toast.success("User doesn't exist. Please signup.", {
+              position: "top-center",
+              autoClose: 600,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              onClose: () => {
+                
+              },
+            });
+          } 
+          else {
             toast.success("Loggedin Successfully", {
               position: "top-center",
               autoClose: 300,

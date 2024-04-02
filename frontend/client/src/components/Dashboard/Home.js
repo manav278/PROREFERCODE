@@ -92,7 +92,7 @@ export default function Home() {
                   ></img>
                   {/* 552:452 */}
                   <h4 className="mt-3 mb-4">
-                    {userData.First_Name} {userData.Last_name}
+                    {userData.First_Name}{" "}{userData.Last_Name}
                   </h4>
                 </div>
                 <div

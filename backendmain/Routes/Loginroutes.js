@@ -21,22 +21,27 @@ router.post("/login", async (req, res) => {
   try {
     user = await authdata.findOne({ Personal_Email: email });
     // console.log(user);
-    const hashedPassword = user.Password;
-    match = await bcrypt.compare(password, hashedPassword);
-    // console.log(match);
-    if (match) {
-      let Id = await proreferuser.find({ Personal_Email: email });
-      currentUserId = Id[0].User_ID;
-      const token = jwt.sign(
-        { Personal_Email: user.Personal_Email },
-        secretKey
-      );
-      res.json({ token });
+    if (!user) {
+      res.json(-2);
     } else {
-      res.json({ message: "Invalid email or password" });
+      const hashedPassword = user.Password;
+      match = await bcrypt.compare(password, hashedPassword);
+      // console.log(match);
+      if (match) {
+        let Id = await proreferuser.find({ Personal_Email: email });
+        currentUserId = Id[0].User_ID;
+        const token = jwt.sign(
+          { Personal_Email: user.Personal_Email },
+          secretKey
+        );
+        res.status(200).json({ token });
+      } else {
+        res.status(200).json({ message: "Invalid email or password" });
+      }
     }
   } catch (e) {
     console.log(e);
+    res.status(200).json({ message: "Error from fetching database" });
   }
 });
 
